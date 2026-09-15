@@ -12,6 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BusinessesRouteImport } from './routes/businesses'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as UserRouteImport } from './routes/user'
+import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
+import { Route as BusinessesBusinessIdRouteImport } from './routes/businesses/$businessId'
+import { Route as BusinessesBusinessIdIndexRouteImport } from './routes/businesses/$businessId.index'
+import { Route as BusinessesBusinessIdMembersRouteImport } from './routes/businesses/$businessId.members'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +33,99 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UserRoute = UserRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessesIndexRoute = BusinessesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BusinessesRoute,
+} as any)
+const BusinessesBusinessIdRoute = BusinessesBusinessIdRouteImport.update({
+  id: '/$businessId',
+  path: '/$businessId',
+  getParentRoute: () => BusinessesRoute,
+} as any)
+const BusinessesBusinessIdIndexRoute =
+  BusinessesBusinessIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
+const BusinessesBusinessIdMembersRoute =
+  BusinessesBusinessIdMembersRouteImport.update({
+    id: '/members',
+    path: '/members',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/businesses': typeof BusinessesRoute
+  '/businesses': typeof BusinessesRouteWithChildren
   '/login': typeof LoginRoute
+  '/user': typeof UserRoute
+  '/businesses/$businessId': typeof BusinessesBusinessIdRouteWithChildren
+  '/businesses/': typeof BusinessesIndexRoute
+  '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
+  '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/businesses': typeof BusinessesRoute
   '/login': typeof LoginRoute
+  '/user': typeof UserRoute
+  '/businesses': typeof BusinessesIndexRoute
+  '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
+  '/businesses/$businessId': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/businesses': typeof BusinessesRoute
+  '/businesses': typeof BusinessesRouteWithChildren
   '/login': typeof LoginRoute
+  '/user': typeof UserRoute
+  '/businesses/$businessId': typeof BusinessesBusinessIdRouteWithChildren
+  '/businesses/': typeof BusinessesIndexRoute
+  '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
+  '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/businesses' | '/login'
+  fullPaths:
+    | '/'
+    | '/businesses'
+    | '/login'
+    | '/user'
+    | '/businesses/$businessId'
+    | '/businesses/'
+    | '/businesses/$businessId/members'
+    | '/businesses/$businessId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/businesses' | '/login'
-  id: '__root__' | '/' | '/businesses' | '/login'
+  to:
+    | '/'
+    | '/login'
+    | '/user'
+    | '/businesses'
+    | '/businesses/$businessId/members'
+    | '/businesses/$businessId'
+  id:
+    | '__root__'
+    | '/'
+    | '/businesses'
+    | '/login'
+    | '/user'
+    | '/businesses/$businessId'
+    | '/businesses/'
+    | '/businesses/$businessId/members'
+    | '/businesses/$businessId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BusinessesRoute: typeof BusinessesRoute
+  BusinessesRoute: typeof BusinessesRouteWithChildren
   LoginRoute: typeof LoginRoute
+  UserRoute: typeof UserRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,13 +151,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/user': {
+      id: '/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/businesses/': {
+      id: '/businesses/'
+      path: '/'
+      fullPath: '/businesses/'
+      preLoaderRoute: typeof BusinessesIndexRouteImport
+      parentRoute: typeof BusinessesRoute
+    }
+    '/businesses/$businessId': {
+      id: '/businesses/$businessId'
+      path: '/$businessId'
+      fullPath: '/businesses/$businessId'
+      preLoaderRoute: typeof BusinessesBusinessIdRouteImport
+      parentRoute: typeof BusinessesRoute
+    }
+    '/businesses/$businessId/': {
+      id: '/businesses/$businessId/'
+      path: '/'
+      fullPath: '/businesses/$businessId/'
+      preLoaderRoute: typeof BusinessesBusinessIdIndexRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
+    '/businesses/$businessId/members': {
+      id: '/businesses/$businessId/members'
+      path: '/members'
+      fullPath: '/businesses/$businessId/members'
+      preLoaderRoute: typeof BusinessesBusinessIdMembersRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
   }
 }
 
+interface BusinessesBusinessIdRouteChildren {
+  BusinessesBusinessIdMembersRoute: typeof BusinessesBusinessIdMembersRoute
+  BusinessesBusinessIdIndexRoute: typeof BusinessesBusinessIdIndexRoute
+}
+
+const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
+  BusinessesBusinessIdMembersRoute: BusinessesBusinessIdMembersRoute,
+  BusinessesBusinessIdIndexRoute: BusinessesBusinessIdIndexRoute,
+}
+
+const BusinessesBusinessIdRouteWithChildren =
+  BusinessesBusinessIdRoute._addFileChildren(BusinessesBusinessIdRouteChildren)
+
+interface BusinessesRouteChildren {
+  BusinessesBusinessIdRoute: typeof BusinessesBusinessIdRouteWithChildren
+  BusinessesIndexRoute: typeof BusinessesIndexRoute
+}
+
+const BusinessesRouteChildren: BusinessesRouteChildren = {
+  BusinessesBusinessIdRoute: BusinessesBusinessIdRouteWithChildren,
+  BusinessesIndexRoute: BusinessesIndexRoute,
+}
+
+const BusinessesRouteWithChildren = BusinessesRoute._addFileChildren(
+  BusinessesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BusinessesRoute: BusinessesRoute,
+  BusinessesRoute: BusinessesRouteWithChildren,
   LoginRoute: LoginRoute,
+  UserRoute: UserRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,17 +1,18 @@
+import { useForm } from '@tanstack/react-form'
 import { useState } from 'react'
+import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { useChangePassword } from '@/hooks/use-auth'
+import { getApiErrorMessage } from '@/lib/errors'
 
-const API_BASE = 'http://localhost:8014/api/v1'
+const changePasswordSchema = z.object({
+  oldPassword: z.string().min(1, 'Wajib diisi'),
+  newPassword: z.string().min(8, 'Password baru minimal 8 karakter'),
+})
 
 export function ChangePasswordDialog({
   open,
@@ -20,46 +21,33 @@ export function ChangePasswordDialog({
   open: boolean
   onOpenChange: (open: boolean) => void
 }) {
-  const [oldPassword, setOldPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
+  const changePassword = useChangePassword()
+  const [serverError, setServerError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setIsLoading(true)
-
-    try {
-      const token = localStorage.getItem('accessToken')
-      const res = await fetch(`${API_BASE}/auth/change-password`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ oldPassword, newPassword }),
-      })
-
-      if (!res.ok) {
-        const json = await res.json().catch(() => null)
-        setError(json?.message ?? 'Gagal mengganti password')
-        return
+  const form = useForm({
+    defaultValues: { oldPassword: '', newPassword: '' },
+    validators: { onSubmit: changePasswordSchema },
+    onSubmit: async ({ value }) => {
+      setServerError(null)
+      try {
+        await changePassword.mutateAsync(value)
+        setSuccess(true)
+        form.reset()
+      } catch (err) {
+        setServerError(getApiErrorMessage(err, 'Gagal mengganti password'))
       }
-
-      setSuccess(true)
-      setOldPassword('')
-      setNewPassword('')
-    } catch {
-      setError('Tidak bisa terhubung ke server')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    },
+  })
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        onOpenChange(v)
+        if (!v) setSuccess(false)
+      }}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Ganti Password</DialogTitle>
@@ -67,44 +55,66 @@ export function ChangePasswordDialog({
 
         {success ? (
           <Alert>
-            <AlertDescription>
-              Password berhasil diganti. Sesi lain kamu otomatis keluar.
-            </AlertDescription>
+            <AlertDescription>Password berhasil diganti. Sesi lain kamu otomatis keluar.</AlertDescription>
           </Alert>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="oldPassword">Password lama</Label>
-              <Input
-                id="oldPassword"
-                type="password"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="newPassword">Password baru</Label>
-              <Input
-                id="newPassword"
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                minLength={8}
-                required
-              />
-            </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              form.handleSubmit()
+            }}
+            className="flex flex-col gap-4"
+          >
+            <form.Field name="oldPassword">
+              {(field) => (
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor={field.name}>Password lama</Label>
+                  <Input
+                    id={field.name}
+                    type="password"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                  {field.state.meta.errors.length > 0 && (
+                    <p className="text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
+                  )}
+                </div>
+              )}
+            </form.Field>
 
-            {error && (
+            <form.Field name="newPassword">
+              {(field) => (
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor={field.name}>Password baru</Label>
+                  <Input
+                    id={field.name}
+                    type="password"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                  {field.state.meta.errors.length > 0 && (
+                    <p className="text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
+                  )}
+                </div>
+              )}
+            </form.Field>
+
+            {serverError && (
               <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription>{serverError}</AlertDescription>
               </Alert>
             )}
 
             <DialogFooter>
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? 'Menyimpan...' : 'Simpan'}
-              </Button>
+              <form.Subscribe selector={(state) => state.isSubmitting}>
+                {(isSubmitting) => (
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Menyimpan...' : 'Simpan'}
+                  </Button>
+                )}
+              </form.Subscribe>
             </DialogFooter>
           </form>
         )}

@@ -1,22 +1,25 @@
 import ReactDOM from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { routeTree } from './routeTree.gen'
+import { RouterProvider } from '@tanstack/react-router'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { getRouter } from './router'
+import { setupApiClient } from '@/integrations/setup'
+import { createQueryClient } from './lib/query-client'
 
-const router = createRouter({
-  routeTree,
-  defaultPreload: 'intent',
-  scrollRestoration: true,
-})
+// Pasang interceptor Bearer token + refresh SEBELUM aplikasi mulai render,
+// supaya request pertama pun sudah lewat interceptor ini (§5 panduan).
+setupApiClient()
 
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router
-  }
-}
+const queryClient = createQueryClient()
+
+const router = getRouter()
 
 const rootElement = document.getElementById('app')!
 
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
-  root.render(<RouterProvider router={router} />)
+  root.render(
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>,
+  )
 }

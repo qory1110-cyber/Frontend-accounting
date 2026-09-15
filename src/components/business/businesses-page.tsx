@@ -1,55 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Plus, Building2 } from 'lucide-react'
 import { AddBusinessDialog } from './add-business-dialog'
-
-
-const API_BASE = 'http://localhost:8014/api/v1'
-
-interface Business {
-  id: string
-  name: string
-  baseCurrencyCode: string
-  role: 'admin' | 'accountant' | 'viewer'
-}
-
-async function authFetch(path: string, options: RequestInit = {}) {
-  const token = localStorage.getItem('accessToken')
-  return fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: { ...options.headers, Authorization: `Bearer ${token}` },
-  })
-}
+import { useBusinessesList } from '@/hooks/use-businesses'
 
 export function BusinessesPage() {
   const navigate = useNavigate()
-  const [businesses, setBusinesses] = useState<Business[]>([])
+  const { data: businesses, isLoading } = useBusinessesList()
   const [search, setSearch] = useState('')
   const [addOpen, setAddOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
 
-  function loadBusinesses() {
-    setIsLoading(true)
-    authFetch('/businesses')
-      .then((res) => res.json())
-      .then((json) => setBusinesses(json.data ?? []))
-      .finally(() => setIsLoading(false))
-  }
-
-  useEffect(() => {
-    loadBusinesses()
-  }, [])
-
-  const filtered = businesses.filter((b) =>
+  const filtered = (businesses ?? []).filter((b) =>
     b.name.toLowerCase().includes(search.toLowerCase()),
   )
 
-  // Kelompokkan per huruf awal, sesuai pola daftar Businesses di Manager.io
   const grouped = filtered
+    .slice()
     .sort((a, b) => a.name.localeCompare(b.name))
-    .reduce<Record<string, Business[]>>((acc, b) => {
+    .reduce<Record<string, typeof filtered>>((acc, b) => {
       const letter = b.name[0]?.toUpperCase() ?? '#'
       acc[letter] = acc[letter] ?? []
       acc[letter].push(b)
@@ -66,17 +36,10 @@ export function BusinessesPage() {
         </Button>
       </div>
 
-      <Input
-        placeholder="Search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="mb-4"
-      />
+      <Input placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} className="mb-4" />
 
       <div className="rounded-lg border bg-background">
-        {isLoading && (
-          <p className="p-6 text-center text-sm text-muted-foreground">Memuat...</p>
-        )}
+        {isLoading && <p className="p-6 text-center text-sm text-muted-foreground">Memuat...</p>}
 
         {!isLoading && filtered.length === 0 && (
           <div className="flex flex-col items-center gap-2 p-10 text-center">
@@ -95,9 +58,7 @@ export function BusinessesPage() {
             {items.map((b) => (
               <button
                 key={b.id}
-                onClick={() =>
-                  navigate({ to: '/businesses/$businessId', params: { businessId: b.id } })
-                }
+                onClick={() => navigate({ to: '/businesses/$businessId', params: { businessId: b.id } })}
                 className="flex w-full items-center justify-between border-b px-4 py-3 text-left last:border-b-0 hover:bg-accent"
               >
                 <span className="text-sm font-medium">{b.name}</span>
@@ -110,11 +71,7 @@ export function BusinessesPage() {
         ))}
       </div>
 
-      <AddBusinessDialog
-        open={addOpen}
-        onOpenChange={setAddOpen}
-        onCreated={loadBusinesses}
-      />
+      <AddBusinessDialog open={addOpen} onOpenChange={setAddOpen} />
     </div>
   )
 }
