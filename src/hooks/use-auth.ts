@@ -18,10 +18,12 @@ export function useLogin() {
 
 export function useLogout() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: () => logout({ body: { refreshToken: getRefreshToken() ?? '' } }),
     onSettled: () => {
       clearTokens()
+      queryClient.clear() // <- baris baru: bersihkan SEMUA cache, cegah data user lama nyangkut
       navigate({ to: '/login' })
     },
   })

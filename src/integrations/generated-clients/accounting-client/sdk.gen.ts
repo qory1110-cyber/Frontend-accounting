@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { ChangePasswordData, ChangePasswordErrors, ChangePasswordResponses, CreateBusinessData, CreateBusinessErrors, CreateBusinessResponses, GetBusinessData, GetBusinessErrors, GetBusinessResponses, GetMeData, GetMeErrors, GetMeResponses, InviteBusinessMemberData, InviteBusinessMemberErrors, InviteBusinessMemberResponses, ListBusinessMembersData, ListBusinessMembersErrors, ListBusinessMembersResponses, ListMyBusinessesData, ListMyBusinessesErrors, ListMyBusinessesResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RemoveBusinessMemberData, RemoveBusinessMemberErrors, RemoveBusinessMemberResponses, UpdateBusinessData, UpdateBusinessErrors, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleErrors, UpdateBusinessMemberRoleResponses, UpdateBusinessResponses, UpdateMeData, UpdateMeErrors, UpdateMeResponses } from './types.gen';
+import type { ChangePasswordData, ChangePasswordErrors, ChangePasswordResponses, CreateBusinessData, CreateBusinessErrors, CreateBusinessResponses, CreateUserData, CreateUserErrors, CreateUserResponses, GetBusinessData, GetBusinessErrors, GetBusinessResponses, GetMeData, GetMeErrors, GetMeResponses, InviteBusinessMemberData, InviteBusinessMemberErrors, InviteBusinessMemberResponses, ListBusinessMembersData, ListBusinessMembersErrors, ListBusinessMembersResponses, ListMyBusinessesData, ListMyBusinessesErrors, ListMyBusinessesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RemoveBusinessMemberData, RemoveBusinessMemberErrors, RemoveBusinessMemberResponses, UpdateBusinessData, UpdateBusinessErrors, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleErrors, UpdateBusinessMemberRoleResponses, UpdateBusinessResponses, UpdateMeData, UpdateMeErrors, UpdateMeResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -64,6 +64,22 @@ export const getMe = <ThrowOnError extends boolean = false>(options?: Options<Ge
 export const updateMe = <ThrowOnError extends boolean = false>(options: Options<UpdateMeData, ThrowOnError>): RequestResult<UpdateMeResponses, UpdateMeErrors, ThrowOnError> => (options.client ?? client).patch<UpdateMeResponses, UpdateMeErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/users/me',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listUsers = <ThrowOnError extends boolean = false>(options?: Options<ListUsersData, ThrowOnError>): RequestResult<ListUsersResponses, ListUsersErrors, ThrowOnError> => (options?.client ?? client).get<ListUsersResponses, ListUsersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/users/',
+    ...options
+});
+
+export const createUser = <ThrowOnError extends boolean = false>(options: Options<CreateUserData, ThrowOnError>): RequestResult<CreateUserResponses, CreateUserErrors, ThrowOnError> => (options.client ?? client).post<CreateUserResponses, CreateUserErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/users/',
     ...options,
     headers: {
         'Content-Type': 'application/json',

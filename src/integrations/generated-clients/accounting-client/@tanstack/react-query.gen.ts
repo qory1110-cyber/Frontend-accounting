@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { changePassword, createBusiness, getBusiness, getMe, inviteBusinessMember, listBusinessMembers, listMyBusinesses, login, logout, type Options, refreshToken, removeBusinessMember, updateBusiness, updateBusinessMemberRole, updateMe } from '../sdk.gen';
-import type { ChangePasswordData, ChangePasswordError, ChangePasswordResponse, CreateBusinessData, CreateBusinessError, CreateBusinessResponse, GetBusinessData, GetBusinessError, GetBusinessResponse, GetMeData, GetMeError, GetMeResponse, InviteBusinessMemberData, InviteBusinessMemberError, InviteBusinessMemberResponse, ListBusinessMembersData, ListBusinessMembersError, ListBusinessMembersResponse, ListMyBusinessesData, ListMyBusinessesError, ListMyBusinessesResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RemoveBusinessMemberData, RemoveBusinessMemberError, RemoveBusinessMemberResponse, UpdateBusinessData, UpdateBusinessError, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleError, UpdateBusinessMemberRoleResponse, UpdateBusinessResponse, UpdateMeData, UpdateMeError, UpdateMeResponse } from '../types.gen';
+import { changePassword, createBusiness, createUser, getBusiness, getMe, inviteBusinessMember, listBusinessMembers, listMyBusinesses, listUsers, login, logout, type Options, refreshToken, removeBusinessMember, updateBusiness, updateBusinessMemberRole, updateMe } from '../sdk.gen';
+import type { ChangePasswordData, ChangePasswordError, ChangePasswordResponse, CreateBusinessData, CreateBusinessError, CreateBusinessResponse, CreateUserData, CreateUserError, CreateUserResponse, GetBusinessData, GetBusinessError, GetBusinessResponse, GetMeData, GetMeError, GetMeResponse, InviteBusinessMemberData, InviteBusinessMemberError, InviteBusinessMemberResponse, ListBusinessMembersData, ListBusinessMembersError, ListBusinessMembersResponse, ListMyBusinessesData, ListMyBusinessesError, ListMyBusinessesResponse, ListUsersData, ListUsersError, ListUsersResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RemoveBusinessMemberData, RemoveBusinessMemberError, RemoveBusinessMemberResponse, UpdateBusinessData, UpdateBusinessError, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleError, UpdateBusinessMemberRoleResponse, UpdateBusinessResponse, UpdateMeData, UpdateMeError, UpdateMeResponse } from '../types.gen';
 
 export const loginMutation = (options?: Partial<Options<LoginData>>): UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> => {
     const mutationOptions: UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> = {
@@ -114,6 +114,35 @@ export const updateMeMutation = (options?: Partial<Options<UpdateMeData>>): UseM
     const mutationOptions: UseMutationOptions<UpdateMeResponse, UpdateMeError, Options<UpdateMeData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await updateMe({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const listUsersQueryKey = (options?: Options<ListUsersData>) => createQueryKey('listUsers', options);
+
+export const listUsersOptions = (options?: Options<ListUsersData>) => queryOptions<ListUsersResponse, ListUsersError, ListUsersResponse, ReturnType<typeof listUsersQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listUsers({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listUsersQueryKey(options)
+});
+
+export const createUserMutation = (options?: Partial<Options<CreateUserData>>): UseMutationOptions<CreateUserResponse, CreateUserError, Options<CreateUserData>> => {
+    const mutationOptions: UseMutationOptions<CreateUserResponse, CreateUserError, Options<CreateUserData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createUser({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

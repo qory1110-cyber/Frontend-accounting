@@ -41,7 +41,10 @@ export function useUpdateMemberRole(businessId: string) {
       const res = await updateBusinessMemberRole({ path: { businessId, userId }, body: { role } })
       if (res.error) throw res.error
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: memberKeys.list(businessId) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: memberKeys.list(businessId) })
+      queryClient.invalidateQueries({ queryKey: ['businesses'] }) // <- baris baru: ikut refresh header & sidebar
+    },
   })
 }
 
@@ -52,6 +55,9 @@ export function useRemoveMember(businessId: string) {
       const res = await removeBusinessMember({ path: { businessId, userId } })
       if (res.error) throw res.error
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: memberKeys.list(businessId) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: memberKeys.list(businessId) })
+      queryClient.invalidateQueries({ queryKey: ['businesses'] }) // <- baris baru
+    },
   })
 }

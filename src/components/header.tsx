@@ -8,7 +8,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -32,12 +31,12 @@ export function AppHeader() {
     <>
       <header className="flex h-14 items-center justify-between border-b bg-background px-3 md:px-4">
         {/* Kiri: logo selalu terlihat, nav item disembunyikan di mobile */}
-        <nav className="flex min-w-0 items-center gap-1">
+        <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden">
           <Link to="/" className="mr-1 shrink-0 text-sm font-semibold tracking-tight md:mr-3">
             Accounting
           </Link>
 
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden min-w-0 items-center gap-1 md:flex">
             <Link to="/businesses">
               {({ isActive }: { isActive: boolean }) => (
                 <Button variant={isActive ? 'secondary' : 'ghost'} size="sm">
@@ -46,17 +45,17 @@ export function AppHeader() {
               )}
             </Link>
 
-            <Link to="/user">
-              {({ isActive }: { isActive: boolean }) => (
-                <Button variant={isActive ? 'secondary' : 'ghost'} size="sm">
-                  Users
-                </Button>
-              )}
-            </Link>
+            <Link to="/users">
+  {({ isActive }: { isActive: boolean }) => (
+    <Button variant={isActive ? 'secondary' : 'ghost'} size="sm">
+      Users
+    </Button>
+  )}
+</Link>
           </div>
 
           {currentBusiness && (
-            <Badge variant="outline" className="ml-2 hidden truncate font-normal md:inline-flex">
+            <Badge variant="outline" className="ml-2 hidden min-w-0 max-w-40 truncate font-normal md:inline-flex">
               {currentBusiness.name}
               <span className="ml-1.5 text-muted-foreground">· {currentBusiness.role}</span>
             </Badge>
@@ -64,8 +63,13 @@ export function AppHeader() {
         </nav>
 
         {/* Kanan (desktop, >=768px): semua item terlihat langsung */}
-        <div className="hidden items-center gap-3 md:flex">
-          <span className="text-sm text-muted-foreground">{user?.name ?? '...'}</span>
+        <div className="hidden shrink-0 items-center gap-3 md:flex">
+          <Link
+  to="/user"
+  className="max-w-30 truncate text-sm whitespace-nowrap text-muted-foreground hover:text-foreground hover:underline"
+>
+  {user?.name ?? '...'}
+</Link>
 
           <Button variant="ghost" size="sm" onClick={() => setChangePasswordOpen(true)}>
             <KeyRound className="mr-1.5 h-4 w-4" />
@@ -79,7 +83,7 @@ export function AppHeader() {
         </div>
 
         {/* Kanan (mobile, <768px): dipadatkan jadi satu menu hamburger */}
-        <div className="md:hidden">
+        <div className="shrink-0 md:hidden">
           <DropdownMenu>
             <DropdownMenuTrigger
   className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent"
@@ -89,25 +93,27 @@ export function AppHeader() {
 </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuGroup>
-                <DropdownMenuLabel>{user?.name ?? 'Memuat...'}</DropdownMenuLabel>
-              </DropdownMenuGroup>
+  <DropdownMenuItem onClick={() => navigate({ to: '/user' })}>
+    {user?.name ?? 'Memuat...'}
+  </DropdownMenuItem>
+</DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem onSelect={() => navigate({ to: '/businesses' })}>
+                <DropdownMenuItem onClick={() => navigate({ to: '/businesses' })}>
                   Businesses
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => navigate({ to: '/user' })}>
-                  Users
-                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate({ to: '/users' })}>
+  Users
+</DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem onSelect={() => setChangePasswordOpen(true)}>
+                <DropdownMenuItem onClick={() => setChangePasswordOpen(true)}>
                   <KeyRound className="mr-2 h-4 w-4" />
                   Change Password
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onSelect={() => logout.mutate()}
+                  onClick={() => logout.mutate()}
                   variant="destructive"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
