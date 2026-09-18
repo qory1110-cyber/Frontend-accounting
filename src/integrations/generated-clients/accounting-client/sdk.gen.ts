@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { ChangePasswordData, ChangePasswordErrors, ChangePasswordResponses, CreateBusinessData, CreateBusinessErrors, CreateBusinessResponses, CreateUserData, CreateUserErrors, CreateUserResponses, GetBusinessData, GetBusinessErrors, GetBusinessResponses, GetMeData, GetMeErrors, GetMeResponses, InviteBusinessMemberData, InviteBusinessMemberErrors, InviteBusinessMemberResponses, ListBusinessMembersData, ListBusinessMembersErrors, ListBusinessMembersResponses, ListMyBusinessesData, ListMyBusinessesErrors, ListMyBusinessesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RemoveBusinessMemberData, RemoveBusinessMemberErrors, RemoveBusinessMemberResponses, UpdateBusinessData, UpdateBusinessErrors, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleErrors, UpdateBusinessMemberRoleResponses, UpdateBusinessResponses, UpdateMeData, UpdateMeErrors, UpdateMeResponses } from './types.gen';
+import type { ChangePasswordData, ChangePasswordErrors, ChangePasswordResponses, CreateBusinessData, CreateBusinessErrors, CreateBusinessResponses, CreateChartOfAccountData, CreateChartOfAccountErrors, CreateChartOfAccountResponses, CreateUserData, CreateUserErrors, CreateUserResponses, GetBusinessData, GetBusinessErrors, GetBusinessResponses, GetChartOfAccountData, GetChartOfAccountErrors, GetChartOfAccountResponses, GetMeData, GetMeErrors, GetMeResponses, InviteBusinessMemberData, InviteBusinessMemberErrors, InviteBusinessMemberResponses, ListBusinessMembersData, ListBusinessMembersErrors, ListBusinessMembersResponses, ListChartOfAccountsData, ListChartOfAccountsErrors, ListChartOfAccountsResponses, ListMyBusinessesData, ListMyBusinessesErrors, ListMyBusinessesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RemoveBusinessMemberData, RemoveBusinessMemberErrors, RemoveBusinessMemberResponses, SetChartOfAccountActiveData, SetChartOfAccountActiveErrors, SetChartOfAccountActiveResponses, UpdateBusinessData, UpdateBusinessErrors, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleErrors, UpdateBusinessMemberRoleResponses, UpdateBusinessResponses, UpdateChartOfAccountData, UpdateChartOfAccountErrors, UpdateChartOfAccountResponses, UpdateMeData, UpdateMeErrors, UpdateMeResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -144,6 +144,48 @@ export const removeBusinessMember = <ThrowOnError extends boolean = false>(optio
 export const updateBusinessMemberRole = <ThrowOnError extends boolean = false>(options: Options<UpdateBusinessMemberRoleData, ThrowOnError>): RequestResult<UpdateBusinessMemberRoleResponses, UpdateBusinessMemberRoleErrors, ThrowOnError> => (options.client ?? client).patch<UpdateBusinessMemberRoleResponses, UpdateBusinessMemberRoleErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/businesses/{businessId}/members/{userId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listChartOfAccounts = <ThrowOnError extends boolean = false>(options: Options<ListChartOfAccountsData, ThrowOnError>): RequestResult<ListChartOfAccountsResponses, ListChartOfAccountsErrors, ThrowOnError> => (options.client ?? client).get<ListChartOfAccountsResponses, ListChartOfAccountsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts',
+    ...options
+});
+
+export const createChartOfAccount = <ThrowOnError extends boolean = false>(options: Options<CreateChartOfAccountData, ThrowOnError>): RequestResult<CreateChartOfAccountResponses, CreateChartOfAccountErrors, ThrowOnError> => (options.client ?? client).post<CreateChartOfAccountResponses, CreateChartOfAccountErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const getChartOfAccount = <ThrowOnError extends boolean = false>(options: Options<GetChartOfAccountData, ThrowOnError>): RequestResult<GetChartOfAccountResponses, GetChartOfAccountErrors, ThrowOnError> => (options.client ?? client).get<GetChartOfAccountResponses, GetChartOfAccountErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}',
+    ...options
+});
+
+export const updateChartOfAccount = <ThrowOnError extends boolean = false>(options: Options<UpdateChartOfAccountData, ThrowOnError>): RequestResult<UpdateChartOfAccountResponses, UpdateChartOfAccountErrors, ThrowOnError> => (options.client ?? client).patch<UpdateChartOfAccountResponses, UpdateChartOfAccountErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const setChartOfAccountActive = <ThrowOnError extends boolean = false>(options: Options<SetChartOfAccountActiveData, ThrowOnError>): RequestResult<SetChartOfAccountActiveResponses, SetChartOfAccountActiveErrors, ThrowOnError> => (options.client ?? client).patch<SetChartOfAccountActiveResponses, SetChartOfAccountActiveErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}/active',
     ...options,
     headers: {
         'Content-Type': 'application/json',

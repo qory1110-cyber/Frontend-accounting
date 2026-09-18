@@ -239,6 +239,7 @@ export type CreateUserData = {
     body: {
         name: string;
         email: string;
+        password: string;
         assignments: Array<{
             businessId: string;
             role: 'admin' | 'accountant' | 'viewer';
@@ -659,3 +660,304 @@ export type UpdateBusinessMemberRoleResponses = {
 };
 
 export type UpdateBusinessMemberRoleResponse = UpdateBusinessMemberRoleResponses[keyof UpdateBusinessMemberRoleResponses];
+
+export type ListChartOfAccountsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        category?: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+    };
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts';
+};
+
+export type ListChartOfAccountsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListChartOfAccountsError = ListChartOfAccountsErrors[keyof ListChartOfAccountsErrors];
+
+export type ListChartOfAccountsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            code: string;
+            name: string;
+            category: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+            groupName: string | null;
+            currencyCode: string;
+            isControlAccount: boolean;
+            isActive: boolean;
+        }>;
+    };
+};
+
+export type ListChartOfAccountsResponse = ListChartOfAccountsResponses[keyof ListChartOfAccountsResponses];
+
+export type CreateChartOfAccountData = {
+    body: {
+        code: string;
+        name: string;
+        category: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+        groupName?: string;
+        currencyCode?: string;
+        isControlAccount?: boolean;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts';
+};
+
+export type CreateChartOfAccountErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateChartOfAccountError = CreateChartOfAccountErrors[keyof CreateChartOfAccountErrors];
+
+export type CreateChartOfAccountResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            code: string;
+            name: string;
+            category: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+            groupName: string | null;
+            currencyCode: string;
+            isControlAccount: boolean;
+            isActive: boolean;
+        };
+    };
+};
+
+export type CreateChartOfAccountResponse = CreateChartOfAccountResponses[keyof CreateChartOfAccountResponses];
+
+export type GetChartOfAccountData = {
+    body?: never;
+    path: {
+        businessId: string;
+        accountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}';
+};
+
+export type GetChartOfAccountErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetChartOfAccountError = GetChartOfAccountErrors[keyof GetChartOfAccountErrors];
+
+export type GetChartOfAccountResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            code: string;
+            name: string;
+            category: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+            groupName: string | null;
+            currencyCode: string;
+            isControlAccount: boolean;
+            isActive: boolean;
+        };
+    };
+};
+
+export type GetChartOfAccountResponse = GetChartOfAccountResponses[keyof GetChartOfAccountResponses];
+
+export type UpdateChartOfAccountData = {
+    body: {
+        code?: string;
+        name?: string;
+        category?: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+        groupName?: string;
+        currencyCode?: string;
+        isControlAccount?: boolean;
+    };
+    path: {
+        businessId: string;
+        accountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}';
+};
+
+export type UpdateChartOfAccountErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateChartOfAccountError = UpdateChartOfAccountErrors[keyof UpdateChartOfAccountErrors];
+
+export type UpdateChartOfAccountResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            code: string;
+            name: string;
+            category: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+            groupName: string | null;
+            currencyCode: string;
+            isControlAccount: boolean;
+            isActive: boolean;
+        };
+    };
+};
+
+export type UpdateChartOfAccountResponse = UpdateChartOfAccountResponses[keyof UpdateChartOfAccountResponses];
+
+export type SetChartOfAccountActiveData = {
+    body: {
+        isActive: boolean;
+    };
+    path: {
+        businessId: string;
+        accountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}/active';
+};
+
+export type SetChartOfAccountActiveErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetChartOfAccountActiveError = SetChartOfAccountActiveErrors[keyof SetChartOfAccountActiveErrors];
+
+export type SetChartOfAccountActiveResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            code: string;
+            name: string;
+            category: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+            groupName: string | null;
+            currencyCode: string;
+            isControlAccount: boolean;
+            isActive: boolean;
+        };
+    };
+};
+
+export type SetChartOfAccountActiveResponse = SetChartOfAccountActiveResponses[keyof SetChartOfAccountActiveResponses];

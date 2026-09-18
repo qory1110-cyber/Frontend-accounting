@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { changePassword, createBusiness, createUser, getBusiness, getMe, inviteBusinessMember, listBusinessMembers, listMyBusinesses, listUsers, login, logout, type Options, refreshToken, removeBusinessMember, updateBusiness, updateBusinessMemberRole, updateMe } from '../sdk.gen';
-import type { ChangePasswordData, ChangePasswordError, ChangePasswordResponse, CreateBusinessData, CreateBusinessError, CreateBusinessResponse, CreateUserData, CreateUserError, CreateUserResponse, GetBusinessData, GetBusinessError, GetBusinessResponse, GetMeData, GetMeError, GetMeResponse, InviteBusinessMemberData, InviteBusinessMemberError, InviteBusinessMemberResponse, ListBusinessMembersData, ListBusinessMembersError, ListBusinessMembersResponse, ListMyBusinessesData, ListMyBusinessesError, ListMyBusinessesResponse, ListUsersData, ListUsersError, ListUsersResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RemoveBusinessMemberData, RemoveBusinessMemberError, RemoveBusinessMemberResponse, UpdateBusinessData, UpdateBusinessError, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleError, UpdateBusinessMemberRoleResponse, UpdateBusinessResponse, UpdateMeData, UpdateMeError, UpdateMeResponse } from '../types.gen';
+import { changePassword, createBusiness, createChartOfAccount, createUser, getBusiness, getChartOfAccount, getMe, inviteBusinessMember, listBusinessMembers, listChartOfAccounts, listMyBusinesses, listUsers, login, logout, type Options, refreshToken, removeBusinessMember, setChartOfAccountActive, updateBusiness, updateBusinessMemberRole, updateChartOfAccount, updateMe } from '../sdk.gen';
+import type { ChangePasswordData, ChangePasswordError, ChangePasswordResponse, CreateBusinessData, CreateBusinessError, CreateBusinessResponse, CreateChartOfAccountData, CreateChartOfAccountError, CreateChartOfAccountResponse, CreateUserData, CreateUserError, CreateUserResponse, GetBusinessData, GetBusinessError, GetBusinessResponse, GetChartOfAccountData, GetChartOfAccountError, GetChartOfAccountResponse, GetMeData, GetMeError, GetMeResponse, InviteBusinessMemberData, InviteBusinessMemberError, InviteBusinessMemberResponse, ListBusinessMembersData, ListBusinessMembersError, ListBusinessMembersResponse, ListChartOfAccountsData, ListChartOfAccountsError, ListChartOfAccountsResponse, ListMyBusinessesData, ListMyBusinessesError, ListMyBusinessesResponse, ListUsersData, ListUsersError, ListUsersResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RemoveBusinessMemberData, RemoveBusinessMemberError, RemoveBusinessMemberResponse, SetChartOfAccountActiveData, SetChartOfAccountActiveError, SetChartOfAccountActiveResponse, UpdateBusinessData, UpdateBusinessError, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleError, UpdateBusinessMemberRoleResponse, UpdateBusinessResponse, UpdateChartOfAccountData, UpdateChartOfAccountError, UpdateChartOfAccountResponse, UpdateMeData, UpdateMeError, UpdateMeResponse } from '../types.gen';
 
 export const loginMutation = (options?: Partial<Options<LoginData>>): UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> => {
     const mutationOptions: UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> = {
@@ -258,6 +258,78 @@ export const updateBusinessMemberRoleMutation = (options?: Partial<Options<Updat
     const mutationOptions: UseMutationOptions<UpdateBusinessMemberRoleResponse, UpdateBusinessMemberRoleError, Options<UpdateBusinessMemberRoleData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await updateBusinessMemberRole({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const listChartOfAccountsQueryKey = (options: Options<ListChartOfAccountsData>) => createQueryKey('listChartOfAccounts', options);
+
+export const listChartOfAccountsOptions = (options: Options<ListChartOfAccountsData>) => queryOptions<ListChartOfAccountsResponse, ListChartOfAccountsError, ListChartOfAccountsResponse, ReturnType<typeof listChartOfAccountsQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listChartOfAccounts({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listChartOfAccountsQueryKey(options)
+});
+
+export const createChartOfAccountMutation = (options?: Partial<Options<CreateChartOfAccountData>>): UseMutationOptions<CreateChartOfAccountResponse, CreateChartOfAccountError, Options<CreateChartOfAccountData>> => {
+    const mutationOptions: UseMutationOptions<CreateChartOfAccountResponse, CreateChartOfAccountError, Options<CreateChartOfAccountData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createChartOfAccount({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getChartOfAccountQueryKey = (options: Options<GetChartOfAccountData>) => createQueryKey('getChartOfAccount', options);
+
+export const getChartOfAccountOptions = (options: Options<GetChartOfAccountData>) => queryOptions<GetChartOfAccountResponse, GetChartOfAccountError, GetChartOfAccountResponse, ReturnType<typeof getChartOfAccountQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getChartOfAccount({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getChartOfAccountQueryKey(options)
+});
+
+export const updateChartOfAccountMutation = (options?: Partial<Options<UpdateChartOfAccountData>>): UseMutationOptions<UpdateChartOfAccountResponse, UpdateChartOfAccountError, Options<UpdateChartOfAccountData>> => {
+    const mutationOptions: UseMutationOptions<UpdateChartOfAccountResponse, UpdateChartOfAccountError, Options<UpdateChartOfAccountData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await updateChartOfAccount({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const setChartOfAccountActiveMutation = (options?: Partial<Options<SetChartOfAccountActiveData>>): UseMutationOptions<SetChartOfAccountActiveResponse, SetChartOfAccountActiveError, Options<SetChartOfAccountActiveData>> => {
+    const mutationOptions: UseMutationOptions<SetChartOfAccountActiveResponse, SetChartOfAccountActiveError, Options<SetChartOfAccountActiveData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await setChartOfAccountActive({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

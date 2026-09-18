@@ -17,6 +17,7 @@ import { Route as UsersRouteImport } from './routes/users'
 import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
 import { Route as BusinessesBusinessIdRouteImport } from './routes/businesses/$businessId'
 import { Route as BusinessesBusinessIdIndexRouteImport } from './routes/businesses/$businessId.index'
+import { Route as BusinessesBusinessIdChartOfAccountsRouteImport } from './routes/businesses/$businessId.chart-of-accounts'
 import { Route as BusinessesBusinessIdMembersRouteImport } from './routes/businesses/$businessId.members'
 
 const IndexRoute = IndexRouteImport.update({
@@ -60,6 +61,12 @@ const BusinessesBusinessIdIndexRoute =
     path: '/',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
+const BusinessesBusinessIdChartOfAccountsRoute =
+  BusinessesBusinessIdChartOfAccountsRouteImport.update({
+    id: '/chart-of-accounts',
+    path: '/chart-of-accounts',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 const BusinessesBusinessIdMembersRoute =
   BusinessesBusinessIdMembersRouteImport.update({
     id: '/members',
@@ -75,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/users': typeof UsersRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdRouteWithChildren
   '/businesses/': typeof BusinessesIndexRoute
+  '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
@@ -84,6 +92,7 @@ export interface FileRoutesByTo {
   '/user': typeof UserRoute
   '/users': typeof UsersRoute
   '/businesses': typeof BusinessesIndexRoute
+  '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdIndexRoute
 }
@@ -96,6 +105,7 @@ export interface FileRoutesById {
   '/users': typeof UsersRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdRouteWithChildren
   '/businesses/': typeof BusinessesIndexRoute
+  '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/users'
     | '/businesses/$businessId'
     | '/businesses/'
+    | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/'
   fileRoutesByTo: FileRoutesByTo
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/user'
     | '/users'
     | '/businesses'
+    | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId'
   id:
@@ -129,6 +141,7 @@ export interface FileRouteTypes {
     | '/users'
     | '/businesses/$businessId'
     | '/businesses/'
+    | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/'
   fileRoutesById: FileRoutesById
@@ -199,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdIndexRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/chart-of-accounts': {
+      id: '/businesses/$businessId/chart-of-accounts'
+      path: '/chart-of-accounts'
+      fullPath: '/businesses/$businessId/chart-of-accounts'
+      preLoaderRoute: typeof BusinessesBusinessIdChartOfAccountsRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
     '/businesses/$businessId/members': {
       id: '/businesses/$businessId/members'
       path: '/members'
@@ -210,11 +230,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface BusinessesBusinessIdRouteChildren {
+  BusinessesBusinessIdChartOfAccountsRoute: typeof BusinessesBusinessIdChartOfAccountsRoute
   BusinessesBusinessIdMembersRoute: typeof BusinessesBusinessIdMembersRoute
   BusinessesBusinessIdIndexRoute: typeof BusinessesBusinessIdIndexRoute
 }
 
 const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
+  BusinessesBusinessIdChartOfAccountsRoute:
+    BusinessesBusinessIdChartOfAccountsRoute,
   BusinessesBusinessIdMembersRoute: BusinessesBusinessIdMembersRoute,
   BusinessesBusinessIdIndexRoute: BusinessesBusinessIdIndexRoute,
 }
