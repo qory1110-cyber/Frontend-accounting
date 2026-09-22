@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { ChangePasswordData, ChangePasswordErrors, ChangePasswordResponses, CreateBusinessData, CreateBusinessErrors, CreateBusinessResponses, CreateChartOfAccountData, CreateChartOfAccountErrors, CreateChartOfAccountResponses, CreateUserData, CreateUserErrors, CreateUserResponses, GetBusinessData, GetBusinessErrors, GetBusinessResponses, GetChartOfAccountData, GetChartOfAccountErrors, GetChartOfAccountResponses, GetMeData, GetMeErrors, GetMeResponses, InviteBusinessMemberData, InviteBusinessMemberErrors, InviteBusinessMemberResponses, ListBusinessMembersData, ListBusinessMembersErrors, ListBusinessMembersResponses, ListChartOfAccountsData, ListChartOfAccountsErrors, ListChartOfAccountsResponses, ListMyBusinessesData, ListMyBusinessesErrors, ListMyBusinessesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RemoveBusinessMemberData, RemoveBusinessMemberErrors, RemoveBusinessMemberResponses, SetChartOfAccountActiveData, SetChartOfAccountActiveErrors, SetChartOfAccountActiveResponses, UpdateBusinessData, UpdateBusinessErrors, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleErrors, UpdateBusinessMemberRoleResponses, UpdateBusinessResponses, UpdateChartOfAccountData, UpdateChartOfAccountErrors, UpdateChartOfAccountResponses, UpdateMeData, UpdateMeErrors, UpdateMeResponses } from './types.gen';
+import type { ChangePasswordData, ChangePasswordErrors, ChangePasswordResponses, CreateBusinessData, CreateBusinessErrors, CreateBusinessResponses, CreateChartOfAccountData, CreateChartOfAccountErrors, CreateChartOfAccountResponses, CreateCustomerData, CreateCustomerErrors, CreateCustomerResponses, CreateUserData, CreateUserErrors, CreateUserResponses, DeleteCustomerData, DeleteCustomerErrors, DeleteCustomerResponses, GetBusinessData, GetBusinessErrors, GetBusinessResponses, GetChartOfAccountData, GetChartOfAccountErrors, GetChartOfAccountResponses, GetCustomerData, GetCustomerErrors, GetCustomerResponses, GetMeData, GetMeErrors, GetMeResponses, InviteBusinessMemberData, InviteBusinessMemberErrors, InviteBusinessMemberResponses, ListBusinessMembersData, ListBusinessMembersErrors, ListBusinessMembersResponses, ListChartOfAccountsData, ListChartOfAccountsErrors, ListChartOfAccountsResponses, ListCustomersData, ListCustomersErrors, ListCustomersResponses, ListMyBusinessesData, ListMyBusinessesErrors, ListMyBusinessesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RemoveBusinessMemberData, RemoveBusinessMemberErrors, RemoveBusinessMemberResponses, SetChartOfAccountActiveData, SetChartOfAccountActiveErrors, SetChartOfAccountActiveResponses, SetCustomerActiveData, SetCustomerActiveErrors, SetCustomerActiveResponses, UpdateBusinessData, UpdateBusinessErrors, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleErrors, UpdateBusinessMemberRoleResponses, UpdateBusinessResponses, UpdateChartOfAccountData, UpdateChartOfAccountErrors, UpdateChartOfAccountResponses, UpdateCustomerData, UpdateCustomerErrors, UpdateCustomerResponses, UpdateMeData, UpdateMeErrors, UpdateMeResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -186,6 +186,54 @@ export const updateChartOfAccount = <ThrowOnError extends boolean = false>(optio
 export const setChartOfAccountActive = <ThrowOnError extends boolean = false>(options: Options<SetChartOfAccountActiveData, ThrowOnError>): RequestResult<SetChartOfAccountActiveResponses, SetChartOfAccountActiveErrors, ThrowOnError> => (options.client ?? client).patch<SetChartOfAccountActiveResponses, SetChartOfAccountActiveErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}/active',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listCustomers = <ThrowOnError extends boolean = false>(options: Options<ListCustomersData, ThrowOnError>): RequestResult<ListCustomersResponses, ListCustomersErrors, ThrowOnError> => (options.client ?? client).get<ListCustomersResponses, ListCustomersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/customers',
+    ...options
+});
+
+export const createCustomer = <ThrowOnError extends boolean = false>(options: Options<CreateCustomerData, ThrowOnError>): RequestResult<CreateCustomerResponses, CreateCustomerErrors, ThrowOnError> => (options.client ?? client).post<CreateCustomerResponses, CreateCustomerErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/customers',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const deleteCustomer = <ThrowOnError extends boolean = false>(options: Options<DeleteCustomerData, ThrowOnError>): RequestResult<DeleteCustomerResponses, DeleteCustomerErrors, ThrowOnError> => (options.client ?? client).delete<DeleteCustomerResponses, DeleteCustomerErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/customers/{customerId}',
+    ...options
+});
+
+export const getCustomer = <ThrowOnError extends boolean = false>(options: Options<GetCustomerData, ThrowOnError>): RequestResult<GetCustomerResponses, GetCustomerErrors, ThrowOnError> => (options.client ?? client).get<GetCustomerResponses, GetCustomerErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/customers/{customerId}',
+    ...options
+});
+
+export const updateCustomer = <ThrowOnError extends boolean = false>(options: Options<UpdateCustomerData, ThrowOnError>): RequestResult<UpdateCustomerResponses, UpdateCustomerErrors, ThrowOnError> => (options.client ?? client).patch<UpdateCustomerResponses, UpdateCustomerErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/customers/{customerId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const setCustomerActive = <ThrowOnError extends boolean = false>(options: Options<SetCustomerActiveData, ThrowOnError>): RequestResult<SetCustomerActiveResponses, SetCustomerActiveErrors, ThrowOnError> => (options.client ?? client).patch<SetCustomerActiveResponses, SetCustomerActiveErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/customers/{customerId}/active',
     ...options,
     headers: {
         'Content-Type': 'application/json',

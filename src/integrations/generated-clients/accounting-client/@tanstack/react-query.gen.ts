@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { changePassword, createBusiness, createChartOfAccount, createUser, getBusiness, getChartOfAccount, getMe, inviteBusinessMember, listBusinessMembers, listChartOfAccounts, listMyBusinesses, listUsers, login, logout, type Options, refreshToken, removeBusinessMember, setChartOfAccountActive, updateBusiness, updateBusinessMemberRole, updateChartOfAccount, updateMe } from '../sdk.gen';
-import type { ChangePasswordData, ChangePasswordError, ChangePasswordResponse, CreateBusinessData, CreateBusinessError, CreateBusinessResponse, CreateChartOfAccountData, CreateChartOfAccountError, CreateChartOfAccountResponse, CreateUserData, CreateUserError, CreateUserResponse, GetBusinessData, GetBusinessError, GetBusinessResponse, GetChartOfAccountData, GetChartOfAccountError, GetChartOfAccountResponse, GetMeData, GetMeError, GetMeResponse, InviteBusinessMemberData, InviteBusinessMemberError, InviteBusinessMemberResponse, ListBusinessMembersData, ListBusinessMembersError, ListBusinessMembersResponse, ListChartOfAccountsData, ListChartOfAccountsError, ListChartOfAccountsResponse, ListMyBusinessesData, ListMyBusinessesError, ListMyBusinessesResponse, ListUsersData, ListUsersError, ListUsersResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RemoveBusinessMemberData, RemoveBusinessMemberError, RemoveBusinessMemberResponse, SetChartOfAccountActiveData, SetChartOfAccountActiveError, SetChartOfAccountActiveResponse, UpdateBusinessData, UpdateBusinessError, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleError, UpdateBusinessMemberRoleResponse, UpdateBusinessResponse, UpdateChartOfAccountData, UpdateChartOfAccountError, UpdateChartOfAccountResponse, UpdateMeData, UpdateMeError, UpdateMeResponse } from '../types.gen';
+import { changePassword, createBusiness, createChartOfAccount, createCustomer, createUser, deleteCustomer, getBusiness, getChartOfAccount, getCustomer, getMe, inviteBusinessMember, listBusinessMembers, listChartOfAccounts, listCustomers, listMyBusinesses, listUsers, login, logout, type Options, refreshToken, removeBusinessMember, setChartOfAccountActive, setCustomerActive, updateBusiness, updateBusinessMemberRole, updateChartOfAccount, updateCustomer, updateMe } from '../sdk.gen';
+import type { ChangePasswordData, ChangePasswordError, ChangePasswordResponse, CreateBusinessData, CreateBusinessError, CreateBusinessResponse, CreateChartOfAccountData, CreateChartOfAccountError, CreateChartOfAccountResponse, CreateCustomerData, CreateCustomerError, CreateCustomerResponse, CreateUserData, CreateUserError, CreateUserResponse, DeleteCustomerData, DeleteCustomerError, DeleteCustomerResponse, GetBusinessData, GetBusinessError, GetBusinessResponse, GetChartOfAccountData, GetChartOfAccountError, GetChartOfAccountResponse, GetCustomerData, GetCustomerError, GetCustomerResponse, GetMeData, GetMeError, GetMeResponse, InviteBusinessMemberData, InviteBusinessMemberError, InviteBusinessMemberResponse, ListBusinessMembersData, ListBusinessMembersError, ListBusinessMembersResponse, ListChartOfAccountsData, ListChartOfAccountsError, ListChartOfAccountsResponse, ListCustomersData, ListCustomersError, ListCustomersResponse, ListMyBusinessesData, ListMyBusinessesError, ListMyBusinessesResponse, ListUsersData, ListUsersError, ListUsersResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RemoveBusinessMemberData, RemoveBusinessMemberError, RemoveBusinessMemberResponse, SetChartOfAccountActiveData, SetChartOfAccountActiveError, SetChartOfAccountActiveResponse, SetCustomerActiveData, SetCustomerActiveError, SetCustomerActiveResponse, UpdateBusinessData, UpdateBusinessError, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleError, UpdateBusinessMemberRoleResponse, UpdateBusinessResponse, UpdateChartOfAccountData, UpdateChartOfAccountError, UpdateChartOfAccountResponse, UpdateCustomerData, UpdateCustomerError, UpdateCustomerResponse, UpdateMeData, UpdateMeError, UpdateMeResponse } from '../types.gen';
 
 export const loginMutation = (options?: Partial<Options<LoginData>>): UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> => {
     const mutationOptions: UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> = {
@@ -330,6 +330,92 @@ export const setChartOfAccountActiveMutation = (options?: Partial<Options<SetCha
     const mutationOptions: UseMutationOptions<SetChartOfAccountActiveResponse, SetChartOfAccountActiveError, Options<SetChartOfAccountActiveData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await setChartOfAccountActive({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const listCustomersQueryKey = (options: Options<ListCustomersData>) => createQueryKey('listCustomers', options);
+
+export const listCustomersOptions = (options: Options<ListCustomersData>) => queryOptions<ListCustomersResponse, ListCustomersError, ListCustomersResponse, ReturnType<typeof listCustomersQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listCustomers({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listCustomersQueryKey(options)
+});
+
+export const createCustomerMutation = (options?: Partial<Options<CreateCustomerData>>): UseMutationOptions<CreateCustomerResponse, CreateCustomerError, Options<CreateCustomerData>> => {
+    const mutationOptions: UseMutationOptions<CreateCustomerResponse, CreateCustomerError, Options<CreateCustomerData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createCustomer({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const deleteCustomerMutation = (options?: Partial<Options<DeleteCustomerData>>): UseMutationOptions<DeleteCustomerResponse, DeleteCustomerError, Options<DeleteCustomerData>> => {
+    const mutationOptions: UseMutationOptions<DeleteCustomerResponse, DeleteCustomerError, Options<DeleteCustomerData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deleteCustomer({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getCustomerQueryKey = (options: Options<GetCustomerData>) => createQueryKey('getCustomer', options);
+
+export const getCustomerOptions = (options: Options<GetCustomerData>) => queryOptions<GetCustomerResponse, GetCustomerError, GetCustomerResponse, ReturnType<typeof getCustomerQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getCustomer({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getCustomerQueryKey(options)
+});
+
+export const updateCustomerMutation = (options?: Partial<Options<UpdateCustomerData>>): UseMutationOptions<UpdateCustomerResponse, UpdateCustomerError, Options<UpdateCustomerData>> => {
+    const mutationOptions: UseMutationOptions<UpdateCustomerResponse, UpdateCustomerError, Options<UpdateCustomerData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await updateCustomer({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const setCustomerActiveMutation = (options?: Partial<Options<SetCustomerActiveData>>): UseMutationOptions<SetCustomerActiveResponse, SetCustomerActiveError, Options<SetCustomerActiveData>> => {
+    const mutationOptions: UseMutationOptions<SetCustomerActiveResponse, SetCustomerActiveError, Options<SetCustomerActiveData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await setCustomerActive({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

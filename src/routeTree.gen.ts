@@ -18,6 +18,7 @@ import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
 import { Route as BusinessesBusinessIdRouteImport } from './routes/businesses/$businessId'
 import { Route as BusinessesBusinessIdIndexRouteImport } from './routes/businesses/$businessId.index'
 import { Route as BusinessesBusinessIdChartOfAccountsRouteImport } from './routes/businesses/$businessId.chart-of-accounts'
+import { Route as BusinessesBusinessIdCustomersRouteImport } from './routes/businesses/$businessId.customers'
 import { Route as BusinessesBusinessIdMembersRouteImport } from './routes/businesses/$businessId.members'
 
 const IndexRoute = IndexRouteImport.update({
@@ -67,6 +68,12 @@ const BusinessesBusinessIdChartOfAccountsRoute =
     path: '/chart-of-accounts',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
+const BusinessesBusinessIdCustomersRoute =
+  BusinessesBusinessIdCustomersRouteImport.update({
+    id: '/customers',
+    path: '/customers',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 const BusinessesBusinessIdMembersRoute =
   BusinessesBusinessIdMembersRouteImport.update({
     id: '/members',
@@ -83,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/businesses/$businessId': typeof BusinessesBusinessIdRouteWithChildren
   '/businesses/': typeof BusinessesIndexRoute
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
+  '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
@@ -93,6 +101,7 @@ export interface FileRoutesByTo {
   '/users': typeof UsersRoute
   '/businesses': typeof BusinessesIndexRoute
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
+  '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdIndexRoute
 }
@@ -106,6 +115,7 @@ export interface FileRoutesById {
   '/businesses/$businessId': typeof BusinessesBusinessIdRouteWithChildren
   '/businesses/': typeof BusinessesIndexRoute
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
+  '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId'
     | '/businesses/'
     | '/businesses/$businessId/chart-of-accounts'
+    | '/businesses/$businessId/customers'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/'
   fileRoutesByTo: FileRoutesByTo
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/users'
     | '/businesses'
     | '/businesses/$businessId/chart-of-accounts'
+    | '/businesses/$businessId/customers'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId'
   id:
@@ -142,6 +154,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId'
     | '/businesses/'
     | '/businesses/$businessId/chart-of-accounts'
+    | '/businesses/$businessId/customers'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/'
   fileRoutesById: FileRoutesById
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdChartOfAccountsRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/customers': {
+      id: '/businesses/$businessId/customers'
+      path: '/customers'
+      fullPath: '/businesses/$businessId/customers'
+      preLoaderRoute: typeof BusinessesBusinessIdCustomersRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
     '/businesses/$businessId/members': {
       id: '/businesses/$businessId/members'
       path: '/members'
@@ -231,6 +251,7 @@ declare module '@tanstack/react-router' {
 
 interface BusinessesBusinessIdRouteChildren {
   BusinessesBusinessIdChartOfAccountsRoute: typeof BusinessesBusinessIdChartOfAccountsRoute
+  BusinessesBusinessIdCustomersRoute: typeof BusinessesBusinessIdCustomersRoute
   BusinessesBusinessIdMembersRoute: typeof BusinessesBusinessIdMembersRoute
   BusinessesBusinessIdIndexRoute: typeof BusinessesBusinessIdIndexRoute
 }
@@ -238,6 +259,7 @@ interface BusinessesBusinessIdRouteChildren {
 const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
   BusinessesBusinessIdChartOfAccountsRoute:
     BusinessesBusinessIdChartOfAccountsRoute,
+  BusinessesBusinessIdCustomersRoute: BusinessesBusinessIdCustomersRoute,
   BusinessesBusinessIdMembersRoute: BusinessesBusinessIdMembersRoute,
   BusinessesBusinessIdIndexRoute: BusinessesBusinessIdIndexRoute,
 }

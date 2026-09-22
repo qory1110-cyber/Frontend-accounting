@@ -10,6 +10,7 @@ export interface MenuItem {
 // "Members" sengaja dibatasi admin+accountant, disembunyikan dari viewer (§7 panduan).
 export const businessSidebarMenu: MenuItem[] = [
   { label: 'Overview', to: '/businesses/$businessId' },
+  { label: 'Customers', to: '/businesses/$businessId/customers' }, // BARU - tanpa allowedRoles = semua role
   { label: 'Chart of Accounts', to: '/businesses/$businessId/chart-of-accounts', allowedRoles: ['admin', 'accountant'] },
   { label: 'Members', to: '/businesses/$businessId/members', allowedRoles: ['admin', 'accountant'] },
 ]

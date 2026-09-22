@@ -961,3 +961,357 @@ export type SetChartOfAccountActiveResponses = {
 };
 
 export type SetChartOfAccountActiveResponse = SetChartOfAccountActiveResponses[keyof SetChartOfAccountActiveResponses];
+
+export type ListCustomersData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/customers';
+};
+
+export type ListCustomersErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListCustomersError = ListCustomersErrors[keyof ListCustomersErrors];
+
+export type ListCustomersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            billingAddress: string | null;
+            deliveryAddress: string | null;
+            email: string | null;
+            autofillSalesInvoiceDueDate: boolean;
+            isActive: boolean;
+            accountsReceivable: number;
+            unallocatedReceipts: number;
+        }>;
+    };
+};
+
+export type ListCustomersResponse = ListCustomersResponses[keyof ListCustomersResponses];
+
+export type CreateCustomerData = {
+    body: {
+        name: string;
+        code?: string;
+        creditLimit?: number;
+        billingAddress?: string;
+        deliveryAddress?: string;
+        email?: string;
+        autofillSalesInvoiceDueDate?: boolean;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/customers';
+};
+
+export type CreateCustomerErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateCustomerError = CreateCustomerErrors[keyof CreateCustomerErrors];
+
+export type CreateCustomerResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            billingAddress: string | null;
+            deliveryAddress: string | null;
+            email: string | null;
+            autofillSalesInvoiceDueDate: boolean;
+            isActive: boolean;
+            accountsReceivable: number;
+            unallocatedReceipts: number;
+        };
+    };
+};
+
+export type CreateCustomerResponse = CreateCustomerResponses[keyof CreateCustomerResponses];
+
+export type DeleteCustomerData = {
+    body?: never;
+    path: {
+        businessId: string;
+        customerId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/customers/{customerId}';
+};
+
+export type DeleteCustomerErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteCustomerError = DeleteCustomerErrors[keyof DeleteCustomerErrors];
+
+export type DeleteCustomerResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteCustomerResponse = DeleteCustomerResponses[keyof DeleteCustomerResponses];
+
+export type GetCustomerData = {
+    body?: never;
+    path: {
+        businessId: string;
+        customerId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/customers/{customerId}';
+};
+
+export type GetCustomerErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetCustomerError = GetCustomerErrors[keyof GetCustomerErrors];
+
+export type GetCustomerResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            billingAddress: string | null;
+            deliveryAddress: string | null;
+            email: string | null;
+            autofillSalesInvoiceDueDate: boolean;
+            isActive: boolean;
+            accountsReceivable: number;
+            unallocatedReceipts: number;
+        };
+    };
+};
+
+export type GetCustomerResponse = GetCustomerResponses[keyof GetCustomerResponses];
+
+export type UpdateCustomerData = {
+    body: {
+        name?: string;
+        code?: string;
+        creditLimit?: number;
+        billingAddress?: string;
+        deliveryAddress?: string;
+        email?: string;
+        autofillSalesInvoiceDueDate?: boolean;
+    };
+    path: {
+        businessId: string;
+        customerId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/customers/{customerId}';
+};
+
+export type UpdateCustomerErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateCustomerError = UpdateCustomerErrors[keyof UpdateCustomerErrors];
+
+export type UpdateCustomerResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            billingAddress: string | null;
+            deliveryAddress: string | null;
+            email: string | null;
+            autofillSalesInvoiceDueDate: boolean;
+            isActive: boolean;
+            accountsReceivable: number;
+            unallocatedReceipts: number;
+        };
+    };
+};
+
+export type UpdateCustomerResponse = UpdateCustomerResponses[keyof UpdateCustomerResponses];
+
+export type SetCustomerActiveData = {
+    body: {
+        isActive: boolean;
+    };
+    path: {
+        businessId: string;
+        customerId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/customers/{customerId}/active';
+};
+
+export type SetCustomerActiveErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetCustomerActiveError = SetCustomerActiveErrors[keyof SetCustomerActiveErrors];
+
+export type SetCustomerActiveResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            billingAddress: string | null;
+            deliveryAddress: string | null;
+            email: string | null;
+            autofillSalesInvoiceDueDate: boolean;
+            isActive: boolean;
+            accountsReceivable: number;
+            unallocatedReceipts: number;
+        };
+    };
+};
+
+export type SetCustomerActiveResponse = SetCustomerActiveResponses[keyof SetCustomerActiveResponses];
