@@ -1,6 +1,6 @@
 import { AppHeader } from '@/components/header'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import { BusinessesPage } from '@/components/business/businesses-page'
+// import { BusinessesPage } from '@/components/business/businesses-page'
 import { getAccessToken } from '#/lib/auth/tokens'
 
 export const Route = createFileRoute('/businesses')({

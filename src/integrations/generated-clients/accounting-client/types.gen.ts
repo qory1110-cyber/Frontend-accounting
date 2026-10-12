@@ -320,6 +320,7 @@ export type ListMyBusinessesResponses = {
             name: string;
             baseCurrencyCode: string;
             role?: 'admin' | 'accountant' | 'viewer';
+            hiddenModules: Array<string>;
         }>;
     };
 };
@@ -358,11 +359,65 @@ export type CreateBusinessResponses = {
             name: string;
             baseCurrencyCode: string;
             role?: 'admin' | 'accountant' | 'viewer';
+            hiddenModules: Array<string>;
         };
     };
 };
 
 export type CreateBusinessResponse = CreateBusinessResponses[keyof CreateBusinessResponses];
+
+export type DeleteBusinessData = {
+    body: {
+        confirmName: string;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}';
+};
+
+export type DeleteBusinessErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteBusinessError = DeleteBusinessErrors[keyof DeleteBusinessErrors];
+
+export type DeleteBusinessResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteBusinessResponse = DeleteBusinessResponses[keyof DeleteBusinessResponses];
 
 export type GetBusinessData = {
     body?: never;
@@ -402,6 +457,7 @@ export type GetBusinessResponses = {
             name: string;
             baseCurrencyCode: string;
             role?: 'admin' | 'accountant' | 'viewer';
+            hiddenModules: Array<string>;
         };
     };
 };
@@ -412,6 +468,7 @@ export type UpdateBusinessData = {
     body: {
         name?: string;
         baseCurrencyCode?: string;
+        hiddenModules?: Array<'customers' | 'suppliers' | 'bank-accounts' | 'sales-invoices' | 'purchase-invoices' | 'receipts' | 'payments' | 'inter-account-transfers'>;
     };
     path: {
         businessId: string;
@@ -442,6 +499,13 @@ export type UpdateBusinessErrors = {
         error: string;
         message: string;
     };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
 };
 
 export type UpdateBusinessError = UpdateBusinessErrors[keyof UpdateBusinessErrors];
@@ -456,6 +520,7 @@ export type UpdateBusinessResponses = {
             name: string;
             baseCurrencyCode: string;
             role?: 'admin' | 'accountant' | 'viewer';
+            hiddenModules: Array<string>;
         };
     };
 };
@@ -467,7 +532,10 @@ export type ListBusinessMembersData = {
     path: {
         businessId: string;
     };
-    query?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
     url: '/api/v1/businesses/{businessId}/members';
 };
 
@@ -502,6 +570,12 @@ export type ListBusinessMembersResponses = {
             role: 'admin' | 'accountant' | 'viewer';
             status: string;
         }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
     };
 };
 
@@ -668,6 +742,8 @@ export type ListChartOfAccountsData = {
     };
     query?: {
         category?: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+        page?: number;
+        pageSize?: number;
     };
     url: '/api/v1/businesses/{businessId}/chart-of-accounts';
 };
@@ -707,6 +783,12 @@ export type ListChartOfAccountsResponses = {
             isControlAccount: boolean;
             isActive: boolean;
         }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
     };
 };
 
@@ -781,6 +863,106 @@ export type CreateChartOfAccountResponses = {
 };
 
 export type CreateChartOfAccountResponse = CreateChartOfAccountResponses[keyof CreateChartOfAccountResponses];
+
+export type ListRecentChartOfAccountsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        limit?: number;
+        category?: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+    };
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/recent';
+};
+
+export type ListRecentChartOfAccountsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListRecentChartOfAccountsError = ListRecentChartOfAccountsErrors[keyof ListRecentChartOfAccountsErrors];
+
+export type ListRecentChartOfAccountsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            code: string;
+            name: string;
+            category: 'Asset' | 'Liability' | 'Equity' | 'Income' | 'Expense';
+            isActive: boolean;
+        }>;
+    };
+};
+
+export type ListRecentChartOfAccountsResponse = ListRecentChartOfAccountsResponses[keyof ListRecentChartOfAccountsResponses];
+
+export type DeleteChartOfAccountData = {
+    body?: never;
+    path: {
+        businessId: string;
+        accountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}';
+};
+
+export type DeleteChartOfAccountErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteChartOfAccountError = DeleteChartOfAccountErrors[keyof DeleteChartOfAccountErrors];
+
+export type DeleteChartOfAccountResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteChartOfAccountResponse = DeleteChartOfAccountResponses[keyof DeleteChartOfAccountResponses];
 
 export type GetChartOfAccountData = {
     body?: never;
@@ -967,7 +1149,10 @@ export type ListCustomersData = {
     path: {
         businessId: string;
     };
-    query?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
     url: '/api/v1/businesses/{businessId}/customers';
 };
 
@@ -1009,6 +1194,12 @@ export type ListCustomersResponses = {
             accountsReceivable: number;
             unallocatedReceipts: number;
         }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
     };
 };
 
@@ -1080,6 +1271,52 @@ export type CreateCustomerResponses = {
 };
 
 export type CreateCustomerResponse = CreateCustomerResponses[keyof CreateCustomerResponses];
+
+export type ListRecentCustomersData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        limit?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/customers/recent';
+};
+
+export type ListRecentCustomersErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListRecentCustomersError = ListRecentCustomersErrors[keyof ListRecentCustomersErrors];
+
+export type ListRecentCustomersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            name: string;
+            code: string | null;
+            isActive: boolean;
+        }>;
+    };
+};
+
+export type ListRecentCustomersResponse = ListRecentCustomersResponses[keyof ListRecentCustomersResponses];
 
 export type DeleteCustomerData = {
     body?: never;
@@ -1315,3 +1552,3423 @@ export type SetCustomerActiveResponses = {
 };
 
 export type SetCustomerActiveResponse = SetCustomerActiveResponses[keyof SetCustomerActiveResponses];
+
+export type ListSuppliersData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/suppliers';
+};
+
+export type ListSuppliersErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListSuppliersError = ListSuppliersErrors[keyof ListSuppliersErrors];
+
+export type ListSuppliersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            address: string | null;
+            email: string | null;
+            isActive: boolean;
+            accountsPayable: number;
+            unallocatedPayments: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListSuppliersResponse = ListSuppliersResponses[keyof ListSuppliersResponses];
+
+export type CreateSupplierData = {
+    body: {
+        name: string;
+        code?: string;
+        creditLimit?: number;
+        address?: string;
+        email?: string;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/suppliers';
+};
+
+export type CreateSupplierErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateSupplierError = CreateSupplierErrors[keyof CreateSupplierErrors];
+
+export type CreateSupplierResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            address: string | null;
+            email: string | null;
+            isActive: boolean;
+            accountsPayable: number;
+            unallocatedPayments: number;
+        };
+    };
+};
+
+export type CreateSupplierResponse = CreateSupplierResponses[keyof CreateSupplierResponses];
+
+export type ListRecentSuppliersData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        limit?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/suppliers/recent';
+};
+
+export type ListRecentSuppliersErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListRecentSuppliersError = ListRecentSuppliersErrors[keyof ListRecentSuppliersErrors];
+
+export type ListRecentSuppliersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            name: string;
+            code: string | null;
+            isActive: boolean;
+        }>;
+    };
+};
+
+export type ListRecentSuppliersResponse = ListRecentSuppliersResponses[keyof ListRecentSuppliersResponses];
+
+export type DeleteSupplierData = {
+    body?: never;
+    path: {
+        businessId: string;
+        supplierId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/suppliers/{supplierId}';
+};
+
+export type DeleteSupplierErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteSupplierError = DeleteSupplierErrors[keyof DeleteSupplierErrors];
+
+export type DeleteSupplierResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteSupplierResponse = DeleteSupplierResponses[keyof DeleteSupplierResponses];
+
+export type GetSupplierData = {
+    body?: never;
+    path: {
+        businessId: string;
+        supplierId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/suppliers/{supplierId}';
+};
+
+export type GetSupplierErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetSupplierError = GetSupplierErrors[keyof GetSupplierErrors];
+
+export type GetSupplierResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            address: string | null;
+            email: string | null;
+            isActive: boolean;
+            accountsPayable: number;
+            unallocatedPayments: number;
+        };
+    };
+};
+
+export type GetSupplierResponse = GetSupplierResponses[keyof GetSupplierResponses];
+
+export type UpdateSupplierData = {
+    body: {
+        name?: string;
+        code?: string;
+        creditLimit?: number;
+        address?: string;
+        email?: string;
+    };
+    path: {
+        businessId: string;
+        supplierId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/suppliers/{supplierId}';
+};
+
+export type UpdateSupplierErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateSupplierError = UpdateSupplierErrors[keyof UpdateSupplierErrors];
+
+export type UpdateSupplierResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            address: string | null;
+            email: string | null;
+            isActive: boolean;
+            accountsPayable: number;
+            unallocatedPayments: number;
+        };
+    };
+};
+
+export type UpdateSupplierResponse = UpdateSupplierResponses[keyof UpdateSupplierResponses];
+
+export type SetSupplierActiveData = {
+    body: {
+        isActive: boolean;
+    };
+    path: {
+        businessId: string;
+        supplierId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/suppliers/{supplierId}/active';
+};
+
+export type SetSupplierActiveErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetSupplierActiveError = SetSupplierActiveErrors[keyof SetSupplierActiveErrors];
+
+export type SetSupplierActiveResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            creditLimit: string;
+            address: string | null;
+            email: string | null;
+            isActive: boolean;
+            accountsPayable: number;
+            unallocatedPayments: number;
+        };
+    };
+};
+
+export type SetSupplierActiveResponse = SetSupplierActiveResponses[keyof SetSupplierActiveResponses];
+
+export type ListBankAccountsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/bank-accounts';
+};
+
+export type ListBankAccountsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListBankAccountsError = ListBankAccountsErrors[keyof ListBankAccountsErrors];
+
+export type ListBankAccountsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            controlAccountId: string;
+            controlAccountName: string;
+            currencyCode: string;
+            accountNumber: string | null;
+            openingBalance: string;
+            openingBalanceDate: string | null;
+            canHavePendingTransactions: boolean;
+            creditLimit: string;
+            isActive: boolean;
+            lockDate: string | null;
+            actualBalance: number;
+            pendingWithdrawals: number;
+            pendingDeposits: number;
+            lastReconciliationDate: string | null;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListBankAccountsResponse = ListBankAccountsResponses[keyof ListBankAccountsResponses];
+
+export type CreateBankAccountData = {
+    body: {
+        name: string;
+        code?: string;
+        controlAccountId: string;
+        accountNumber?: string;
+        openingBalance?: number;
+        openingBalanceDate?: string;
+        canHavePendingTransactions?: boolean;
+        creditLimit?: number;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-accounts';
+};
+
+export type CreateBankAccountErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateBankAccountError = CreateBankAccountErrors[keyof CreateBankAccountErrors];
+
+export type CreateBankAccountResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            controlAccountId: string;
+            controlAccountName: string;
+            currencyCode: string;
+            accountNumber: string | null;
+            openingBalance: string;
+            openingBalanceDate: string | null;
+            canHavePendingTransactions: boolean;
+            creditLimit: string;
+            isActive: boolean;
+            lockDate: string | null;
+            actualBalance: number;
+            pendingWithdrawals: number;
+            pendingDeposits: number;
+            lastReconciliationDate: string | null;
+        };
+    };
+};
+
+export type CreateBankAccountResponse = CreateBankAccountResponses[keyof CreateBankAccountResponses];
+
+export type ListRecentBankAccountsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        limit?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/bank-accounts/recent';
+};
+
+export type ListRecentBankAccountsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListRecentBankAccountsError = ListRecentBankAccountsErrors[keyof ListRecentBankAccountsErrors];
+
+export type ListRecentBankAccountsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            name: string;
+            code: string | null;
+            isActive: boolean;
+        }>;
+    };
+};
+
+export type ListRecentBankAccountsResponse = ListRecentBankAccountsResponses[keyof ListRecentBankAccountsResponses];
+
+export type DeleteBankAccountData = {
+    body?: never;
+    path: {
+        businessId: string;
+        bankAccountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}';
+};
+
+export type DeleteBankAccountErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteBankAccountError = DeleteBankAccountErrors[keyof DeleteBankAccountErrors];
+
+export type DeleteBankAccountResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteBankAccountResponse = DeleteBankAccountResponses[keyof DeleteBankAccountResponses];
+
+export type GetBankAccountData = {
+    body?: never;
+    path: {
+        businessId: string;
+        bankAccountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}';
+};
+
+export type GetBankAccountErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetBankAccountError = GetBankAccountErrors[keyof GetBankAccountErrors];
+
+export type GetBankAccountResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            controlAccountId: string;
+            controlAccountName: string;
+            currencyCode: string;
+            accountNumber: string | null;
+            openingBalance: string;
+            openingBalanceDate: string | null;
+            canHavePendingTransactions: boolean;
+            creditLimit: string;
+            isActive: boolean;
+            lockDate: string | null;
+            actualBalance: number;
+            pendingWithdrawals: number;
+            pendingDeposits: number;
+            lastReconciliationDate: string | null;
+        };
+    };
+};
+
+export type GetBankAccountResponse = GetBankAccountResponses[keyof GetBankAccountResponses];
+
+export type UpdateBankAccountData = {
+    body: {
+        name?: string;
+        code?: string;
+        controlAccountId?: string;
+        accountNumber?: string;
+        openingBalance?: number;
+        openingBalanceDate?: string;
+        canHavePendingTransactions?: boolean;
+        creditLimit?: number;
+    };
+    path: {
+        businessId: string;
+        bankAccountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}';
+};
+
+export type UpdateBankAccountErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateBankAccountError = UpdateBankAccountErrors[keyof UpdateBankAccountErrors];
+
+export type UpdateBankAccountResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            controlAccountId: string;
+            controlAccountName: string;
+            currencyCode: string;
+            accountNumber: string | null;
+            openingBalance: string;
+            openingBalanceDate: string | null;
+            canHavePendingTransactions: boolean;
+            creditLimit: string;
+            isActive: boolean;
+            lockDate: string | null;
+            actualBalance: number;
+            pendingWithdrawals: number;
+            pendingDeposits: number;
+            lastReconciliationDate: string | null;
+        };
+    };
+};
+
+export type UpdateBankAccountResponse = UpdateBankAccountResponses[keyof UpdateBankAccountResponses];
+
+export type SetBankAccountActiveData = {
+    body: {
+        isActive: boolean;
+    };
+    path: {
+        businessId: string;
+        bankAccountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}/active';
+};
+
+export type SetBankAccountActiveErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetBankAccountActiveError = SetBankAccountActiveErrors[keyof SetBankAccountActiveErrors];
+
+export type SetBankAccountActiveResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            controlAccountId: string;
+            controlAccountName: string;
+            currencyCode: string;
+            accountNumber: string | null;
+            openingBalance: string;
+            openingBalanceDate: string | null;
+            canHavePendingTransactions: boolean;
+            creditLimit: string;
+            isActive: boolean;
+            lockDate: string | null;
+            actualBalance: number;
+            pendingWithdrawals: number;
+            pendingDeposits: number;
+            lastReconciliationDate: string | null;
+        };
+    };
+};
+
+export type SetBankAccountActiveResponse = SetBankAccountActiveResponses[keyof SetBankAccountActiveResponses];
+
+export type SetBankAccountLockDateData = {
+    body: {
+        lockDate: string | null;
+    };
+    path: {
+        businessId: string;
+        bankAccountId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}/lock-date';
+};
+
+export type SetBankAccountLockDateErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetBankAccountLockDateError = SetBankAccountLockDateErrors[keyof SetBankAccountLockDateErrors];
+
+export type SetBankAccountLockDateResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            name: string;
+            code: string | null;
+            controlAccountId: string;
+            controlAccountName: string;
+            currencyCode: string;
+            accountNumber: string | null;
+            openingBalance: string;
+            openingBalanceDate: string | null;
+            canHavePendingTransactions: boolean;
+            creditLimit: string;
+            isActive: boolean;
+            lockDate: string | null;
+            actualBalance: number;
+            pendingWithdrawals: number;
+            pendingDeposits: number;
+            lastReconciliationDate: string | null;
+        };
+    };
+};
+
+export type SetBankAccountLockDateResponse = SetBankAccountLockDateResponses[keyof SetBankAccountLockDateResponses];
+
+export type ListSalesInvoicesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/sales-invoices';
+};
+
+export type ListSalesInvoicesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListSalesInvoicesError = ListSalesInvoicesErrors[keyof ListSalesInvoicesErrors];
+
+export type ListSalesInvoicesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            status: 'draft' | 'sent' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Unpaid' | 'Overdue' | 'Paid';
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListSalesInvoicesResponse = ListSalesInvoicesResponses[keyof ListSalesInvoicesResponses];
+
+export type CreateSalesInvoiceData = {
+    body: {
+        customerId: string;
+        issueDate: string;
+        dueDate?: string;
+        reference?: string;
+        billingAddress?: string;
+        description?: string;
+        lines: Array<{
+            accountId: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-invoices';
+};
+
+export type CreateSalesInvoiceErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateSalesInvoiceError = CreateSalesInvoiceErrors[keyof CreateSalesInvoiceErrors];
+
+export type CreateSalesInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            status: 'draft' | 'sent' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Unpaid' | 'Overdue' | 'Paid';
+        };
+    };
+};
+
+export type CreateSalesInvoiceResponse = CreateSalesInvoiceResponses[keyof CreateSalesInvoiceResponses];
+
+export type DeleteSalesInvoiceData = {
+    body?: never;
+    path: {
+        businessId: string;
+        salesInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}';
+};
+
+export type DeleteSalesInvoiceErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteSalesInvoiceError = DeleteSalesInvoiceErrors[keyof DeleteSalesInvoiceErrors];
+
+export type DeleteSalesInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteSalesInvoiceResponse = DeleteSalesInvoiceResponses[keyof DeleteSalesInvoiceResponses];
+
+export type GetSalesInvoiceData = {
+    body?: never;
+    path: {
+        businessId: string;
+        salesInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}';
+};
+
+export type GetSalesInvoiceErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetSalesInvoiceError = GetSalesInvoiceErrors[keyof GetSalesInvoiceErrors];
+
+export type GetSalesInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            status: 'draft' | 'sent' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Unpaid' | 'Overdue' | 'Paid';
+        };
+    };
+};
+
+export type GetSalesInvoiceResponse = GetSalesInvoiceResponses[keyof GetSalesInvoiceResponses];
+
+export type UpdateSalesInvoiceData = {
+    body: {
+        customerId?: string;
+        issueDate?: string;
+        dueDate?: string;
+        reference?: string;
+        billingAddress?: string;
+        description?: string;
+        lines?: Array<{
+            accountId: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+        salesInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}';
+};
+
+export type UpdateSalesInvoiceErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateSalesInvoiceError = UpdateSalesInvoiceErrors[keyof UpdateSalesInvoiceErrors];
+
+export type UpdateSalesInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            status: 'draft' | 'sent' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Unpaid' | 'Overdue' | 'Paid';
+        };
+    };
+};
+
+export type UpdateSalesInvoiceResponse = UpdateSalesInvoiceResponses[keyof UpdateSalesInvoiceResponses];
+
+export type GetSalesInvoiceTotalsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-invoices/totals';
+};
+
+export type GetSalesInvoiceTotalsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetSalesInvoiceTotalsError = GetSalesInvoiceTotalsErrors[keyof GetSalesInvoiceTotalsErrors];
+
+export type GetSalesInvoiceTotalsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            totalInvoiceAmount: number;
+            totalBalanceDue: number;
+        };
+    };
+};
+
+export type GetSalesInvoiceTotalsResponse = GetSalesInvoiceTotalsResponses[keyof GetSalesInvoiceTotalsResponses];
+
+export type SendSalesInvoiceData = {
+    body?: never;
+    path: {
+        businessId: string;
+        salesInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}/send';
+};
+
+export type SendSalesInvoiceErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SendSalesInvoiceError = SendSalesInvoiceErrors[keyof SendSalesInvoiceErrors];
+
+export type SendSalesInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            status: 'draft' | 'sent' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Unpaid' | 'Overdue' | 'Paid';
+        };
+    };
+};
+
+export type SendSalesInvoiceResponse = SendSalesInvoiceResponses[keyof SendSalesInvoiceResponses];
+
+export type VoidSalesInvoiceData = {
+    body?: never;
+    path: {
+        businessId: string;
+        salesInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}/void';
+};
+
+export type VoidSalesInvoiceErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type VoidSalesInvoiceError = VoidSalesInvoiceErrors[keyof VoidSalesInvoiceErrors];
+
+export type VoidSalesInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            status: 'draft' | 'sent' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Unpaid' | 'Overdue' | 'Paid';
+        };
+    };
+};
+
+export type VoidSalesInvoiceResponse = VoidSalesInvoiceResponses[keyof VoidSalesInvoiceResponses];
+
+export type ListPurchaseInvoicesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/purchase-invoices';
+};
+
+export type ListPurchaseInvoicesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListPurchaseInvoicesError = ListPurchaseInvoicesErrors[keyof ListPurchaseInvoicesErrors];
+
+export type ListPurchaseInvoicesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            description: string | null;
+            status: 'draft' | 'approved' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Coming due' | 'Overdue' | 'Paid in full';
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListPurchaseInvoicesResponse = ListPurchaseInvoicesResponses[keyof ListPurchaseInvoicesResponses];
+
+export type CreatePurchaseInvoiceData = {
+    body: {
+        supplierId: string;
+        issueDate: string;
+        dueDate?: string;
+        reference?: string;
+        description?: string;
+        lines: Array<{
+            accountId: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-invoices';
+};
+
+export type CreatePurchaseInvoiceErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreatePurchaseInvoiceError = CreatePurchaseInvoiceErrors[keyof CreatePurchaseInvoiceErrors];
+
+export type CreatePurchaseInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            description: string | null;
+            status: 'draft' | 'approved' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Coming due' | 'Overdue' | 'Paid in full';
+        };
+    };
+};
+
+export type CreatePurchaseInvoiceResponse = CreatePurchaseInvoiceResponses[keyof CreatePurchaseInvoiceResponses];
+
+export type GetPurchaseInvoiceTotalsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/totals';
+};
+
+export type GetPurchaseInvoiceTotalsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetPurchaseInvoiceTotalsError = GetPurchaseInvoiceTotalsErrors[keyof GetPurchaseInvoiceTotalsErrors];
+
+export type GetPurchaseInvoiceTotalsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            totalInvoiceAmount: number;
+            totalBalanceDue: number;
+        };
+    };
+};
+
+export type GetPurchaseInvoiceTotalsResponse = GetPurchaseInvoiceTotalsResponses[keyof GetPurchaseInvoiceTotalsResponses];
+
+export type DeletePurchaseInvoiceData = {
+    body?: never;
+    path: {
+        businessId: string;
+        purchaseInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}';
+};
+
+export type DeletePurchaseInvoiceErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeletePurchaseInvoiceError = DeletePurchaseInvoiceErrors[keyof DeletePurchaseInvoiceErrors];
+
+export type DeletePurchaseInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeletePurchaseInvoiceResponse = DeletePurchaseInvoiceResponses[keyof DeletePurchaseInvoiceResponses];
+
+export type GetPurchaseInvoiceData = {
+    body?: never;
+    path: {
+        businessId: string;
+        purchaseInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}';
+};
+
+export type GetPurchaseInvoiceErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetPurchaseInvoiceError = GetPurchaseInvoiceErrors[keyof GetPurchaseInvoiceErrors];
+
+export type GetPurchaseInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            description: string | null;
+            status: 'draft' | 'approved' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Coming due' | 'Overdue' | 'Paid in full';
+        };
+    };
+};
+
+export type GetPurchaseInvoiceResponse = GetPurchaseInvoiceResponses[keyof GetPurchaseInvoiceResponses];
+
+export type UpdatePurchaseInvoiceData = {
+    body: {
+        supplierId?: string;
+        issueDate?: string;
+        dueDate?: string;
+        reference?: string;
+        description?: string;
+        lines?: Array<{
+            accountId: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+        purchaseInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}';
+};
+
+export type UpdatePurchaseInvoiceErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdatePurchaseInvoiceError = UpdatePurchaseInvoiceErrors[keyof UpdatePurchaseInvoiceErrors];
+
+export type UpdatePurchaseInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            description: string | null;
+            status: 'draft' | 'approved' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Coming due' | 'Overdue' | 'Paid in full';
+        };
+    };
+};
+
+export type UpdatePurchaseInvoiceResponse = UpdatePurchaseInvoiceResponses[keyof UpdatePurchaseInvoiceResponses];
+
+export type ApprovePurchaseInvoiceData = {
+    body?: never;
+    path: {
+        businessId: string;
+        purchaseInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}/approve';
+};
+
+export type ApprovePurchaseInvoiceErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ApprovePurchaseInvoiceError = ApprovePurchaseInvoiceErrors[keyof ApprovePurchaseInvoiceErrors];
+
+export type ApprovePurchaseInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            description: string | null;
+            status: 'draft' | 'approved' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Coming due' | 'Overdue' | 'Paid in full';
+        };
+    };
+};
+
+export type ApprovePurchaseInvoiceResponse = ApprovePurchaseInvoiceResponses[keyof ApprovePurchaseInvoiceResponses];
+
+export type VoidPurchaseInvoiceData = {
+    body?: never;
+    path: {
+        businessId: string;
+        purchaseInvoiceId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}/void';
+};
+
+export type VoidPurchaseInvoiceErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type VoidPurchaseInvoiceError = VoidPurchaseInvoiceErrors[keyof VoidPurchaseInvoiceErrors];
+
+export type VoidPurchaseInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            dueDate: string | null;
+            reference: string | null;
+            description: string | null;
+            status: 'draft' | 'approved' | 'void';
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            invoiceAmount: number;
+            balanceDue: number;
+            paymentStatus: 'Coming due' | 'Overdue' | 'Paid in full';
+        };
+    };
+};
+
+export type VoidPurchaseInvoiceResponse = VoidPurchaseInvoiceResponses[keyof VoidPurchaseInvoiceResponses];
+
+export type ListBankReconciliationsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations';
+};
+
+export type ListBankReconciliationsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListBankReconciliationsError = ListBankReconciliationsErrors[keyof ListBankReconciliationsErrors];
+
+export type ListBankReconciliationsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            bankAccountId: string;
+            bankAccountName: string;
+            reconciliationDate: string;
+            statementBalance: number;
+            bookBalance: number;
+            unclearedWithdrawals: number;
+            unclearedDeposits: number;
+            discrepancy: number;
+            status: 'reconciled' | 'not_reconciled';
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListBankReconciliationsResponse = ListBankReconciliationsResponses[keyof ListBankReconciliationsResponses];
+
+export type CreateBankReconciliationData = {
+    body: {
+        bankAccountId: string;
+        reconciliationDate: string;
+        statementBalance: number;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations';
+};
+
+export type CreateBankReconciliationErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateBankReconciliationError = CreateBankReconciliationErrors[keyof CreateBankReconciliationErrors];
+
+export type CreateBankReconciliationResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            bankAccountId: string;
+            bankAccountName: string;
+            reconciliationDate: string;
+            statementBalance: number;
+            bookBalance: number;
+            unclearedWithdrawals: number;
+            unclearedDeposits: number;
+            discrepancy: number;
+            status: 'reconciled' | 'not_reconciled';
+            unclearedTransactions: Array<{
+                type: 'payment' | 'receipt' | 'transfer_out' | 'transfer_in';
+                id: string;
+                date: string;
+                reference: string;
+                amount: number;
+                kind: 'withdrawal' | 'deposit';
+            }>;
+        };
+    };
+};
+
+export type CreateBankReconciliationResponse = CreateBankReconciliationResponses[keyof CreateBankReconciliationResponses];
+
+export type DeleteBankReconciliationData = {
+    body?: never;
+    path: {
+        businessId: string;
+        reconciliationId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations/{reconciliationId}';
+};
+
+export type DeleteBankReconciliationErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteBankReconciliationError = DeleteBankReconciliationErrors[keyof DeleteBankReconciliationErrors];
+
+export type DeleteBankReconciliationResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteBankReconciliationResponse = DeleteBankReconciliationResponses[keyof DeleteBankReconciliationResponses];
+
+export type GetBankReconciliationData = {
+    body?: never;
+    path: {
+        businessId: string;
+        reconciliationId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations/{reconciliationId}';
+};
+
+export type GetBankReconciliationErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetBankReconciliationError = GetBankReconciliationErrors[keyof GetBankReconciliationErrors];
+
+export type GetBankReconciliationResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            bankAccountId: string;
+            bankAccountName: string;
+            reconciliationDate: string;
+            statementBalance: number;
+            bookBalance: number;
+            unclearedWithdrawals: number;
+            unclearedDeposits: number;
+            discrepancy: number;
+            status: 'reconciled' | 'not_reconciled';
+            unclearedTransactions: Array<{
+                type: 'payment' | 'receipt' | 'transfer_out' | 'transfer_in';
+                id: string;
+                date: string;
+                reference: string;
+                amount: number;
+                kind: 'withdrawal' | 'deposit';
+            }>;
+        };
+    };
+};
+
+export type GetBankReconciliationResponse = GetBankReconciliationResponses[keyof GetBankReconciliationResponses];
+
+export type UpdateBankReconciliationData = {
+    body: {
+        reconciliationDate?: string;
+        statementBalance?: number;
+    };
+    path: {
+        businessId: string;
+        reconciliationId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations/{reconciliationId}';
+};
+
+export type UpdateBankReconciliationErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateBankReconciliationError = UpdateBankReconciliationErrors[keyof UpdateBankReconciliationErrors];
+
+export type UpdateBankReconciliationResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            bankAccountId: string;
+            bankAccountName: string;
+            reconciliationDate: string;
+            statementBalance: number;
+            bookBalance: number;
+            unclearedWithdrawals: number;
+            unclearedDeposits: number;
+            discrepancy: number;
+            status: 'reconciled' | 'not_reconciled';
+            unclearedTransactions: Array<{
+                type: 'payment' | 'receipt' | 'transfer_out' | 'transfer_in';
+                id: string;
+                date: string;
+                reference: string;
+                amount: number;
+                kind: 'withdrawal' | 'deposit';
+            }>;
+        };
+    };
+};
+
+export type UpdateBankReconciliationResponse = UpdateBankReconciliationResponses[keyof UpdateBankReconciliationResponses];
+
+export type ListReceiptsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/receipts';
+};
+
+export type ListReceiptsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListReceiptsError = ListReceiptsErrors[keyof ListReceiptsErrors];
+
+export type ListReceiptsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            receiptDate: string;
+            reference: string;
+            receivedInBankAccountId: string;
+            receivedInBankAccountName: string;
+            paidByContactId: string | null;
+            paidByContactName: string | null;
+            description: string | null;
+            cleared: boolean;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                salesInvoiceId: string | null;
+                salesInvoiceReference: string | null;
+                amount: string;
+            }>;
+            totalAmount: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListReceiptsResponse = ListReceiptsResponses[keyof ListReceiptsResponses];
+
+export type CreateReceiptData = {
+    body: {
+        receiptDate: string;
+        reference?: string;
+        receivedInBankAccountId: string;
+        paidByContactId?: string;
+        description?: string;
+        lines: Array<{
+            amount: number;
+            salesInvoiceId?: string;
+            accountId?: string;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/receipts';
+};
+
+export type CreateReceiptErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateReceiptError = CreateReceiptErrors[keyof CreateReceiptErrors];
+
+export type CreateReceiptResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            receiptDate: string;
+            reference: string;
+            receivedInBankAccountId: string;
+            receivedInBankAccountName: string;
+            paidByContactId: string | null;
+            paidByContactName: string | null;
+            description: string | null;
+            cleared: boolean;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                salesInvoiceId: string | null;
+                salesInvoiceReference: string | null;
+                amount: string;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type CreateReceiptResponse = CreateReceiptResponses[keyof CreateReceiptResponses];
+
+export type GetReceiptTotalsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/receipts/totals';
+};
+
+export type GetReceiptTotalsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetReceiptTotalsError = GetReceiptTotalsErrors[keyof GetReceiptTotalsErrors];
+
+export type GetReceiptTotalsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetReceiptTotalsResponse = GetReceiptTotalsResponses[keyof GetReceiptTotalsResponses];
+
+export type DeleteReceiptData = {
+    body?: never;
+    path: {
+        businessId: string;
+        receiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/receipts/{receiptId}';
+};
+
+export type DeleteReceiptErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteReceiptError = DeleteReceiptErrors[keyof DeleteReceiptErrors];
+
+export type DeleteReceiptResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteReceiptResponse = DeleteReceiptResponses[keyof DeleteReceiptResponses];
+
+export type GetReceiptData = {
+    body?: never;
+    path: {
+        businessId: string;
+        receiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/receipts/{receiptId}';
+};
+
+export type GetReceiptErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetReceiptError = GetReceiptErrors[keyof GetReceiptErrors];
+
+export type GetReceiptResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            receiptDate: string;
+            reference: string;
+            receivedInBankAccountId: string;
+            receivedInBankAccountName: string;
+            paidByContactId: string | null;
+            paidByContactName: string | null;
+            description: string | null;
+            cleared: boolean;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                salesInvoiceId: string | null;
+                salesInvoiceReference: string | null;
+                amount: string;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetReceiptResponse = GetReceiptResponses[keyof GetReceiptResponses];
+
+export type SetReceiptClearedData = {
+    body: {
+        cleared: boolean;
+    };
+    path: {
+        businessId: string;
+        receiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/receipts/{receiptId}/cleared';
+};
+
+export type SetReceiptClearedErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetReceiptClearedError = SetReceiptClearedErrors[keyof SetReceiptClearedErrors];
+
+export type SetReceiptClearedResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            receiptDate: string;
+            reference: string;
+            receivedInBankAccountId: string;
+            receivedInBankAccountName: string;
+            paidByContactId: string | null;
+            paidByContactName: string | null;
+            description: string | null;
+            cleared: boolean;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                salesInvoiceId: string | null;
+                salesInvoiceReference: string | null;
+                amount: string;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type SetReceiptClearedResponse = SetReceiptClearedResponses[keyof SetReceiptClearedResponses];
+
+export type ListPaymentsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/payments';
+};
+
+export type ListPaymentsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListPaymentsError = ListPaymentsErrors[keyof ListPaymentsErrors];
+
+export type ListPaymentsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            paymentDate: string;
+            reference: string;
+            paidFromBankAccountId: string;
+            paidFromBankAccountName: string;
+            payeeContactId: string;
+            payeeContactName: string;
+            description: string | null;
+            cleared: boolean;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                purchaseInvoiceId: string | null;
+                purchaseInvoiceReference: string | null;
+                amount: string;
+            }>;
+            totalAmount: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListPaymentsResponse = ListPaymentsResponses[keyof ListPaymentsResponses];
+
+export type CreatePaymentData = {
+    body: {
+        paymentDate: string;
+        reference?: string;
+        paidFromBankAccountId: string;
+        payeeContactId: string;
+        description?: string;
+        lines: Array<{
+            amount: number;
+            purchaseInvoiceId?: string;
+            accountId?: string;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/payments';
+};
+
+export type CreatePaymentErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreatePaymentError = CreatePaymentErrors[keyof CreatePaymentErrors];
+
+export type CreatePaymentResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            paymentDate: string;
+            reference: string;
+            paidFromBankAccountId: string;
+            paidFromBankAccountName: string;
+            payeeContactId: string;
+            payeeContactName: string;
+            description: string | null;
+            cleared: boolean;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                purchaseInvoiceId: string | null;
+                purchaseInvoiceReference: string | null;
+                amount: string;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type CreatePaymentResponse = CreatePaymentResponses[keyof CreatePaymentResponses];
+
+export type GetPaymentTotalsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/payments/totals';
+};
+
+export type GetPaymentTotalsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetPaymentTotalsError = GetPaymentTotalsErrors[keyof GetPaymentTotalsErrors];
+
+export type GetPaymentTotalsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetPaymentTotalsResponse = GetPaymentTotalsResponses[keyof GetPaymentTotalsResponses];
+
+export type DeletePaymentData = {
+    body?: never;
+    path: {
+        businessId: string;
+        paymentId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/payments/{paymentId}';
+};
+
+export type DeletePaymentErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeletePaymentError = DeletePaymentErrors[keyof DeletePaymentErrors];
+
+export type DeletePaymentResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeletePaymentResponse = DeletePaymentResponses[keyof DeletePaymentResponses];
+
+export type GetPaymentData = {
+    body?: never;
+    path: {
+        businessId: string;
+        paymentId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/payments/{paymentId}';
+};
+
+export type GetPaymentErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetPaymentError = GetPaymentErrors[keyof GetPaymentErrors];
+
+export type GetPaymentResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            paymentDate: string;
+            reference: string;
+            paidFromBankAccountId: string;
+            paidFromBankAccountName: string;
+            payeeContactId: string;
+            payeeContactName: string;
+            description: string | null;
+            cleared: boolean;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                purchaseInvoiceId: string | null;
+                purchaseInvoiceReference: string | null;
+                amount: string;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetPaymentResponse = GetPaymentResponses[keyof GetPaymentResponses];
+
+export type SetPaymentClearedData = {
+    body: {
+        cleared: boolean;
+    };
+    path: {
+        businessId: string;
+        paymentId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/payments/{paymentId}/cleared';
+};
+
+export type SetPaymentClearedErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetPaymentClearedError = SetPaymentClearedErrors[keyof SetPaymentClearedErrors];
+
+export type SetPaymentClearedResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            paymentDate: string;
+            reference: string;
+            paidFromBankAccountId: string;
+            paidFromBankAccountName: string;
+            payeeContactId: string;
+            payeeContactName: string;
+            description: string | null;
+            cleared: boolean;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                purchaseInvoiceId: string | null;
+                purchaseInvoiceReference: string | null;
+                amount: string;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type SetPaymentClearedResponse = SetPaymentClearedResponses[keyof SetPaymentClearedResponses];
+
+export type ListInterAccountTransfersData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers';
+};
+
+export type ListInterAccountTransfersErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListInterAccountTransfersError = ListInterAccountTransfersErrors[keyof ListInterAccountTransfersErrors];
+
+export type ListInterAccountTransfersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            transferDate: string;
+            reference: string;
+            description: string | null;
+            paidFromBankAccountId: string;
+            paidFromBankAccountName: string;
+            receivedInBankAccountId: string;
+            receivedInBankAccountName: string;
+            amount: number;
+            paidFromCleared: boolean;
+            receivedInCleared: boolean;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListInterAccountTransfersResponse = ListInterAccountTransfersResponses[keyof ListInterAccountTransfersResponses];
+
+export type CreateInterAccountTransferData = {
+    body: {
+        transferDate: string;
+        reference?: string;
+        description?: string;
+        paidFromBankAccountId: string;
+        receivedInBankAccountId: string;
+        amount: number;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers';
+};
+
+export type CreateInterAccountTransferErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateInterAccountTransferError = CreateInterAccountTransferErrors[keyof CreateInterAccountTransferErrors];
+
+export type CreateInterAccountTransferResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            transferDate: string;
+            reference: string;
+            description: string | null;
+            paidFromBankAccountId: string;
+            paidFromBankAccountName: string;
+            receivedInBankAccountId: string;
+            receivedInBankAccountName: string;
+            amount: number;
+            paidFromCleared: boolean;
+            receivedInCleared: boolean;
+        };
+    };
+};
+
+export type CreateInterAccountTransferResponse = CreateInterAccountTransferResponses[keyof CreateInterAccountTransferResponses];
+
+export type DeleteInterAccountTransferData = {
+    body?: never;
+    path: {
+        businessId: string;
+        transferId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers/{transferId}';
+};
+
+export type DeleteInterAccountTransferErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteInterAccountTransferError = DeleteInterAccountTransferErrors[keyof DeleteInterAccountTransferErrors];
+
+export type DeleteInterAccountTransferResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteInterAccountTransferResponse = DeleteInterAccountTransferResponses[keyof DeleteInterAccountTransferResponses];
+
+export type GetInterAccountTransferData = {
+    body?: never;
+    path: {
+        businessId: string;
+        transferId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers/{transferId}';
+};
+
+export type GetInterAccountTransferErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetInterAccountTransferError = GetInterAccountTransferErrors[keyof GetInterAccountTransferErrors];
+
+export type GetInterAccountTransferResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            transferDate: string;
+            reference: string;
+            description: string | null;
+            paidFromBankAccountId: string;
+            paidFromBankAccountName: string;
+            receivedInBankAccountId: string;
+            receivedInBankAccountName: string;
+            amount: number;
+            paidFromCleared: boolean;
+            receivedInCleared: boolean;
+        };
+    };
+};
+
+export type GetInterAccountTransferResponse = GetInterAccountTransferResponses[keyof GetInterAccountTransferResponses];
+
+export type SetInterAccountTransferClearedData = {
+    body: {
+        paidFromCleared?: boolean;
+        receivedInCleared?: boolean;
+    };
+    path: {
+        businessId: string;
+        transferId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers/{transferId}/cleared';
+};
+
+export type SetInterAccountTransferClearedErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetInterAccountTransferClearedError = SetInterAccountTransferClearedErrors[keyof SetInterAccountTransferClearedErrors];
+
+export type SetInterAccountTransferClearedResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            transferDate: string;
+            reference: string;
+            description: string | null;
+            paidFromBankAccountId: string;
+            paidFromBankAccountName: string;
+            receivedInBankAccountId: string;
+            receivedInBankAccountName: string;
+            amount: number;
+            paidFromCleared: boolean;
+            receivedInCleared: boolean;
+        };
+    };
+};
+
+export type SetInterAccountTransferClearedResponse = SetInterAccountTransferClearedResponses[keyof SetInterAccountTransferClearedResponses];

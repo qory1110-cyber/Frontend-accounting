@@ -26,6 +26,7 @@
     "@tanstack/react-router": "latest",
     "@tanstack/react-router-devtools": "latest",
     "class-variance-authority": "^0.7.1",
+    "cmdk": "^1.1.1",
     "cn": "^0.3.0",
     "js-cookie": "^3.0.8",
     "lucide-react": "^1.45.0",

@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { ChangePasswordData, ChangePasswordErrors, ChangePasswordResponses, CreateBusinessData, CreateBusinessErrors, CreateBusinessResponses, CreateChartOfAccountData, CreateChartOfAccountErrors, CreateChartOfAccountResponses, CreateCustomerData, CreateCustomerErrors, CreateCustomerResponses, CreateUserData, CreateUserErrors, CreateUserResponses, DeleteCustomerData, DeleteCustomerErrors, DeleteCustomerResponses, GetBusinessData, GetBusinessErrors, GetBusinessResponses, GetChartOfAccountData, GetChartOfAccountErrors, GetChartOfAccountResponses, GetCustomerData, GetCustomerErrors, GetCustomerResponses, GetMeData, GetMeErrors, GetMeResponses, InviteBusinessMemberData, InviteBusinessMemberErrors, InviteBusinessMemberResponses, ListBusinessMembersData, ListBusinessMembersErrors, ListBusinessMembersResponses, ListChartOfAccountsData, ListChartOfAccountsErrors, ListChartOfAccountsResponses, ListCustomersData, ListCustomersErrors, ListCustomersResponses, ListMyBusinessesData, ListMyBusinessesErrors, ListMyBusinessesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RemoveBusinessMemberData, RemoveBusinessMemberErrors, RemoveBusinessMemberResponses, SetChartOfAccountActiveData, SetChartOfAccountActiveErrors, SetChartOfAccountActiveResponses, SetCustomerActiveData, SetCustomerActiveErrors, SetCustomerActiveResponses, UpdateBusinessData, UpdateBusinessErrors, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleErrors, UpdateBusinessMemberRoleResponses, UpdateBusinessResponses, UpdateChartOfAccountData, UpdateChartOfAccountErrors, UpdateChartOfAccountResponses, UpdateCustomerData, UpdateCustomerErrors, UpdateCustomerResponses, UpdateMeData, UpdateMeErrors, UpdateMeResponses } from './types.gen';
+import type { ApprovePurchaseInvoiceData, ApprovePurchaseInvoiceErrors, ApprovePurchaseInvoiceResponses, ChangePasswordData, ChangePasswordErrors, ChangePasswordResponses, CreateBankAccountData, CreateBankAccountErrors, CreateBankAccountResponses, CreateBankReconciliationData, CreateBankReconciliationErrors, CreateBankReconciliationResponses, CreateBusinessData, CreateBusinessErrors, CreateBusinessResponses, CreateChartOfAccountData, CreateChartOfAccountErrors, CreateChartOfAccountResponses, CreateCustomerData, CreateCustomerErrors, CreateCustomerResponses, CreateInterAccountTransferData, CreateInterAccountTransferErrors, CreateInterAccountTransferResponses, CreatePaymentData, CreatePaymentErrors, CreatePaymentResponses, CreatePurchaseInvoiceData, CreatePurchaseInvoiceErrors, CreatePurchaseInvoiceResponses, CreateReceiptData, CreateReceiptErrors, CreateReceiptResponses, CreateSalesInvoiceData, CreateSalesInvoiceErrors, CreateSalesInvoiceResponses, CreateSupplierData, CreateSupplierErrors, CreateSupplierResponses, CreateUserData, CreateUserErrors, CreateUserResponses, DeleteBankAccountData, DeleteBankAccountErrors, DeleteBankAccountResponses, DeleteBankReconciliationData, DeleteBankReconciliationErrors, DeleteBankReconciliationResponses, DeleteBusinessData, DeleteBusinessErrors, DeleteBusinessResponses, DeleteChartOfAccountData, DeleteChartOfAccountErrors, DeleteChartOfAccountResponses, DeleteCustomerData, DeleteCustomerErrors, DeleteCustomerResponses, DeleteInterAccountTransferData, DeleteInterAccountTransferErrors, DeleteInterAccountTransferResponses, DeletePaymentData, DeletePaymentErrors, DeletePaymentResponses, DeletePurchaseInvoiceData, DeletePurchaseInvoiceErrors, DeletePurchaseInvoiceResponses, DeleteReceiptData, DeleteReceiptErrors, DeleteReceiptResponses, DeleteSalesInvoiceData, DeleteSalesInvoiceErrors, DeleteSalesInvoiceResponses, DeleteSupplierData, DeleteSupplierErrors, DeleteSupplierResponses, GetBankAccountData, GetBankAccountErrors, GetBankAccountResponses, GetBankReconciliationData, GetBankReconciliationErrors, GetBankReconciliationResponses, GetBusinessData, GetBusinessErrors, GetBusinessResponses, GetChartOfAccountData, GetChartOfAccountErrors, GetChartOfAccountResponses, GetCustomerData, GetCustomerErrors, GetCustomerResponses, GetInterAccountTransferData, GetInterAccountTransferErrors, GetInterAccountTransferResponses, GetMeData, GetMeErrors, GetMeResponses, GetPaymentData, GetPaymentErrors, GetPaymentResponses, GetPaymentTotalsData, GetPaymentTotalsErrors, GetPaymentTotalsResponses, GetPurchaseInvoiceData, GetPurchaseInvoiceErrors, GetPurchaseInvoiceResponses, GetPurchaseInvoiceTotalsData, GetPurchaseInvoiceTotalsErrors, GetPurchaseInvoiceTotalsResponses, GetReceiptData, GetReceiptErrors, GetReceiptResponses, GetReceiptTotalsData, GetReceiptTotalsErrors, GetReceiptTotalsResponses, GetSalesInvoiceData, GetSalesInvoiceErrors, GetSalesInvoiceResponses, GetSalesInvoiceTotalsData, GetSalesInvoiceTotalsErrors, GetSalesInvoiceTotalsResponses, GetSupplierData, GetSupplierErrors, GetSupplierResponses, InviteBusinessMemberData, InviteBusinessMemberErrors, InviteBusinessMemberResponses, ListBankAccountsData, ListBankAccountsErrors, ListBankAccountsResponses, ListBankReconciliationsData, ListBankReconciliationsErrors, ListBankReconciliationsResponses, ListBusinessMembersData, ListBusinessMembersErrors, ListBusinessMembersResponses, ListChartOfAccountsData, ListChartOfAccountsErrors, ListChartOfAccountsResponses, ListCustomersData, ListCustomersErrors, ListCustomersResponses, ListInterAccountTransfersData, ListInterAccountTransfersErrors, ListInterAccountTransfersResponses, ListMyBusinessesData, ListMyBusinessesErrors, ListMyBusinessesResponses, ListPaymentsData, ListPaymentsErrors, ListPaymentsResponses, ListPurchaseInvoicesData, ListPurchaseInvoicesErrors, ListPurchaseInvoicesResponses, ListReceiptsData, ListReceiptsErrors, ListReceiptsResponses, ListRecentBankAccountsData, ListRecentBankAccountsErrors, ListRecentBankAccountsResponses, ListRecentChartOfAccountsData, ListRecentChartOfAccountsErrors, ListRecentChartOfAccountsResponses, ListRecentCustomersData, ListRecentCustomersErrors, ListRecentCustomersResponses, ListRecentSuppliersData, ListRecentSuppliersErrors, ListRecentSuppliersResponses, ListSalesInvoicesData, ListSalesInvoicesErrors, ListSalesInvoicesResponses, ListSuppliersData, ListSuppliersErrors, ListSuppliersResponses, ListUsersData, ListUsersErrors, ListUsersResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RemoveBusinessMemberData, RemoveBusinessMemberErrors, RemoveBusinessMemberResponses, SendSalesInvoiceData, SendSalesInvoiceErrors, SendSalesInvoiceResponses, SetBankAccountActiveData, SetBankAccountActiveErrors, SetBankAccountActiveResponses, SetBankAccountLockDateData, SetBankAccountLockDateErrors, SetBankAccountLockDateResponses, SetChartOfAccountActiveData, SetChartOfAccountActiveErrors, SetChartOfAccountActiveResponses, SetCustomerActiveData, SetCustomerActiveErrors, SetCustomerActiveResponses, SetInterAccountTransferClearedData, SetInterAccountTransferClearedErrors, SetInterAccountTransferClearedResponses, SetPaymentClearedData, SetPaymentClearedErrors, SetPaymentClearedResponses, SetReceiptClearedData, SetReceiptClearedErrors, SetReceiptClearedResponses, SetSupplierActiveData, SetSupplierActiveErrors, SetSupplierActiveResponses, UpdateBankAccountData, UpdateBankAccountErrors, UpdateBankAccountResponses, UpdateBankReconciliationData, UpdateBankReconciliationErrors, UpdateBankReconciliationResponses, UpdateBusinessData, UpdateBusinessErrors, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleErrors, UpdateBusinessMemberRoleResponses, UpdateBusinessResponses, UpdateChartOfAccountData, UpdateChartOfAccountErrors, UpdateChartOfAccountResponses, UpdateCustomerData, UpdateCustomerErrors, UpdateCustomerResponses, UpdateMeData, UpdateMeErrors, UpdateMeResponses, UpdatePurchaseInvoiceData, UpdatePurchaseInvoiceErrors, UpdatePurchaseInvoiceResponses, UpdateSalesInvoiceData, UpdateSalesInvoiceErrors, UpdateSalesInvoiceResponses, UpdateSupplierData, UpdateSupplierErrors, UpdateSupplierResponses, VoidPurchaseInvoiceData, VoidPurchaseInvoiceErrors, VoidPurchaseInvoiceResponses, VoidSalesInvoiceData, VoidSalesInvoiceErrors, VoidSalesInvoiceResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -103,6 +103,16 @@ export const createBusiness = <ThrowOnError extends boolean = false>(options: Op
     }
 });
 
+export const deleteBusiness = <ThrowOnError extends boolean = false>(options: Options<DeleteBusinessData, ThrowOnError>): RequestResult<DeleteBusinessResponses, DeleteBusinessErrors, ThrowOnError> => (options.client ?? client).delete<DeleteBusinessResponses, DeleteBusinessErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
 export const getBusiness = <ThrowOnError extends boolean = false>(options: Options<GetBusinessData, ThrowOnError>): RequestResult<GetBusinessResponses, GetBusinessErrors, ThrowOnError> => (options.client ?? client).get<GetBusinessResponses, GetBusinessErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/businesses/{businessId}',
@@ -167,6 +177,18 @@ export const createChartOfAccount = <ThrowOnError extends boolean = false>(optio
     }
 });
 
+export const listRecentChartOfAccounts = <ThrowOnError extends boolean = false>(options: Options<ListRecentChartOfAccountsData, ThrowOnError>): RequestResult<ListRecentChartOfAccountsResponses, ListRecentChartOfAccountsErrors, ThrowOnError> => (options.client ?? client).get<ListRecentChartOfAccountsResponses, ListRecentChartOfAccountsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/recent',
+    ...options
+});
+
+export const deleteChartOfAccount = <ThrowOnError extends boolean = false>(options: Options<DeleteChartOfAccountData, ThrowOnError>): RequestResult<DeleteChartOfAccountResponses, DeleteChartOfAccountErrors, ThrowOnError> => (options.client ?? client).delete<DeleteChartOfAccountResponses, DeleteChartOfAccountErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}',
+    ...options
+});
+
 export const getChartOfAccount = <ThrowOnError extends boolean = false>(options: Options<GetChartOfAccountData, ThrowOnError>): RequestResult<GetChartOfAccountResponses, GetChartOfAccountErrors, ThrowOnError> => (options.client ?? client).get<GetChartOfAccountResponses, GetChartOfAccountErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/businesses/{businessId}/chart-of-accounts/{accountId}',
@@ -209,6 +231,12 @@ export const createCustomer = <ThrowOnError extends boolean = false>(options: Op
     }
 });
 
+export const listRecentCustomers = <ThrowOnError extends boolean = false>(options: Options<ListRecentCustomersData, ThrowOnError>): RequestResult<ListRecentCustomersResponses, ListRecentCustomersErrors, ThrowOnError> => (options.client ?? client).get<ListRecentCustomersResponses, ListRecentCustomersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/customers/recent',
+    ...options
+});
+
 export const deleteCustomer = <ThrowOnError extends boolean = false>(options: Options<DeleteCustomerData, ThrowOnError>): RequestResult<DeleteCustomerResponses, DeleteCustomerErrors, ThrowOnError> => (options.client ?? client).delete<DeleteCustomerResponses, DeleteCustomerErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/businesses/{businessId}/customers/{customerId}',
@@ -234,6 +262,400 @@ export const updateCustomer = <ThrowOnError extends boolean = false>(options: Op
 export const setCustomerActive = <ThrowOnError extends boolean = false>(options: Options<SetCustomerActiveData, ThrowOnError>): RequestResult<SetCustomerActiveResponses, SetCustomerActiveErrors, ThrowOnError> => (options.client ?? client).patch<SetCustomerActiveResponses, SetCustomerActiveErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/businesses/{businessId}/customers/{customerId}/active',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listSuppliers = <ThrowOnError extends boolean = false>(options: Options<ListSuppliersData, ThrowOnError>): RequestResult<ListSuppliersResponses, ListSuppliersErrors, ThrowOnError> => (options.client ?? client).get<ListSuppliersResponses, ListSuppliersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/suppliers',
+    ...options
+});
+
+export const createSupplier = <ThrowOnError extends boolean = false>(options: Options<CreateSupplierData, ThrowOnError>): RequestResult<CreateSupplierResponses, CreateSupplierErrors, ThrowOnError> => (options.client ?? client).post<CreateSupplierResponses, CreateSupplierErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/suppliers',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listRecentSuppliers = <ThrowOnError extends boolean = false>(options: Options<ListRecentSuppliersData, ThrowOnError>): RequestResult<ListRecentSuppliersResponses, ListRecentSuppliersErrors, ThrowOnError> => (options.client ?? client).get<ListRecentSuppliersResponses, ListRecentSuppliersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/suppliers/recent',
+    ...options
+});
+
+export const deleteSupplier = <ThrowOnError extends boolean = false>(options: Options<DeleteSupplierData, ThrowOnError>): RequestResult<DeleteSupplierResponses, DeleteSupplierErrors, ThrowOnError> => (options.client ?? client).delete<DeleteSupplierResponses, DeleteSupplierErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/suppliers/{supplierId}',
+    ...options
+});
+
+export const getSupplier = <ThrowOnError extends boolean = false>(options: Options<GetSupplierData, ThrowOnError>): RequestResult<GetSupplierResponses, GetSupplierErrors, ThrowOnError> => (options.client ?? client).get<GetSupplierResponses, GetSupplierErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/suppliers/{supplierId}',
+    ...options
+});
+
+export const updateSupplier = <ThrowOnError extends boolean = false>(options: Options<UpdateSupplierData, ThrowOnError>): RequestResult<UpdateSupplierResponses, UpdateSupplierErrors, ThrowOnError> => (options.client ?? client).patch<UpdateSupplierResponses, UpdateSupplierErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/suppliers/{supplierId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const setSupplierActive = <ThrowOnError extends boolean = false>(options: Options<SetSupplierActiveData, ThrowOnError>): RequestResult<SetSupplierActiveResponses, SetSupplierActiveErrors, ThrowOnError> => (options.client ?? client).patch<SetSupplierActiveResponses, SetSupplierActiveErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/suppliers/{supplierId}/active',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listBankAccounts = <ThrowOnError extends boolean = false>(options: Options<ListBankAccountsData, ThrowOnError>): RequestResult<ListBankAccountsResponses, ListBankAccountsErrors, ThrowOnError> => (options.client ?? client).get<ListBankAccountsResponses, ListBankAccountsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-accounts',
+    ...options
+});
+
+export const createBankAccount = <ThrowOnError extends boolean = false>(options: Options<CreateBankAccountData, ThrowOnError>): RequestResult<CreateBankAccountResponses, CreateBankAccountErrors, ThrowOnError> => (options.client ?? client).post<CreateBankAccountResponses, CreateBankAccountErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-accounts',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listRecentBankAccounts = <ThrowOnError extends boolean = false>(options: Options<ListRecentBankAccountsData, ThrowOnError>): RequestResult<ListRecentBankAccountsResponses, ListRecentBankAccountsErrors, ThrowOnError> => (options.client ?? client).get<ListRecentBankAccountsResponses, ListRecentBankAccountsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-accounts/recent',
+    ...options
+});
+
+export const deleteBankAccount = <ThrowOnError extends boolean = false>(options: Options<DeleteBankAccountData, ThrowOnError>): RequestResult<DeleteBankAccountResponses, DeleteBankAccountErrors, ThrowOnError> => (options.client ?? client).delete<DeleteBankAccountResponses, DeleteBankAccountErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}',
+    ...options
+});
+
+export const getBankAccount = <ThrowOnError extends boolean = false>(options: Options<GetBankAccountData, ThrowOnError>): RequestResult<GetBankAccountResponses, GetBankAccountErrors, ThrowOnError> => (options.client ?? client).get<GetBankAccountResponses, GetBankAccountErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}',
+    ...options
+});
+
+export const updateBankAccount = <ThrowOnError extends boolean = false>(options: Options<UpdateBankAccountData, ThrowOnError>): RequestResult<UpdateBankAccountResponses, UpdateBankAccountErrors, ThrowOnError> => (options.client ?? client).patch<UpdateBankAccountResponses, UpdateBankAccountErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const setBankAccountActive = <ThrowOnError extends boolean = false>(options: Options<SetBankAccountActiveData, ThrowOnError>): RequestResult<SetBankAccountActiveResponses, SetBankAccountActiveErrors, ThrowOnError> => (options.client ?? client).patch<SetBankAccountActiveResponses, SetBankAccountActiveErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}/active',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const setBankAccountLockDate = <ThrowOnError extends boolean = false>(options: Options<SetBankAccountLockDateData, ThrowOnError>): RequestResult<SetBankAccountLockDateResponses, SetBankAccountLockDateErrors, ThrowOnError> => (options.client ?? client).patch<SetBankAccountLockDateResponses, SetBankAccountLockDateErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-accounts/{bankAccountId}/lock-date',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listSalesInvoices = <ThrowOnError extends boolean = false>(options: Options<ListSalesInvoicesData, ThrowOnError>): RequestResult<ListSalesInvoicesResponses, ListSalesInvoicesErrors, ThrowOnError> => (options.client ?? client).get<ListSalesInvoicesResponses, ListSalesInvoicesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/sales-invoices',
+    ...options
+});
+
+export const createSalesInvoice = <ThrowOnError extends boolean = false>(options: Options<CreateSalesInvoiceData, ThrowOnError>): RequestResult<CreateSalesInvoiceResponses, CreateSalesInvoiceErrors, ThrowOnError> => (options.client ?? client).post<CreateSalesInvoiceResponses, CreateSalesInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/sales-invoices',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const deleteSalesInvoice = <ThrowOnError extends boolean = false>(options: Options<DeleteSalesInvoiceData, ThrowOnError>): RequestResult<DeleteSalesInvoiceResponses, DeleteSalesInvoiceErrors, ThrowOnError> => (options.client ?? client).delete<DeleteSalesInvoiceResponses, DeleteSalesInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}',
+    ...options
+});
+
+export const getSalesInvoice = <ThrowOnError extends boolean = false>(options: Options<GetSalesInvoiceData, ThrowOnError>): RequestResult<GetSalesInvoiceResponses, GetSalesInvoiceErrors, ThrowOnError> => (options.client ?? client).get<GetSalesInvoiceResponses, GetSalesInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}',
+    ...options
+});
+
+export const updateSalesInvoice = <ThrowOnError extends boolean = false>(options: Options<UpdateSalesInvoiceData, ThrowOnError>): RequestResult<UpdateSalesInvoiceResponses, UpdateSalesInvoiceErrors, ThrowOnError> => (options.client ?? client).patch<UpdateSalesInvoiceResponses, UpdateSalesInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const getSalesInvoiceTotals = <ThrowOnError extends boolean = false>(options: Options<GetSalesInvoiceTotalsData, ThrowOnError>): RequestResult<GetSalesInvoiceTotalsResponses, GetSalesInvoiceTotalsErrors, ThrowOnError> => (options.client ?? client).get<GetSalesInvoiceTotalsResponses, GetSalesInvoiceTotalsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/sales-invoices/totals',
+    ...options
+});
+
+export const sendSalesInvoice = <ThrowOnError extends boolean = false>(options: Options<SendSalesInvoiceData, ThrowOnError>): RequestResult<SendSalesInvoiceResponses, SendSalesInvoiceErrors, ThrowOnError> => (options.client ?? client).post<SendSalesInvoiceResponses, SendSalesInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}/send',
+    ...options
+});
+
+export const voidSalesInvoice = <ThrowOnError extends boolean = false>(options: Options<VoidSalesInvoiceData, ThrowOnError>): RequestResult<VoidSalesInvoiceResponses, VoidSalesInvoiceErrors, ThrowOnError> => (options.client ?? client).post<VoidSalesInvoiceResponses, VoidSalesInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/sales-invoices/{salesInvoiceId}/void',
+    ...options
+});
+
+export const listPurchaseInvoices = <ThrowOnError extends boolean = false>(options: Options<ListPurchaseInvoicesData, ThrowOnError>): RequestResult<ListPurchaseInvoicesResponses, ListPurchaseInvoicesErrors, ThrowOnError> => (options.client ?? client).get<ListPurchaseInvoicesResponses, ListPurchaseInvoicesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/purchase-invoices',
+    ...options
+});
+
+export const createPurchaseInvoice = <ThrowOnError extends boolean = false>(options: Options<CreatePurchaseInvoiceData, ThrowOnError>): RequestResult<CreatePurchaseInvoiceResponses, CreatePurchaseInvoiceErrors, ThrowOnError> => (options.client ?? client).post<CreatePurchaseInvoiceResponses, CreatePurchaseInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/purchase-invoices',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const getPurchaseInvoiceTotals = <ThrowOnError extends boolean = false>(options: Options<GetPurchaseInvoiceTotalsData, ThrowOnError>): RequestResult<GetPurchaseInvoiceTotalsResponses, GetPurchaseInvoiceTotalsErrors, ThrowOnError> => (options.client ?? client).get<GetPurchaseInvoiceTotalsResponses, GetPurchaseInvoiceTotalsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/totals',
+    ...options
+});
+
+export const deletePurchaseInvoice = <ThrowOnError extends boolean = false>(options: Options<DeletePurchaseInvoiceData, ThrowOnError>): RequestResult<DeletePurchaseInvoiceResponses, DeletePurchaseInvoiceErrors, ThrowOnError> => (options.client ?? client).delete<DeletePurchaseInvoiceResponses, DeletePurchaseInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}',
+    ...options
+});
+
+export const getPurchaseInvoice = <ThrowOnError extends boolean = false>(options: Options<GetPurchaseInvoiceData, ThrowOnError>): RequestResult<GetPurchaseInvoiceResponses, GetPurchaseInvoiceErrors, ThrowOnError> => (options.client ?? client).get<GetPurchaseInvoiceResponses, GetPurchaseInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}',
+    ...options
+});
+
+export const updatePurchaseInvoice = <ThrowOnError extends boolean = false>(options: Options<UpdatePurchaseInvoiceData, ThrowOnError>): RequestResult<UpdatePurchaseInvoiceResponses, UpdatePurchaseInvoiceErrors, ThrowOnError> => (options.client ?? client).patch<UpdatePurchaseInvoiceResponses, UpdatePurchaseInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const approvePurchaseInvoice = <ThrowOnError extends boolean = false>(options: Options<ApprovePurchaseInvoiceData, ThrowOnError>): RequestResult<ApprovePurchaseInvoiceResponses, ApprovePurchaseInvoiceErrors, ThrowOnError> => (options.client ?? client).post<ApprovePurchaseInvoiceResponses, ApprovePurchaseInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}/approve',
+    ...options
+});
+
+export const voidPurchaseInvoice = <ThrowOnError extends boolean = false>(options: Options<VoidPurchaseInvoiceData, ThrowOnError>): RequestResult<VoidPurchaseInvoiceResponses, VoidPurchaseInvoiceErrors, ThrowOnError> => (options.client ?? client).post<VoidPurchaseInvoiceResponses, VoidPurchaseInvoiceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/purchase-invoices/{purchaseInvoiceId}/void',
+    ...options
+});
+
+export const listBankReconciliations = <ThrowOnError extends boolean = false>(options: Options<ListBankReconciliationsData, ThrowOnError>): RequestResult<ListBankReconciliationsResponses, ListBankReconciliationsErrors, ThrowOnError> => (options.client ?? client).get<ListBankReconciliationsResponses, ListBankReconciliationsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations',
+    ...options
+});
+
+export const createBankReconciliation = <ThrowOnError extends boolean = false>(options: Options<CreateBankReconciliationData, ThrowOnError>): RequestResult<CreateBankReconciliationResponses, CreateBankReconciliationErrors, ThrowOnError> => (options.client ?? client).post<CreateBankReconciliationResponses, CreateBankReconciliationErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const deleteBankReconciliation = <ThrowOnError extends boolean = false>(options: Options<DeleteBankReconciliationData, ThrowOnError>): RequestResult<DeleteBankReconciliationResponses, DeleteBankReconciliationErrors, ThrowOnError> => (options.client ?? client).delete<DeleteBankReconciliationResponses, DeleteBankReconciliationErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations/{reconciliationId}',
+    ...options
+});
+
+export const getBankReconciliation = <ThrowOnError extends boolean = false>(options: Options<GetBankReconciliationData, ThrowOnError>): RequestResult<GetBankReconciliationResponses, GetBankReconciliationErrors, ThrowOnError> => (options.client ?? client).get<GetBankReconciliationResponses, GetBankReconciliationErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations/{reconciliationId}',
+    ...options
+});
+
+export const updateBankReconciliation = <ThrowOnError extends boolean = false>(options: Options<UpdateBankReconciliationData, ThrowOnError>): RequestResult<UpdateBankReconciliationResponses, UpdateBankReconciliationErrors, ThrowOnError> => (options.client ?? client).put<UpdateBankReconciliationResponses, UpdateBankReconciliationErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/bank-reconciliations/{reconciliationId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listReceipts = <ThrowOnError extends boolean = false>(options: Options<ListReceiptsData, ThrowOnError>): RequestResult<ListReceiptsResponses, ListReceiptsErrors, ThrowOnError> => (options.client ?? client).get<ListReceiptsResponses, ListReceiptsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/receipts',
+    ...options
+});
+
+export const createReceipt = <ThrowOnError extends boolean = false>(options: Options<CreateReceiptData, ThrowOnError>): RequestResult<CreateReceiptResponses, CreateReceiptErrors, ThrowOnError> => (options.client ?? client).post<CreateReceiptResponses, CreateReceiptErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/receipts',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const getReceiptTotals = <ThrowOnError extends boolean = false>(options: Options<GetReceiptTotalsData, ThrowOnError>): RequestResult<GetReceiptTotalsResponses, GetReceiptTotalsErrors, ThrowOnError> => (options.client ?? client).get<GetReceiptTotalsResponses, GetReceiptTotalsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/receipts/totals',
+    ...options
+});
+
+export const deleteReceipt = <ThrowOnError extends boolean = false>(options: Options<DeleteReceiptData, ThrowOnError>): RequestResult<DeleteReceiptResponses, DeleteReceiptErrors, ThrowOnError> => (options.client ?? client).delete<DeleteReceiptResponses, DeleteReceiptErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/receipts/{receiptId}',
+    ...options
+});
+
+export const getReceipt = <ThrowOnError extends boolean = false>(options: Options<GetReceiptData, ThrowOnError>): RequestResult<GetReceiptResponses, GetReceiptErrors, ThrowOnError> => (options.client ?? client).get<GetReceiptResponses, GetReceiptErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/receipts/{receiptId}',
+    ...options
+});
+
+export const setReceiptCleared = <ThrowOnError extends boolean = false>(options: Options<SetReceiptClearedData, ThrowOnError>): RequestResult<SetReceiptClearedResponses, SetReceiptClearedErrors, ThrowOnError> => (options.client ?? client).patch<SetReceiptClearedResponses, SetReceiptClearedErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/receipts/{receiptId}/cleared',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listPayments = <ThrowOnError extends boolean = false>(options: Options<ListPaymentsData, ThrowOnError>): RequestResult<ListPaymentsResponses, ListPaymentsErrors, ThrowOnError> => (options.client ?? client).get<ListPaymentsResponses, ListPaymentsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/payments',
+    ...options
+});
+
+export const createPayment = <ThrowOnError extends boolean = false>(options: Options<CreatePaymentData, ThrowOnError>): RequestResult<CreatePaymentResponses, CreatePaymentErrors, ThrowOnError> => (options.client ?? client).post<CreatePaymentResponses, CreatePaymentErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/payments',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const getPaymentTotals = <ThrowOnError extends boolean = false>(options: Options<GetPaymentTotalsData, ThrowOnError>): RequestResult<GetPaymentTotalsResponses, GetPaymentTotalsErrors, ThrowOnError> => (options.client ?? client).get<GetPaymentTotalsResponses, GetPaymentTotalsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/payments/totals',
+    ...options
+});
+
+export const deletePayment = <ThrowOnError extends boolean = false>(options: Options<DeletePaymentData, ThrowOnError>): RequestResult<DeletePaymentResponses, DeletePaymentErrors, ThrowOnError> => (options.client ?? client).delete<DeletePaymentResponses, DeletePaymentErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/payments/{paymentId}',
+    ...options
+});
+
+export const getPayment = <ThrowOnError extends boolean = false>(options: Options<GetPaymentData, ThrowOnError>): RequestResult<GetPaymentResponses, GetPaymentErrors, ThrowOnError> => (options.client ?? client).get<GetPaymentResponses, GetPaymentErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/payments/{paymentId}',
+    ...options
+});
+
+export const setPaymentCleared = <ThrowOnError extends boolean = false>(options: Options<SetPaymentClearedData, ThrowOnError>): RequestResult<SetPaymentClearedResponses, SetPaymentClearedErrors, ThrowOnError> => (options.client ?? client).patch<SetPaymentClearedResponses, SetPaymentClearedErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/payments/{paymentId}/cleared',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listInterAccountTransfers = <ThrowOnError extends boolean = false>(options: Options<ListInterAccountTransfersData, ThrowOnError>): RequestResult<ListInterAccountTransfersResponses, ListInterAccountTransfersErrors, ThrowOnError> => (options.client ?? client).get<ListInterAccountTransfersResponses, ListInterAccountTransfersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers',
+    ...options
+});
+
+export const createInterAccountTransfer = <ThrowOnError extends boolean = false>(options: Options<CreateInterAccountTransferData, ThrowOnError>): RequestResult<CreateInterAccountTransferResponses, CreateInterAccountTransferErrors, ThrowOnError> => (options.client ?? client).post<CreateInterAccountTransferResponses, CreateInterAccountTransferErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const deleteInterAccountTransfer = <ThrowOnError extends boolean = false>(options: Options<DeleteInterAccountTransferData, ThrowOnError>): RequestResult<DeleteInterAccountTransferResponses, DeleteInterAccountTransferErrors, ThrowOnError> => (options.client ?? client).delete<DeleteInterAccountTransferResponses, DeleteInterAccountTransferErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers/{transferId}',
+    ...options
+});
+
+export const getInterAccountTransfer = <ThrowOnError extends boolean = false>(options: Options<GetInterAccountTransferData, ThrowOnError>): RequestResult<GetInterAccountTransferResponses, GetInterAccountTransferErrors, ThrowOnError> => (options.client ?? client).get<GetInterAccountTransferResponses, GetInterAccountTransferErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers/{transferId}',
+    ...options
+});
+
+export const setInterAccountTransferCleared = <ThrowOnError extends boolean = false>(options: Options<SetInterAccountTransferClearedData, ThrowOnError>): RequestResult<SetInterAccountTransferClearedResponses, SetInterAccountTransferClearedErrors, ThrowOnError> => (options.client ?? client).patch<SetInterAccountTransferClearedResponses, SetInterAccountTransferClearedErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/businesses/{businessId}/inter-account-transfers/{transferId}/cleared',
     ...options,
     headers: {
         'Content-Type': 'application/json',

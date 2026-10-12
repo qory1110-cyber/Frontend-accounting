@@ -10,13 +10,13 @@ const memberKeys = {
   list: (businessId: string) => ['businesses', businessId, 'members'] as const,
 }
 
-export function useBusinessMembers(businessId: string) {
+export function useBusinessMembers(businessId: string, page = 1, pageSize = 10) {
   return useQuery({
-    queryKey: memberKeys.list(businessId),
+    queryKey: [...memberKeys.list(businessId), page, pageSize],
     queryFn: async () => {
-      const res = await listBusinessMembers({ path: { businessId } })
+      const res = await listBusinessMembers({ path: { businessId }, query: { page, pageSize } })
       if (res.error) throw res.error
-      return res.data!.data
+      return { data: res.data!.data, pagination: res.data!.pagination }
     },
     enabled: !!businessId,
   })

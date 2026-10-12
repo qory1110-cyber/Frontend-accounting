@@ -1,22 +1,34 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Switch } from '@/components/ui/switch'
-import { Plus, Pencil, BookOpen } from 'lucide-react'
-import { useChartOfAccounts, useSetChartOfAccountActive, type AccountCategory } from '@/hooks/use-chart-of-accounts'
+import { useChartOfAccountsPage, useSetChartOfAccountActive, type AccountCategory } from '@/hooks/use-chart-of-accounts'
 import { useBusiness } from '@/hooks/use-businesses'
 import { AccountFormDialog } from './account-form-dialog'
+import { Plus, Pencil, Trash2, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react'
+import { DeleteAccountDialog } from './delete-account-dialog'
 
 const CATEGORY_ORDER: AccountCategory[] = ['Asset', 'Liability', 'Equity', 'Income', 'Expense']
+const PAGE_SIZE = 20
 
 export function ChartOfAccountsPage({ businessId }: { businessId: string }) {
   const { data: business } = useBusiness(businessId)
-  const { data: accounts, isLoading } = useChartOfAccounts(businessId)
+  const [page, setPage] = useState(1)
+  const { data: accountsData, isLoading } = useChartOfAccountsPage(businessId, page, PAGE_SIZE)
+  const accounts = accountsData?.data ?? []
+  const pagination = accountsData?.pagination
   const setActive = useSetChartOfAccountActive(businessId)
   const [formOpen, setFormOpen] = useState(false)
   const [editingAccount, setEditingAccount] = useState<{ id: string; code: string; name: string; category: AccountCategory } | null>(null)
+  const [deletingAccount, setDeletingAccount] = useState<{ id: string; name: string } | null>(null)
 
   const isAdmin = business?.role === 'admin'
+
+  // Kalau halaman yang sedang dibuka jadi kosong (misalnya akun terakhirnya
+  // dihapus), mundur ke halaman terakhir yang masih ada.
+  useEffect(() => {
+    if (pagination && page > pagination.totalPages) setPage(pagination.totalPages)
+  }, [pagination, page])
 
   function openCreate() {
     setEditingAccount(null)
@@ -28,9 +40,12 @@ export function ChartOfAccountsPage({ businessId }: { businessId: string }) {
     setFormOpen(true)
   }
 
+  // Server sudah mengurutkan per kategori lalu kode, jadi pengelompokan di halaman
+  // ini mengikuti urutan yang sama. Satu kategori bisa terbelah di batas halaman,
+  // dan judul kategorinya muncul lagi di halaman berikutnya.
   const grouped = CATEGORY_ORDER.map((category) => ({
     category,
-    items: (accounts ?? []).filter((a) => a.category === category).sort((a, b) => a.code.localeCompare(b.code)),
+    items: accounts.filter((a) => a.category === category).sort((a, b) => a.code.localeCompare(b.code)),
   })).filter((g) => g.items.length > 0)
 
   return (
@@ -52,7 +67,7 @@ export function ChartOfAccountsPage({ businessId }: { businessId: string }) {
 
       {isLoading && <p className="text-sm text-muted-foreground">Memuat...</p>}
 
-      {!isLoading && (accounts ?? []).length === 0 && (
+      {!isLoading && accounts.length === 0 && (
         <div className="flex flex-col items-center gap-2 rounded-lg border p-10 text-center">
           <BookOpen className="h-8 w-8 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">Belum ada akun.</p>
@@ -105,6 +120,14 @@ export function ChartOfAccountsPage({ businessId }: { businessId: string }) {
                       >
                         <Pencil className="h-4 w-4" />
                       </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-destructive hover:text-destructive"
+                        onClick={() => setDeletingAccount({ id: account.id, name: account.name })}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </div>
                   )}
                 </div>
@@ -114,11 +137,45 @@ export function ChartOfAccountsPage({ businessId }: { businessId: string }) {
         ))}
       </div>
 
+      {pagination && pagination.totalPages > 1 && (
+        <div className="mt-4 flex items-center justify-between rounded-lg border bg-muted/30 px-4 py-2 text-xs text-muted-foreground">
+          <span>
+            Halaman {pagination.currentPage} dari {pagination.totalPages} · {pagination.total} akun
+          </span>
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              disabled={page <= 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              disabled={page >= pagination.totalPages}
+              onClick={() => setPage((p) => Math.min(pagination.totalPages, p + 1))}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      )}
+
       <AccountFormDialog
         businessId={businessId}
         open={formOpen}
         onOpenChange={setFormOpen}
         editingAccount={editingAccount}
+      />
+      <DeleteAccountDialog
+        businessId={businessId}
+        open={!!deletingAccount}
+        onOpenChange={(open) => !open && setDeletingAccount(null)}
+        account={deletingAccount}
       />
     </div>
   )

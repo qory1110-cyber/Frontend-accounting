@@ -2,15 +2,24 @@ import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Plus, Building2 } from 'lucide-react'
+import { Plus, Building2, MoreVertical, Trash2 } from 'lucide-react'
 import { AddBusinessDialog } from './add-business-dialog'
+import { DeleteBusinessDialog } from './delete-business-dialog'
 import { useBusinessesList } from '@/hooks/use-businesses'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 export function BusinessesPage() {
   const navigate = useNavigate()
   const { data: businesses, isLoading } = useBusinessesList()
   const [search, setSearch] = useState('')
   const [addOpen, setAddOpen] = useState(false)
+  const [deletingBusiness, setDeletingBusiness] = useState<{ id: string; name: string } | null>(null)
 
   const filtered = (businesses ?? []).filter((b) =>
     b.name.toLowerCase().includes(search.toLowerCase()),
@@ -56,22 +65,64 @@ export function BusinessesPage() {
               {letter}
             </div>
             {items.map((b) => (
-              <button
+              <div
                 key={b.id}
-                onClick={() => navigate({ to: '/businesses/$businessId', params: { businessId: b.id } })}
-                className="flex w-full items-center justify-between border-b px-4 py-3 text-left last:border-b-0 hover:bg-accent"
+                className="flex w-full items-center justify-between border-b px-4 py-3 last:border-b-0 hover:bg-accent"
               >
-                <span className="text-sm font-medium">{b.name}</span>
-                <span className="text-xs text-muted-foreground">
-                  {b.baseCurrencyCode} · {b.role}
-                </span>
-              </button>
+                <button
+                  onClick={() => navigate({ to: '/businesses/$businessId', params: { businessId: b.id } })}
+                  className="flex-1 text-left"
+                >
+                  <span className="text-sm font-medium">{b.name}</span>
+                </button>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">
+                    {b.baseCurrencyCode} · {b.role}
+                  </span>
+
+                  {b.role === 'admin' && (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-accent"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label="Menu bisnis"
+                      >
+                        <MoreVertical className="h-4 w-4" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setDeletingBusiness({ id: b.id, name: b.name })
+                            }}
+                            variant="destructive"
+                          >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Hapus Bisnis
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
+                </div>
+              </div>
             ))}
           </div>
         ))}
       </div>
 
       <AddBusinessDialog open={addOpen} onOpenChange={setAddOpen} />
+
+      {deletingBusiness && (
+        <DeleteBusinessDialog
+          businessId={deletingBusiness.id}
+          businessName={deletingBusiness.name}
+          open={!!deletingBusiness}
+          onOpenChange={(open) => !open && setDeletingBusiness(null)}
+        />
+      )}
     </div>
   )
 }

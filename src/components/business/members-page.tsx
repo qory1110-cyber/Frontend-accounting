@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Plus, Trash2, Users } from 'lucide-react'
+import { Plus, Trash2, Users, ChevronLeft, ChevronRight } from 'lucide-react'
 import {
   useBusinessMembers,
   useInviteMember,
@@ -20,12 +20,23 @@ import { getApiErrorMessage } from '@/lib/errors'
 
 type Role = 'admin' | 'accountant' | 'viewer'
 
+const PAGE_SIZE = 10
+
 export function MembersPage({ businessId }: { businessId: string }) {
   const { data: business } = useBusiness(businessId)
-  const { data: members, isLoading } = useBusinessMembers(businessId)
+  const [page, setPage] = useState(1)
+  const { data: membersData, isLoading } = useBusinessMembers(businessId, page, PAGE_SIZE)
+  const members = membersData?.data ?? []
+  const pagination = membersData?.pagination
   const [inviteOpen, setInviteOpen] = useState(false)
 
   const isAdmin = business?.role === 'admin'
+
+  // Kalau halaman yang sedang dibuka jadi kosong (misalnya anggota terakhirnya
+  // dihapus), mundur ke halaman terakhir yang masih ada.
+  useEffect(() => {
+    if (pagination && page > pagination.totalPages) setPage(pagination.totalPages)
+  }, [pagination, page])
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -42,16 +53,44 @@ export function MembersPage({ businessId }: { businessId: string }) {
       <div className="rounded-lg border bg-background">
         {isLoading && <p className="p-6 text-center text-sm text-muted-foreground">Memuat...</p>}
 
-        {!isLoading && (members ?? []).length === 0 && (
+        {!isLoading && members.length === 0 && (
           <div className="flex flex-col items-center gap-2 p-10 text-center">
             <Users className="h-8 w-8 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">Belum ada anggota lain.</p>
           </div>
         )}
 
-        {(members ?? []).map((m) => (
+        {members.map((m) => (
           <MemberRow key={m.userId} businessId={businessId} member={m} isAdmin={isAdmin} />
         ))}
+
+        {pagination && pagination.totalPages > 1 && (
+          <div className="flex items-center justify-between border-t bg-muted/30 px-4 py-2 text-xs text-muted-foreground">
+            <span>
+              Halaman {pagination.currentPage} dari {pagination.totalPages} · {pagination.total} anggota
+            </span>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                disabled={page <= 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                disabled={page >= pagination.totalPages}
+                onClick={() => setPage((p) => Math.min(pagination.totalPages, p + 1))}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
       <InviteMemberDialog businessId={businessId} open={inviteOpen} onOpenChange={setInviteOpen} />
@@ -80,11 +119,11 @@ function MemberRow({
   const removeMember = useRemoveMember(businessId)
 
   return (
-    <div className="flex items-center justify-between border-b px-4 py-3 last:border-b-0">
-      <div>
-        <p className="text-sm font-medium">{member.name}</p>
-        <p className="text-xs text-muted-foreground">{member.email}</p>
-      </div>
+    <div className="flex flex-wrap items-center justify-between gap-y-2 border-b px-4 py-3 last:border-b-0">
+  <div className="min-w-0 flex-1">
+    <p className="truncate text-sm font-medium">{member.name}</p>
+    <p className="truncate text-xs text-muted-foreground">{member.email}</p>
+  </div>
 
       <div className="flex items-center gap-2">
         {member.status === 'invited' && (
@@ -101,8 +140,13 @@ function MemberRow({
             }
           >
             <SelectTrigger className="h-8 w-32">
-              <SelectValue />
-            </SelectTrigger>
+  <SelectValue>
+    {(value: string) => {
+      const labels: Record<string, string> = { admin: 'Admin', accountant: 'Accountant', viewer: 'Viewer' }
+      return labels[value] ?? value
+    }}
+  </SelectValue>
+</SelectTrigger>
             <SelectContent>
               <SelectItem value="admin">Admin</SelectItem>
               <SelectItem value="accountant">Accountant</SelectItem>
@@ -204,8 +248,13 @@ function InviteMemberDialog({
                   onValueChange={(v) => field.handleChange((v ?? 'viewer') as Role)}
                 >
                   <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
+  <SelectValue>
+    {(value: string) => {
+      const labels: Record<string, string> = { admin: 'Admin', accountant: 'Accountant', viewer: 'Viewer' }
+      return labels[value] ?? value
+    }}
+  </SelectValue>
+</SelectTrigger>
                   <SelectContent>
                     <SelectItem value="admin">Admin</SelectItem>
                     <SelectItem value="accountant">Accountant</SelectItem>

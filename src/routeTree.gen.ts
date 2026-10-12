@@ -17,9 +17,17 @@ import { Route as UsersRouteImport } from './routes/users'
 import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
 import { Route as BusinessesBusinessIdRouteImport } from './routes/businesses/$businessId'
 import { Route as BusinessesBusinessIdIndexRouteImport } from './routes/businesses/$businessId.index'
+import { Route as BusinessesBusinessIdBankAccountsRouteImport } from './routes/businesses/$businessId.bank-accounts'
+import { Route as BusinessesBusinessIdBankReconciliationsRouteImport } from './routes/businesses/$businessId.bank-reconciliations'
 import { Route as BusinessesBusinessIdChartOfAccountsRouteImport } from './routes/businesses/$businessId.chart-of-accounts'
 import { Route as BusinessesBusinessIdCustomersRouteImport } from './routes/businesses/$businessId.customers'
+import { Route as BusinessesBusinessIdInterAccountTransfersRouteImport } from './routes/businesses/$businessId.inter-account-transfers'
 import { Route as BusinessesBusinessIdMembersRouteImport } from './routes/businesses/$businessId.members'
+import { Route as BusinessesBusinessIdPaymentsRouteImport } from './routes/businesses/$businessId.payments'
+import { Route as BusinessesBusinessIdPurchaseInvoicesRouteImport } from './routes/businesses/$businessId.purchase-invoices'
+import { Route as BusinessesBusinessIdReceiptsRouteImport } from './routes/businesses/$businessId.receipts'
+import { Route as BusinessesBusinessIdSalesInvoicesRouteImport } from './routes/businesses/$businessId.sales-invoices'
+import { Route as BusinessesBusinessIdSuppliersRouteImport } from './routes/businesses/$businessId.suppliers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -62,6 +70,18 @@ const BusinessesBusinessIdIndexRoute =
     path: '/',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
+const BusinessesBusinessIdBankAccountsRoute =
+  BusinessesBusinessIdBankAccountsRouteImport.update({
+    id: '/bank-accounts',
+    path: '/bank-accounts',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
+const BusinessesBusinessIdBankReconciliationsRoute =
+  BusinessesBusinessIdBankReconciliationsRouteImport.update({
+    id: '/bank-reconciliations',
+    path: '/bank-reconciliations',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 const BusinessesBusinessIdChartOfAccountsRoute =
   BusinessesBusinessIdChartOfAccountsRouteImport.update({
     id: '/chart-of-accounts',
@@ -74,10 +94,46 @@ const BusinessesBusinessIdCustomersRoute =
     path: '/customers',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
+const BusinessesBusinessIdInterAccountTransfersRoute =
+  BusinessesBusinessIdInterAccountTransfersRouteImport.update({
+    id: '/inter-account-transfers',
+    path: '/inter-account-transfers',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 const BusinessesBusinessIdMembersRoute =
   BusinessesBusinessIdMembersRouteImport.update({
     id: '/members',
     path: '/members',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
+const BusinessesBusinessIdPaymentsRoute =
+  BusinessesBusinessIdPaymentsRouteImport.update({
+    id: '/payments',
+    path: '/payments',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
+const BusinessesBusinessIdPurchaseInvoicesRoute =
+  BusinessesBusinessIdPurchaseInvoicesRouteImport.update({
+    id: '/purchase-invoices',
+    path: '/purchase-invoices',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
+const BusinessesBusinessIdReceiptsRoute =
+  BusinessesBusinessIdReceiptsRouteImport.update({
+    id: '/receipts',
+    path: '/receipts',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
+const BusinessesBusinessIdSalesInvoicesRoute =
+  BusinessesBusinessIdSalesInvoicesRouteImport.update({
+    id: '/sales-invoices',
+    path: '/sales-invoices',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
+const BusinessesBusinessIdSuppliersRoute =
+  BusinessesBusinessIdSuppliersRouteImport.update({
+    id: '/suppliers',
+    path: '/suppliers',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
 
@@ -89,9 +145,17 @@ export interface FileRoutesByFullPath {
   '/users': typeof UsersRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdRouteWithChildren
   '/businesses/': typeof BusinessesIndexRoute
+  '/businesses/$businessId/bank-accounts': typeof BusinessesBusinessIdBankAccountsRoute
+  '/businesses/$businessId/bank-reconciliations': typeof BusinessesBusinessIdBankReconciliationsRoute
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
+  '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
+  '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
+  '/businesses/$businessId/purchase-invoices': typeof BusinessesBusinessIdPurchaseInvoicesRoute
+  '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
+  '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
+  '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -100,9 +164,17 @@ export interface FileRoutesByTo {
   '/user': typeof UserRoute
   '/users': typeof UsersRoute
   '/businesses': typeof BusinessesIndexRoute
+  '/businesses/$businessId/bank-accounts': typeof BusinessesBusinessIdBankAccountsRoute
+  '/businesses/$businessId/bank-reconciliations': typeof BusinessesBusinessIdBankReconciliationsRoute
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
+  '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
+  '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
+  '/businesses/$businessId/purchase-invoices': typeof BusinessesBusinessIdPurchaseInvoicesRoute
+  '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
+  '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
+  '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRoutesById {
@@ -114,9 +186,17 @@ export interface FileRoutesById {
   '/users': typeof UsersRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdRouteWithChildren
   '/businesses/': typeof BusinessesIndexRoute
+  '/businesses/$businessId/bank-accounts': typeof BusinessesBusinessIdBankAccountsRoute
+  '/businesses/$businessId/bank-reconciliations': typeof BusinessesBusinessIdBankReconciliationsRoute
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
+  '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
+  '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
+  '/businesses/$businessId/purchase-invoices': typeof BusinessesBusinessIdPurchaseInvoicesRoute
+  '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
+  '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
+  '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -129,9 +209,17 @@ export interface FileRouteTypes {
     | '/users'
     | '/businesses/$businessId'
     | '/businesses/'
+    | '/businesses/$businessId/bank-accounts'
+    | '/businesses/$businessId/bank-reconciliations'
     | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/customers'
+    | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/members'
+    | '/businesses/$businessId/payments'
+    | '/businesses/$businessId/purchase-invoices'
+    | '/businesses/$businessId/receipts'
+    | '/businesses/$businessId/sales-invoices'
+    | '/businesses/$businessId/suppliers'
     | '/businesses/$businessId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -140,9 +228,17 @@ export interface FileRouteTypes {
     | '/user'
     | '/users'
     | '/businesses'
+    | '/businesses/$businessId/bank-accounts'
+    | '/businesses/$businessId/bank-reconciliations'
     | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/customers'
+    | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/members'
+    | '/businesses/$businessId/payments'
+    | '/businesses/$businessId/purchase-invoices'
+    | '/businesses/$businessId/receipts'
+    | '/businesses/$businessId/sales-invoices'
+    | '/businesses/$businessId/suppliers'
     | '/businesses/$businessId'
   id:
     | '__root__'
@@ -153,9 +249,17 @@ export interface FileRouteTypes {
     | '/users'
     | '/businesses/$businessId'
     | '/businesses/'
+    | '/businesses/$businessId/bank-accounts'
+    | '/businesses/$businessId/bank-reconciliations'
     | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/customers'
+    | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/members'
+    | '/businesses/$businessId/payments'
+    | '/businesses/$businessId/purchase-invoices'
+    | '/businesses/$businessId/receipts'
+    | '/businesses/$businessId/sales-invoices'
+    | '/businesses/$businessId/suppliers'
     | '/businesses/$businessId/'
   fileRoutesById: FileRoutesById
 }
@@ -225,6 +329,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdIndexRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/bank-accounts': {
+      id: '/businesses/$businessId/bank-accounts'
+      path: '/bank-accounts'
+      fullPath: '/businesses/$businessId/bank-accounts'
+      preLoaderRoute: typeof BusinessesBusinessIdBankAccountsRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
+    '/businesses/$businessId/bank-reconciliations': {
+      id: '/businesses/$businessId/bank-reconciliations'
+      path: '/bank-reconciliations'
+      fullPath: '/businesses/$businessId/bank-reconciliations'
+      preLoaderRoute: typeof BusinessesBusinessIdBankReconciliationsRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
     '/businesses/$businessId/chart-of-accounts': {
       id: '/businesses/$businessId/chart-of-accounts'
       path: '/chart-of-accounts'
@@ -239,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdCustomersRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/inter-account-transfers': {
+      id: '/businesses/$businessId/inter-account-transfers'
+      path: '/inter-account-transfers'
+      fullPath: '/businesses/$businessId/inter-account-transfers'
+      preLoaderRoute: typeof BusinessesBusinessIdInterAccountTransfersRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
     '/businesses/$businessId/members': {
       id: '/businesses/$businessId/members'
       path: '/members'
@@ -246,21 +371,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdMembersRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/payments': {
+      id: '/businesses/$businessId/payments'
+      path: '/payments'
+      fullPath: '/businesses/$businessId/payments'
+      preLoaderRoute: typeof BusinessesBusinessIdPaymentsRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
+    '/businesses/$businessId/purchase-invoices': {
+      id: '/businesses/$businessId/purchase-invoices'
+      path: '/purchase-invoices'
+      fullPath: '/businesses/$businessId/purchase-invoices'
+      preLoaderRoute: typeof BusinessesBusinessIdPurchaseInvoicesRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
+    '/businesses/$businessId/receipts': {
+      id: '/businesses/$businessId/receipts'
+      path: '/receipts'
+      fullPath: '/businesses/$businessId/receipts'
+      preLoaderRoute: typeof BusinessesBusinessIdReceiptsRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
+    '/businesses/$businessId/sales-invoices': {
+      id: '/businesses/$businessId/sales-invoices'
+      path: '/sales-invoices'
+      fullPath: '/businesses/$businessId/sales-invoices'
+      preLoaderRoute: typeof BusinessesBusinessIdSalesInvoicesRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
+    '/businesses/$businessId/suppliers': {
+      id: '/businesses/$businessId/suppliers'
+      path: '/suppliers'
+      fullPath: '/businesses/$businessId/suppliers'
+      preLoaderRoute: typeof BusinessesBusinessIdSuppliersRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
   }
 }
 
 interface BusinessesBusinessIdRouteChildren {
+  BusinessesBusinessIdBankAccountsRoute: typeof BusinessesBusinessIdBankAccountsRoute
+  BusinessesBusinessIdBankReconciliationsRoute: typeof BusinessesBusinessIdBankReconciliationsRoute
   BusinessesBusinessIdChartOfAccountsRoute: typeof BusinessesBusinessIdChartOfAccountsRoute
   BusinessesBusinessIdCustomersRoute: typeof BusinessesBusinessIdCustomersRoute
+  BusinessesBusinessIdInterAccountTransfersRoute: typeof BusinessesBusinessIdInterAccountTransfersRoute
   BusinessesBusinessIdMembersRoute: typeof BusinessesBusinessIdMembersRoute
+  BusinessesBusinessIdPaymentsRoute: typeof BusinessesBusinessIdPaymentsRoute
+  BusinessesBusinessIdPurchaseInvoicesRoute: typeof BusinessesBusinessIdPurchaseInvoicesRoute
+  BusinessesBusinessIdReceiptsRoute: typeof BusinessesBusinessIdReceiptsRoute
+  BusinessesBusinessIdSalesInvoicesRoute: typeof BusinessesBusinessIdSalesInvoicesRoute
+  BusinessesBusinessIdSuppliersRoute: typeof BusinessesBusinessIdSuppliersRoute
   BusinessesBusinessIdIndexRoute: typeof BusinessesBusinessIdIndexRoute
 }
 
 const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
+  BusinessesBusinessIdBankAccountsRoute: BusinessesBusinessIdBankAccountsRoute,
+  BusinessesBusinessIdBankReconciliationsRoute:
+    BusinessesBusinessIdBankReconciliationsRoute,
   BusinessesBusinessIdChartOfAccountsRoute:
     BusinessesBusinessIdChartOfAccountsRoute,
   BusinessesBusinessIdCustomersRoute: BusinessesBusinessIdCustomersRoute,
+  BusinessesBusinessIdInterAccountTransfersRoute:
+    BusinessesBusinessIdInterAccountTransfersRoute,
   BusinessesBusinessIdMembersRoute: BusinessesBusinessIdMembersRoute,
+  BusinessesBusinessIdPaymentsRoute: BusinessesBusinessIdPaymentsRoute,
+  BusinessesBusinessIdPurchaseInvoicesRoute:
+    BusinessesBusinessIdPurchaseInvoicesRoute,
+  BusinessesBusinessIdReceiptsRoute: BusinessesBusinessIdReceiptsRoute,
+  BusinessesBusinessIdSalesInvoicesRoute:
+    BusinessesBusinessIdSalesInvoicesRoute,
+  BusinessesBusinessIdSuppliersRoute: BusinessesBusinessIdSuppliersRoute,
   BusinessesBusinessIdIndexRoute: BusinessesBusinessIdIndexRoute,
 }
 

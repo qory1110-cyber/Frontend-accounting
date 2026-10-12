@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   listCustomers,
+  listRecentCustomers,
   createCustomer,
   updateCustomer,
   setCustomerActive,
@@ -11,13 +12,13 @@ const customerKeys = {
   list: (businessId: string) => ['businesses', businessId, 'customers'] as const,
 }
 
-export function useCustomers(businessId: string) {
+export function useCustomers(businessId: string, page = 1, pageSize = 10) {
   return useQuery({
-    queryKey: customerKeys.list(businessId),
+    queryKey: [...customerKeys.list(businessId), page, pageSize],
     queryFn: async () => {
-      const res = await listCustomers({ path: { businessId } })
+      const res = await listCustomers({ path: { businessId }, query: { page, pageSize } })
       if (res.error) throw res.error
-      return res.data!.data
+      return { data: res.data!.data, pagination: res.data!.pagination }
     },
     enabled: !!businessId,
   })
@@ -77,5 +78,17 @@ export function useDeleteCustomer(businessId: string) {
       if (res.error) throw res.error
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: customerKeys.list(businessId) }),
+  })
+}
+
+export function useRecentCustomers(businessId: string, limit = 20) {
+  return useQuery({
+    queryKey: [...customerKeys.list(businessId), 'recent', limit],
+    queryFn: async () => {
+      const res = await listRecentCustomers({ path: { businessId }, query: { limit } })
+      if (res.error) throw res.error
+      return res.data!.data
+    },
+    enabled: !!businessId,
   })
 }

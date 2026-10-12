@@ -129,8 +129,13 @@ export function AddUserDialog({
                 <Label>Bisnis</Label>
                 <Select value={field.state.value} onValueChange={(value) => field.handleChange(value ?? '')}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Pilih bisnis" />
-                  </SelectTrigger>
+  <SelectValue placeholder="Pilih bisnis">
+    {(value: string) => {
+      const b = adminBusinesses.find((biz) => biz.id === value)
+      return b ? b.name : 'Pilih bisnis'
+    }}
+  </SelectValue>
+</SelectTrigger>
                   <SelectContent>
                     {adminBusinesses.map((b) => (
                       <SelectItem key={b.id} value={b.id}>
@@ -160,8 +165,13 @@ export function AddUserDialog({
                   onValueChange={(v) => field.handleChange(v as 'admin' | 'accountant' | 'viewer')}
                 >
                   <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
+  <SelectValue>
+    {(value: string) => {
+      const labels: Record<string, string> = { admin: 'Admin', accountant: 'Accountant', viewer: 'Viewer' }
+      return labels[value] ?? value
+    }}
+  </SelectValue>
+</SelectTrigger>
                   <SelectContent>
                     <SelectItem value="admin">Admin</SelectItem>
                     <SelectItem value="accountant">Accountant</SelectItem>
