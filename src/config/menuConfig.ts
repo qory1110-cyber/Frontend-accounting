@@ -12,6 +12,7 @@ import {
   Banknote,
   ArrowLeftRight,
   Scale,
+  BookOpenText,
 } from 'lucide-react'
 
 export type BusinessRole = 'admin' | 'accountant' | 'viewer'
@@ -48,6 +49,7 @@ export const businessSidebarMenu: MenuItem[] = [
   { label: 'Bank and Cash Accounts', to: '/businesses/$businessId/bank-accounts', moduleKey: 'bank-accounts', category: 'money', icon: Landmark },
   { label: 'Inter Account Transfers', to: '/businesses/$businessId/inter-account-transfers', moduleKey: 'inter-account-transfers', category: 'money', icon: ArrowLeftRight },
   { label: 'Bank Reconciliations', to: '/businesses/$businessId/bank-reconciliations', category: 'money', icon: Scale },
+  { label: 'Journal Entries', to: '/businesses/$businessId/journal-entries', icon: BookOpenText },
   { label: 'Chart of Accounts', to: '/businesses/$businessId/chart-of-accounts', allowedRoles: ['admin', 'accountant'], icon: BookOpen },
   { label: 'Members', to: '/businesses/$businessId/members', allowedRoles: ['admin', 'accountant'], icon: UserCog },
 ]

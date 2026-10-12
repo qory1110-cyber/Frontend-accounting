@@ -4972,3 +4972,261 @@ export type SetInterAccountTransferClearedResponses = {
 };
 
 export type SetInterAccountTransferClearedResponse = SetInterAccountTransferClearedResponses[keyof SetInterAccountTransferClearedResponses];
+
+export type ListJournalEntriesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/journal-entries';
+};
+
+export type ListJournalEntriesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListJournalEntriesError = ListJournalEntriesErrors[keyof ListJournalEntriesErrors];
+
+export type ListJournalEntriesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            entryDate: string;
+            reference: string | null;
+            description: string | null;
+            createdAt: string;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountCode: string;
+                accountName: string;
+                debit: number;
+                credit: number;
+                description: string | null;
+            }>;
+            totalDebit: number;
+            totalCredit: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListJournalEntriesResponse = ListJournalEntriesResponses[keyof ListJournalEntriesResponses];
+
+export type CreateJournalEntryData = {
+    body: {
+        entryDate: string;
+        reference?: string;
+        description?: string;
+        lines: Array<{
+            accountId: string;
+            debit?: number;
+            credit?: number;
+            description?: string;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/journal-entries';
+};
+
+export type CreateJournalEntryErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateJournalEntryError = CreateJournalEntryErrors[keyof CreateJournalEntryErrors];
+
+export type CreateJournalEntryResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            entryDate: string;
+            reference: string | null;
+            description: string | null;
+            createdAt: string;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountCode: string;
+                accountName: string;
+                debit: number;
+                credit: number;
+                description: string | null;
+            }>;
+            totalDebit: number;
+            totalCredit: number;
+        };
+    };
+};
+
+export type CreateJournalEntryResponse = CreateJournalEntryResponses[keyof CreateJournalEntryResponses];
+
+export type DeleteJournalEntryData = {
+    body?: never;
+    path: {
+        businessId: string;
+        journalEntryId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/journal-entries/{journalEntryId}';
+};
+
+export type DeleteJournalEntryErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteJournalEntryError = DeleteJournalEntryErrors[keyof DeleteJournalEntryErrors];
+
+export type DeleteJournalEntryResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteJournalEntryResponse = DeleteJournalEntryResponses[keyof DeleteJournalEntryResponses];
+
+export type GetJournalEntryData = {
+    body?: never;
+    path: {
+        businessId: string;
+        journalEntryId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/journal-entries/{journalEntryId}';
+};
+
+export type GetJournalEntryErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetJournalEntryError = GetJournalEntryErrors[keyof GetJournalEntryErrors];
+
+export type GetJournalEntryResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            entryDate: string;
+            reference: string | null;
+            description: string | null;
+            createdAt: string;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountCode: string;
+                accountName: string;
+                debit: number;
+                credit: number;
+                description: string | null;
+            }>;
+            totalDebit: number;
+            totalCredit: number;
+        };
+    };
+};
+
+export type GetJournalEntryResponse = GetJournalEntryResponses[keyof GetJournalEntryResponses];
