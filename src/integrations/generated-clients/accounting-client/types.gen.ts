@@ -321,6 +321,7 @@ export type ListMyBusinessesResponses = {
             baseCurrencyCode: string;
             role?: 'admin' | 'accountant' | 'viewer';
             hiddenModules: Array<string>;
+            lockDate: string | null;
         }>;
     };
 };
@@ -360,6 +361,7 @@ export type CreateBusinessResponses = {
             baseCurrencyCode: string;
             role?: 'admin' | 'accountant' | 'viewer';
             hiddenModules: Array<string>;
+            lockDate: string | null;
         };
     };
 };
@@ -458,6 +460,7 @@ export type GetBusinessResponses = {
             baseCurrencyCode: string;
             role?: 'admin' | 'accountant' | 'viewer';
             hiddenModules: Array<string>;
+            lockDate: string | null;
         };
     };
 };
@@ -521,11 +524,67 @@ export type UpdateBusinessResponses = {
             baseCurrencyCode: string;
             role?: 'admin' | 'accountant' | 'viewer';
             hiddenModules: Array<string>;
+            lockDate: string | null;
         };
     };
 };
 
 export type UpdateBusinessResponse = UpdateBusinessResponses[keyof UpdateBusinessResponses];
+
+export type SetBusinessLockDateData = {
+    body: {
+        lockDate: string | null;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/lock-date';
+};
+
+export type SetBusinessLockDateErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetBusinessLockDateError = SetBusinessLockDateErrors[keyof SetBusinessLockDateErrors];
+
+export type SetBusinessLockDateResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            name: string;
+            baseCurrencyCode: string;
+            role?: 'admin' | 'accountant' | 'viewer';
+            hiddenModules: Array<string>;
+            lockDate: string | null;
+        };
+    };
+};
+
+export type SetBusinessLockDateResponse = SetBusinessLockDateResponses[keyof SetBusinessLockDateResponses];
 
 export type ListBusinessMembersData = {
     body?: never;
@@ -2988,6 +3047,13 @@ export type VoidSalesInvoiceData = {
 
 export type VoidSalesInvoiceErrors = {
     /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
      * Belum login / token tidak valid
      */
     401: {
@@ -3547,6 +3613,13 @@ export type VoidPurchaseInvoiceData = {
 };
 
 export type VoidPurchaseInvoiceErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
     /**
      * Belum login / token tidak valid
      */

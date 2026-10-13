@@ -4,7 +4,8 @@ import {
   createBusiness,
   getBusiness,
   updateBusiness,
-  deleteBusiness
+  deleteBusiness,
+  setBusinessLockDate,
 } from '@/integrations/generated-clients/accounting-client'
 
 const businessKeys = {
@@ -77,5 +78,17 @@ export function useDeleteBusiness(businessId: string) {
       if (res.error) throw res.error
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: businessKeys.all }),
+  })
+}
+
+export function useSetBusinessLockDate(businessId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (lockDate: string | null) => {
+      const res = await setBusinessLockDate({ path: { businessId }, body: { lockDate } })
+      if (res.error) throw res.error
+      return res.data!.data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: businessKeys.detail(businessId) }),
   })
 }

@@ -10,6 +10,7 @@ import { usePurchaseInvoices, usePurchaseInvoiceTotals } from '@/hooks/use-purch
 import { useReceipts, useReceiptTotals } from '@/hooks/use-receipts'
 import { usePayments, usePaymentTotals } from '@/hooks/use-payments'
 import { useInterAccountTransfers } from '@/hooks/use-inter-account-transfers'
+import { BusinessLockCard } from '@/components/business/business-lock-card'
 
 export const Route = createFileRoute('/businesses/$businessId/')({
   component: OverviewPage,
@@ -196,6 +197,12 @@ function OverviewPage() {
           />
         )}
       </div>
+
+      <BusinessLockCard
+        businessId={businessId}
+        isAdmin={business?.role === 'admin'}
+        lockDate={business?.lockDate ?? null}
+      />
     </div>
   )
 }

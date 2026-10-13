@@ -11,6 +11,8 @@ import {
   useSalesInvoiceTotals,
 } from '@/hooks/use-sales-invoices'
 import { useBusiness } from '@/hooks/use-businesses'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { getApiErrorMessage } from '@/lib/errors'
 import { SalesInvoiceFormDialog } from './sales-invoice-form-dialog'
 import { SalesInvoiceViewDialog } from './sales-invoice-view-dialog'
 
@@ -72,6 +74,9 @@ export function SalesInvoicesPage({ businessId }: { businessId: string }) {
   const voidInvoice = useVoidSalesInvoice(businessId)
   const deleteInvoice = useDeleteSalesInvoice(businessId)
 
+  const [actionError, setActionError] = useState<string | null>(null)
+  const onActionError = (err: unknown) => setActionError(getApiErrorMessage(err))
+
   const [formOpen, setFormOpen] = useState(false)
   const [editingInvoice, setEditingInvoice] = useState<SalesInvoice | null>(null)
   const [viewingInvoice, setViewingInvoice] = useState<SalesInvoice | null>(null)
@@ -117,6 +122,12 @@ export function SalesInvoicesPage({ businessId }: { businessId: string }) {
         onChange={(e) => handleSearchChange(e.target.value)}
         className="mb-4"
       />
+
+            {actionError && (
+        <Alert variant="destructive" className="mb-4">
+          <AlertDescription>{actionError}</AlertDescription>
+        </Alert>
+      )}
 
       {isLoading && <p className="text-sm text-muted-foreground">Memuat...</p>}
 
@@ -167,7 +178,10 @@ export function SalesInvoicesPage({ businessId }: { businessId: string }) {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8"
-                      onClick={() => sendInvoice.mutate(invoice.id)}
+                      onClick={() => {
+                        setActionError(null)
+                        sendInvoice.mutate(invoice.id, { onError: onActionError })
+                      }}
                       title="Send"
                     >
                       <Send className="h-4 w-4" />
@@ -176,7 +190,10 @@ export function SalesInvoicesPage({ businessId }: { businessId: string }) {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 text-destructive hover:text-destructive"
-                      onClick={() => deleteInvoice.mutate(invoice.id)}
+                                            onClick={() => {
+                        setActionError(null)
+                        deleteInvoice.mutate(invoice.id, { onError: onActionError })
+                      }}
                       title="Delete"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -188,7 +205,10 @@ export function SalesInvoicesPage({ businessId }: { businessId: string }) {
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-destructive hover:text-destructive"
-                    onClick={() => voidInvoice.mutate(invoice.id)}
+                                        onClick={() => {
+                      setActionError(null)
+                      voidInvoice.mutate(invoice.id, { onError: onActionError })
+                    }}
                     title="Void"
                   >
                     <Ban className="h-4 w-4" />
