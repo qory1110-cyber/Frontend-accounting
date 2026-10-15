@@ -3159,6 +3159,8 @@ export type ListPurchaseInvoicesResponses = {
             businessId: string;
             supplierId: string;
             supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
             issueDate: string;
             dueDate: string | null;
             reference: string | null;
@@ -3166,6 +3168,7 @@ export type ListPurchaseInvoicesResponses = {
             status: 'draft' | 'approved' | 'void';
             lines: Array<{
                 id: string;
+                purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
                 qty: string;
@@ -3189,12 +3192,14 @@ export type ListPurchaseInvoicesResponse = ListPurchaseInvoicesResponses[keyof L
 
 export type CreatePurchaseInvoiceData = {
     body: {
+        purchaseOrderId?: string;
         supplierId: string;
         issueDate: string;
         dueDate?: string;
         reference?: string;
         description?: string;
         lines: Array<{
+            purchaseOrderLineId?: string;
             accountId: string;
             qty: number;
             unitPrice: number;
@@ -3250,6 +3255,8 @@ export type CreatePurchaseInvoiceResponses = {
             businessId: string;
             supplierId: string;
             supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
             issueDate: string;
             dueDate: string | null;
             reference: string | null;
@@ -3257,6 +3264,7 @@ export type CreatePurchaseInvoiceResponses = {
             status: 'draft' | 'approved' | 'void';
             lines: Array<{
                 id: string;
+                purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
                 qty: string;
@@ -3405,6 +3413,8 @@ export type GetPurchaseInvoiceResponses = {
             businessId: string;
             supplierId: string;
             supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
             issueDate: string;
             dueDate: string | null;
             reference: string | null;
@@ -3412,6 +3422,7 @@ export type GetPurchaseInvoiceResponses = {
             status: 'draft' | 'approved' | 'void';
             lines: Array<{
                 id: string;
+                purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
                 qty: string;
@@ -3429,12 +3440,14 @@ export type GetPurchaseInvoiceResponse = GetPurchaseInvoiceResponses[keyof GetPu
 
 export type UpdatePurchaseInvoiceData = {
     body: {
+        purchaseOrderId?: string;
         supplierId?: string;
         issueDate?: string;
         dueDate?: string;
         reference?: string;
         description?: string;
         lines?: Array<{
+            purchaseOrderLineId?: string;
             accountId: string;
             qty: number;
             unitPrice: number;
@@ -3498,6 +3511,8 @@ export type UpdatePurchaseInvoiceResponses = {
             businessId: string;
             supplierId: string;
             supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
             issueDate: string;
             dueDate: string | null;
             reference: string | null;
@@ -3505,6 +3520,7 @@ export type UpdatePurchaseInvoiceResponses = {
             status: 'draft' | 'approved' | 'void';
             lines: Array<{
                 id: string;
+                purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
                 qty: string;
@@ -3580,6 +3596,8 @@ export type ApprovePurchaseInvoiceResponses = {
             businessId: string;
             supplierId: string;
             supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
             issueDate: string;
             dueDate: string | null;
             reference: string | null;
@@ -3587,6 +3605,7 @@ export type ApprovePurchaseInvoiceResponses = {
             status: 'draft' | 'approved' | 'void';
             lines: Array<{
                 id: string;
+                purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
                 qty: string;
@@ -3662,6 +3681,8 @@ export type VoidPurchaseInvoiceResponses = {
             businessId: string;
             supplierId: string;
             supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
             issueDate: string;
             dueDate: string | null;
             reference: string | null;
@@ -3669,6 +3690,7 @@ export type VoidPurchaseInvoiceResponses = {
             status: 'draft' | 'approved' | 'void';
             lines: Array<{
                 id: string;
+                purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
                 qty: string;
@@ -5303,3 +5325,372 @@ export type GetJournalEntryResponses = {
 };
 
 export type GetJournalEntryResponse = GetJournalEntryResponses[keyof GetJournalEntryResponses];
+
+export type ListPurchaseOrdersData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/purchase-orders';
+};
+
+export type ListPurchaseOrdersErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListPurchaseOrdersError = ListPurchaseOrdersErrors[keyof ListPurchaseOrdersErrors];
+
+export type ListPurchaseOrdersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            orderDate: string;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                description: string | null;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+                qtyInvoiced: number;
+            }>;
+            totalAmount: number;
+            status: 'Unbilled' | 'Partially Invoiced' | 'Invoiced';
+            hasInvoices: boolean;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListPurchaseOrdersResponse = ListPurchaseOrdersResponses[keyof ListPurchaseOrdersResponses];
+
+export type CreatePurchaseOrderData = {
+    body: {
+        supplierId: string;
+        orderDate: string;
+        reference?: string;
+        billingAddress?: string;
+        description?: string;
+        lines: Array<{
+            accountId: string;
+            description?: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-orders';
+};
+
+export type CreatePurchaseOrderErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreatePurchaseOrderError = CreatePurchaseOrderErrors[keyof CreatePurchaseOrderErrors];
+
+export type CreatePurchaseOrderResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            orderDate: string;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                description: string | null;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+                qtyInvoiced: number;
+            }>;
+            totalAmount: number;
+            status: 'Unbilled' | 'Partially Invoiced' | 'Invoiced';
+            hasInvoices: boolean;
+        };
+    };
+};
+
+export type CreatePurchaseOrderResponse = CreatePurchaseOrderResponses[keyof CreatePurchaseOrderResponses];
+
+export type DeletePurchaseOrderData = {
+    body?: never;
+    path: {
+        businessId: string;
+        purchaseOrderId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-orders/{purchaseOrderId}';
+};
+
+export type DeletePurchaseOrderErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeletePurchaseOrderError = DeletePurchaseOrderErrors[keyof DeletePurchaseOrderErrors];
+
+export type DeletePurchaseOrderResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeletePurchaseOrderResponse = DeletePurchaseOrderResponses[keyof DeletePurchaseOrderResponses];
+
+export type GetPurchaseOrderData = {
+    body?: never;
+    path: {
+        businessId: string;
+        purchaseOrderId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-orders/{purchaseOrderId}';
+};
+
+export type GetPurchaseOrderErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetPurchaseOrderError = GetPurchaseOrderErrors[keyof GetPurchaseOrderErrors];
+
+export type GetPurchaseOrderResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            orderDate: string;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                description: string | null;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+                qtyInvoiced: number;
+            }>;
+            totalAmount: number;
+            status: 'Unbilled' | 'Partially Invoiced' | 'Invoiced';
+            hasInvoices: boolean;
+        };
+    };
+};
+
+export type GetPurchaseOrderResponse = GetPurchaseOrderResponses[keyof GetPurchaseOrderResponses];
+
+export type UpdatePurchaseOrderData = {
+    body: {
+        supplierId?: string;
+        orderDate?: string;
+        reference?: string;
+        billingAddress?: string;
+        description?: string;
+        lines?: Array<{
+            accountId: string;
+            description?: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+        purchaseOrderId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-orders/{purchaseOrderId}';
+};
+
+export type UpdatePurchaseOrderErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdatePurchaseOrderError = UpdatePurchaseOrderErrors[keyof UpdatePurchaseOrderErrors];
+
+export type UpdatePurchaseOrderResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            orderDate: string;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                description: string | null;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+                qtyInvoiced: number;
+            }>;
+            totalAmount: number;
+            status: 'Unbilled' | 'Partially Invoiced' | 'Invoiced';
+            hasInvoices: boolean;
+        };
+    };
+};
+
+export type UpdatePurchaseOrderResponse = UpdatePurchaseOrderResponses[keyof UpdatePurchaseOrderResponses];

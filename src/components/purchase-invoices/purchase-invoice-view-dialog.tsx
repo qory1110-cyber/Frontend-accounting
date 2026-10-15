@@ -12,6 +12,7 @@ interface PurchaseInvoiceLine {
 interface ViewingInvoice {
   id: string
   supplierName: string
+  purchaseOrderReference?: string | null
   issueDate: string
   dueDate: string | null
   reference: string | null
@@ -74,6 +75,12 @@ export function PurchaseInvoiceViewDialog({
               <p className="text-xs text-muted-foreground">Reference</p>
               <p className="wrap-break-word font-medium">{invoice.reference ?? '-'}</p>
             </div>
+            {invoice.purchaseOrderReference && (
+              <div className="min-w-0">
+                <p className="text-xs text-muted-foreground">Order number</p>
+                <p className="wrap-break-word font-medium">{invoice.purchaseOrderReference}</p>
+              </div>
+            )}
           </div>
 
           {invoice.description && (

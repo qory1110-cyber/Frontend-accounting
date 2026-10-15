@@ -16,12 +16,14 @@ import { Combobox } from '@/components/ui/combobox'
 import { useRecentSuppliers } from '@/hooks/use-suppliers'
 
 const lineSchema = z.object({
+  purchaseOrderLineId: z.string().optional(),
   accountId: z.string().min(1, 'Pilih akun'),
   qty: z.number().positive('Qty harus > 0'),
   unitPrice: z.number().min(0, 'Tidak boleh negatif'),
 })
 
 const invoiceSchema = z.object({
+  purchaseOrderId: z.string().optional(),
   supplierId: z.string().min(1, 'Pilih pemasok'),
   issueDate: z.string().min(1, 'Wajib diisi'),
   dueDate: z.string(),
@@ -30,14 +32,26 @@ const invoiceSchema = z.object({
   lines: z.array(lineSchema).min(1, 'Minimal 1 baris rincian'),
 })
 
+type InvoiceFormValues = z.infer<typeof invoiceSchema>
+
+// Purchase Order sumber untuk fitur "Copy to Purchase Invoice".
+export interface SourceOrder {
+  id: string
+  reference: string | null
+  supplierId: string
+  lines: { id: string; accountId: string; qty: string; unitPrice: string; qtyInvoiced: number }[]
+}
+
 interface EditingInvoice {
   id: string
+  purchaseOrderId?: string | null
+  purchaseOrderReference?: string | null
   supplierId: string
   issueDate: string
   dueDate: string | null
   reference: string | null
   description: string | null
-  lines: { accountId: string; qty: string; unitPrice: string }[]
+  lines: { purchaseOrderLineId?: string | null; accountId: string; qty: string; unitPrice: string }[]
 }
 
 export function PurchaseInvoiceFormDialog({
@@ -45,11 +59,13 @@ export function PurchaseInvoiceFormDialog({
   open,
   onOpenChange,
   editingInvoice,
+  sourceOrder,
 }: {
   businessId: string
   open: boolean
   onOpenChange: (open: boolean) => void
   editingInvoice?: EditingInvoice | null
+  sourceOrder?: SourceOrder | null
 }) {
   const createInvoice = useCreatePurchaseInvoice(businessId)
   const updateInvoice = useUpdatePurchaseInvoice(businessId)
@@ -60,6 +76,8 @@ const { data: recentSuppliers } = useRecentSuppliers(businessId)
   const { data: recentExpenseAccounts } = useRecentChartOfAccounts(businessId, 'Expense')
   const [serverError, setServerError] = useState<string | null>(null)
   const isEditing = !!editingInvoice
+  const isLinked = !!(sourceOrder || editingInvoice?.purchaseOrderId)
+  const linkedReference = sourceOrder ? sourceOrder.reference : (editingInvoice?.purchaseOrderReference ?? null)
 
   // Pemasok/akun yang sedang dipakai draft ini tetap ditampilkan walau sudah di-nonaktifkan,
   // supaya nilainya tidak "hilang" dari pilihan saat edit.
@@ -71,7 +89,8 @@ const { data: recentSuppliers } = useRecentSuppliers(businessId)
     (a) => a.category === 'Expense' && (a.isActive || usedAccountIds.has(a.id)),
   )
 
-  const emptyValues = {
+  const emptyValues: InvoiceFormValues = {
+    purchaseOrderId: undefined,
     supplierId: '',
     issueDate: new Date().toISOString().slice(0, 10),
     dueDate: '',
@@ -85,8 +104,9 @@ const { data: recentSuppliers } = useRecentSuppliers(businessId)
     validators: { onSubmit: invoiceSchema },
     onSubmit: async ({ value }) => {
       setServerError(null)
-      const payload = {
+        const payload = {
         ...value,
+        purchaseOrderId: value.purchaseOrderId || undefined,
         dueDate: value.dueDate || undefined,
         reference: value.reference || undefined,
         description: value.description || undefined,
@@ -108,23 +128,40 @@ const { data: recentSuppliers } = useRecentSuppliers(businessId)
     if (open) {
       form.reset(
         editingInvoice
-          ? {
+            ? {
+              purchaseOrderId: editingInvoice.purchaseOrderId ?? undefined,
               supplierId: editingInvoice.supplierId,
               issueDate: editingInvoice.issueDate,
               dueDate: editingInvoice.dueDate ?? '',
               reference: editingInvoice.reference ?? '',
               description: editingInvoice.description ?? '',
               lines: editingInvoice.lines.map((l) => ({
+                purchaseOrderLineId: l.purchaseOrderLineId ?? undefined,
                 accountId: l.accountId,
                 qty: Number(l.qty),
                 unitPrice: Number(l.unitPrice),
               })),
             }
-          : emptyValues,
+                    : sourceOrder
+            ? {
+                ...emptyValues,
+                purchaseOrderId: sourceOrder.id,
+                supplierId: sourceOrder.supplierId,
+                // Hanya baris yang masih ada sisanya; Qty diisi sisa yang belum difakturkan.
+                lines: sourceOrder.lines
+                  .filter((l) => Number(l.qty) - l.qtyInvoiced > 0)
+                  .map((l) => ({
+                    purchaseOrderLineId: l.id,
+                    accountId: l.accountId,
+                    qty: Number(l.qty) - l.qtyInvoiced,
+                    unitPrice: Number(l.unitPrice),
+                  })),
+              }
+            : emptyValues,
       )
       setServerError(null)
     }
-  }, [open, editingInvoice])
+  }, [open, editingInvoice, sourceOrder])
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -138,8 +175,16 @@ const { data: recentSuppliers } = useRecentSuppliers(businessId)
             e.preventDefault()
             form.handleSubmit()
           }}
-          className="flex min-w-0 flex-col gap-4"
+        className="flex min-w-0 flex-col gap-4"
         >
+          {isLinked && (
+            <Alert>
+              <AlertDescription>
+                Faktur ini ditautkan ke Purchase Order{linkedReference ? ` ${linkedReference}` : ''}. Pemasok harus tetap
+                sama dengan pemasok PO. {sourceOrder && 'Qty terisi dari sisa yang belum difakturkan.'}
+              </AlertDescription>
+            </Alert>
+          )}
           <div className="grid grid-cols-2 gap-4">
             <form.Field name="issueDate">
               {(field) => (

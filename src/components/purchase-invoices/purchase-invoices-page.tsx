@@ -20,12 +20,21 @@ interface PurchaseInvoice {
   id: string
   supplierId: string
   supplierName: string
+  purchaseOrderId: string | null
+  purchaseOrderReference: string | null
   issueDate: string
   dueDate: string | null
   reference: string | null
   description: string | null
   status: 'draft' | 'approved' | 'void'
-  lines: { accountId: string; accountName: string; qty: string; unitPrice: string; subtotal: number }[]
+    lines: {
+    purchaseOrderLineId: string | null
+    accountId: string
+    accountName: string
+    qty: string
+    unitPrice: string
+    subtotal: number
+  }[]
   invoiceAmount: number
   balanceDue: number
   paymentStatus: 'Coming due' | 'Overdue' | 'Paid in full' | null

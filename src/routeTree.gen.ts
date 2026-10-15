@@ -26,6 +26,7 @@ import { Route as BusinessesBusinessIdJournalEntriesRouteImport } from './routes
 import { Route as BusinessesBusinessIdMembersRouteImport } from './routes/businesses/$businessId.members'
 import { Route as BusinessesBusinessIdPaymentsRouteImport } from './routes/businesses/$businessId.payments'
 import { Route as BusinessesBusinessIdPurchaseInvoicesRouteImport } from './routes/businesses/$businessId.purchase-invoices'
+import { Route as BusinessesBusinessIdPurchaseOrdersRouteImport } from './routes/businesses/$businessId.purchase-orders'
 import { Route as BusinessesBusinessIdReceiptsRouteImport } from './routes/businesses/$businessId.receipts'
 import { Route as BusinessesBusinessIdSalesInvoicesRouteImport } from './routes/businesses/$businessId.sales-invoices'
 import { Route as BusinessesBusinessIdSuppliersRouteImport } from './routes/businesses/$businessId.suppliers'
@@ -125,6 +126,12 @@ const BusinessesBusinessIdPurchaseInvoicesRoute =
     path: '/purchase-invoices',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
+const BusinessesBusinessIdPurchaseOrdersRoute =
+  BusinessesBusinessIdPurchaseOrdersRouteImport.update({
+    id: '/purchase-orders',
+    path: '/purchase-orders',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 const BusinessesBusinessIdReceiptsRoute =
   BusinessesBusinessIdReceiptsRouteImport.update({
     id: '/receipts',
@@ -161,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
   '/businesses/$businessId/purchase-invoices': typeof BusinessesBusinessIdPurchaseInvoicesRoute
+  '/businesses/$businessId/purchase-orders': typeof BusinessesBusinessIdPurchaseOrdersRoute
   '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
   '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
@@ -181,6 +189,7 @@ export interface FileRoutesByTo {
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
   '/businesses/$businessId/purchase-invoices': typeof BusinessesBusinessIdPurchaseInvoicesRoute
+  '/businesses/$businessId/purchase-orders': typeof BusinessesBusinessIdPurchaseOrdersRoute
   '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
   '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
@@ -204,6 +213,7 @@ export interface FileRoutesById {
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
   '/businesses/$businessId/purchase-invoices': typeof BusinessesBusinessIdPurchaseInvoicesRoute
+  '/businesses/$businessId/purchase-orders': typeof BusinessesBusinessIdPurchaseOrdersRoute
   '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
   '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
@@ -228,6 +238,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/payments'
     | '/businesses/$businessId/purchase-invoices'
+    | '/businesses/$businessId/purchase-orders'
     | '/businesses/$businessId/receipts'
     | '/businesses/$businessId/sales-invoices'
     | '/businesses/$businessId/suppliers'
@@ -248,6 +259,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/payments'
     | '/businesses/$businessId/purchase-invoices'
+    | '/businesses/$businessId/purchase-orders'
     | '/businesses/$businessId/receipts'
     | '/businesses/$businessId/sales-invoices'
     | '/businesses/$businessId/suppliers'
@@ -270,6 +282,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/payments'
     | '/businesses/$businessId/purchase-invoices'
+    | '/businesses/$businessId/purchase-orders'
     | '/businesses/$businessId/receipts'
     | '/businesses/$businessId/sales-invoices'
     | '/businesses/$businessId/suppliers'
@@ -405,6 +418,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdPurchaseInvoicesRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/purchase-orders': {
+      id: '/businesses/$businessId/purchase-orders'
+      path: '/purchase-orders'
+      fullPath: '/businesses/$businessId/purchase-orders'
+      preLoaderRoute: typeof BusinessesBusinessIdPurchaseOrdersRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
     '/businesses/$businessId/receipts': {
       id: '/businesses/$businessId/receipts'
       path: '/receipts'
@@ -439,6 +459,7 @@ interface BusinessesBusinessIdRouteChildren {
   BusinessesBusinessIdMembersRoute: typeof BusinessesBusinessIdMembersRoute
   BusinessesBusinessIdPaymentsRoute: typeof BusinessesBusinessIdPaymentsRoute
   BusinessesBusinessIdPurchaseInvoicesRoute: typeof BusinessesBusinessIdPurchaseInvoicesRoute
+  BusinessesBusinessIdPurchaseOrdersRoute: typeof BusinessesBusinessIdPurchaseOrdersRoute
   BusinessesBusinessIdReceiptsRoute: typeof BusinessesBusinessIdReceiptsRoute
   BusinessesBusinessIdSalesInvoicesRoute: typeof BusinessesBusinessIdSalesInvoicesRoute
   BusinessesBusinessIdSuppliersRoute: typeof BusinessesBusinessIdSuppliersRoute
@@ -460,6 +481,8 @@ const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
   BusinessesBusinessIdPaymentsRoute: BusinessesBusinessIdPaymentsRoute,
   BusinessesBusinessIdPurchaseInvoicesRoute:
     BusinessesBusinessIdPurchaseInvoicesRoute,
+  BusinessesBusinessIdPurchaseOrdersRoute:
+    BusinessesBusinessIdPurchaseOrdersRoute,
   BusinessesBusinessIdReceiptsRoute: BusinessesBusinessIdReceiptsRoute,
   BusinessesBusinessIdSalesInvoicesRoute:
     BusinessesBusinessIdSalesInvoicesRoute,

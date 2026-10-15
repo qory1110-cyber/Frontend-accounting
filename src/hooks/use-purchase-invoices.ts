@@ -26,12 +26,14 @@ export function usePurchaseInvoices(businessId: string, page = 1, pageSize = 10)
 }
 
 interface PurchaseInvoiceLine {
+  purchaseOrderLineId?: string
   accountId: string
   qty: number
   unitPrice: number
 }
 
 interface PurchaseInvoiceFormValues {
+  purchaseOrderId?: string
   supplierId: string
   issueDate: string
   dueDate?: string
@@ -45,6 +47,8 @@ function invalidateAll(queryClient: ReturnType<typeof useQueryClient>, businessI
   // Approve/Void memposting jurnal yang menyentuh akun COA & saldo bank - ikut refresh.
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'chart-of-accounts'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'bank-accounts'] })
+  // Status & Qty invoiced Purchase Order dihitung dari faktur approved.
+  queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'purchase-orders'] })
 }
 
 export function useCreatePurchaseInvoice(businessId: string) {
