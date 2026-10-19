@@ -3,8 +3,8 @@
 import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { approvePurchaseInvoice, changePassword, createBankAccount, createBankReconciliation, createBusiness, createChartOfAccount, createCustomer, createInterAccountTransfer, createJournalEntry, createPayment, createPurchaseInvoice, createPurchaseOrder, createReceipt, createSalesInvoice, createSupplier, createUser, deleteBankAccount, deleteBankReconciliation, deleteBusiness, deleteChartOfAccount, deleteCustomer, deleteInterAccountTransfer, deleteJournalEntry, deletePayment, deletePurchaseInvoice, deletePurchaseOrder, deleteReceipt, deleteSalesInvoice, deleteSupplier, getBankAccount, getBankReconciliation, getBusiness, getChartOfAccount, getCustomer, getInterAccountTransfer, getJournalEntry, getMe, getPayment, getPaymentTotals, getPurchaseInvoice, getPurchaseInvoiceTotals, getPurchaseOrder, getReceipt, getReceiptTotals, getSalesInvoice, getSalesInvoiceTotals, getSupplier, inviteBusinessMember, listBankAccounts, listBankReconciliations, listBusinessMembers, listChartOfAccounts, listCustomers, listInterAccountTransfers, listJournalEntries, listMyBusinesses, listPayments, listPurchaseInvoices, listPurchaseOrders, listReceipts, listRecentBankAccounts, listRecentChartOfAccounts, listRecentCustomers, listRecentSuppliers, listSalesInvoices, listSuppliers, listUsers, login, logout, type Options, refreshToken, removeBusinessMember, sendSalesInvoice, setBankAccountActive, setBankAccountLockDate, setBusinessLockDate, setChartOfAccountActive, setCustomerActive, setInterAccountTransferCleared, setPaymentCleared, setReceiptCleared, setSupplierActive, updateBankAccount, updateBankReconciliation, updateBusiness, updateBusinessMemberRole, updateChartOfAccount, updateCustomer, updateMe, updatePurchaseInvoice, updatePurchaseOrder, updateSalesInvoice, updateSupplier, voidPurchaseInvoice, voidSalesInvoice } from '../sdk.gen';
-import type { ApprovePurchaseInvoiceData, ApprovePurchaseInvoiceError, ApprovePurchaseInvoiceResponse, ChangePasswordData, ChangePasswordError, ChangePasswordResponse, CreateBankAccountData, CreateBankAccountError, CreateBankAccountResponse, CreateBankReconciliationData, CreateBankReconciliationError, CreateBankReconciliationResponse, CreateBusinessData, CreateBusinessError, CreateBusinessResponse, CreateChartOfAccountData, CreateChartOfAccountError, CreateChartOfAccountResponse, CreateCustomerData, CreateCustomerError, CreateCustomerResponse, CreateInterAccountTransferData, CreateInterAccountTransferError, CreateInterAccountTransferResponse, CreateJournalEntryData, CreateJournalEntryError, CreateJournalEntryResponse, CreatePaymentData, CreatePaymentError, CreatePaymentResponse, CreatePurchaseInvoiceData, CreatePurchaseInvoiceError, CreatePurchaseInvoiceResponse, CreatePurchaseOrderData, CreatePurchaseOrderError, CreatePurchaseOrderResponse, CreateReceiptData, CreateReceiptError, CreateReceiptResponse, CreateSalesInvoiceData, CreateSalesInvoiceError, CreateSalesInvoiceResponse, CreateSupplierData, CreateSupplierError, CreateSupplierResponse, CreateUserData, CreateUserError, CreateUserResponse, DeleteBankAccountData, DeleteBankAccountError, DeleteBankAccountResponse, DeleteBankReconciliationData, DeleteBankReconciliationError, DeleteBankReconciliationResponse, DeleteBusinessData, DeleteBusinessError, DeleteBusinessResponse, DeleteChartOfAccountData, DeleteChartOfAccountError, DeleteChartOfAccountResponse, DeleteCustomerData, DeleteCustomerError, DeleteCustomerResponse, DeleteInterAccountTransferData, DeleteInterAccountTransferError, DeleteInterAccountTransferResponse, DeleteJournalEntryData, DeleteJournalEntryError, DeleteJournalEntryResponse, DeletePaymentData, DeletePaymentError, DeletePaymentResponse, DeletePurchaseInvoiceData, DeletePurchaseInvoiceError, DeletePurchaseInvoiceResponse, DeletePurchaseOrderData, DeletePurchaseOrderError, DeletePurchaseOrderResponse, DeleteReceiptData, DeleteReceiptError, DeleteReceiptResponse, DeleteSalesInvoiceData, DeleteSalesInvoiceError, DeleteSalesInvoiceResponse, DeleteSupplierData, DeleteSupplierError, DeleteSupplierResponse, GetBankAccountData, GetBankAccountError, GetBankAccountResponse, GetBankReconciliationData, GetBankReconciliationError, GetBankReconciliationResponse, GetBusinessData, GetBusinessError, GetBusinessResponse, GetChartOfAccountData, GetChartOfAccountError, GetChartOfAccountResponse, GetCustomerData, GetCustomerError, GetCustomerResponse, GetInterAccountTransferData, GetInterAccountTransferError, GetInterAccountTransferResponse, GetJournalEntryData, GetJournalEntryError, GetJournalEntryResponse, GetMeData, GetMeError, GetMeResponse, GetPaymentData, GetPaymentError, GetPaymentResponse, GetPaymentTotalsData, GetPaymentTotalsError, GetPaymentTotalsResponse, GetPurchaseInvoiceData, GetPurchaseInvoiceError, GetPurchaseInvoiceResponse, GetPurchaseInvoiceTotalsData, GetPurchaseInvoiceTotalsError, GetPurchaseInvoiceTotalsResponse, GetPurchaseOrderData, GetPurchaseOrderError, GetPurchaseOrderResponse, GetReceiptData, GetReceiptError, GetReceiptResponse, GetReceiptTotalsData, GetReceiptTotalsError, GetReceiptTotalsResponse, GetSalesInvoiceData, GetSalesInvoiceError, GetSalesInvoiceResponse, GetSalesInvoiceTotalsData, GetSalesInvoiceTotalsError, GetSalesInvoiceTotalsResponse, GetSupplierData, GetSupplierError, GetSupplierResponse, InviteBusinessMemberData, InviteBusinessMemberError, InviteBusinessMemberResponse, ListBankAccountsData, ListBankAccountsError, ListBankAccountsResponse, ListBankReconciliationsData, ListBankReconciliationsError, ListBankReconciliationsResponse, ListBusinessMembersData, ListBusinessMembersError, ListBusinessMembersResponse, ListChartOfAccountsData, ListChartOfAccountsError, ListChartOfAccountsResponse, ListCustomersData, ListCustomersError, ListCustomersResponse, ListInterAccountTransfersData, ListInterAccountTransfersError, ListInterAccountTransfersResponse, ListJournalEntriesData, ListJournalEntriesError, ListJournalEntriesResponse, ListMyBusinessesData, ListMyBusinessesError, ListMyBusinessesResponse, ListPaymentsData, ListPaymentsError, ListPaymentsResponse, ListPurchaseInvoicesData, ListPurchaseInvoicesError, ListPurchaseInvoicesResponse, ListPurchaseOrdersData, ListPurchaseOrdersError, ListPurchaseOrdersResponse, ListReceiptsData, ListReceiptsError, ListReceiptsResponse, ListRecentBankAccountsData, ListRecentBankAccountsError, ListRecentBankAccountsResponse, ListRecentChartOfAccountsData, ListRecentChartOfAccountsError, ListRecentChartOfAccountsResponse, ListRecentCustomersData, ListRecentCustomersError, ListRecentCustomersResponse, ListRecentSuppliersData, ListRecentSuppliersError, ListRecentSuppliersResponse, ListSalesInvoicesData, ListSalesInvoicesError, ListSalesInvoicesResponse, ListSuppliersData, ListSuppliersError, ListSuppliersResponse, ListUsersData, ListUsersError, ListUsersResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RemoveBusinessMemberData, RemoveBusinessMemberError, RemoveBusinessMemberResponse, SendSalesInvoiceData, SendSalesInvoiceError, SendSalesInvoiceResponse, SetBankAccountActiveData, SetBankAccountActiveError, SetBankAccountActiveResponse, SetBankAccountLockDateData, SetBankAccountLockDateError, SetBankAccountLockDateResponse, SetBusinessLockDateData, SetBusinessLockDateError, SetBusinessLockDateResponse, SetChartOfAccountActiveData, SetChartOfAccountActiveError, SetChartOfAccountActiveResponse, SetCustomerActiveData, SetCustomerActiveError, SetCustomerActiveResponse, SetInterAccountTransferClearedData, SetInterAccountTransferClearedError, SetInterAccountTransferClearedResponse, SetPaymentClearedData, SetPaymentClearedError, SetPaymentClearedResponse, SetReceiptClearedData, SetReceiptClearedError, SetReceiptClearedResponse, SetSupplierActiveData, SetSupplierActiveError, SetSupplierActiveResponse, UpdateBankAccountData, UpdateBankAccountError, UpdateBankAccountResponse, UpdateBankReconciliationData, UpdateBankReconciliationError, UpdateBankReconciliationResponse, UpdateBusinessData, UpdateBusinessError, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleError, UpdateBusinessMemberRoleResponse, UpdateBusinessResponse, UpdateChartOfAccountData, UpdateChartOfAccountError, UpdateChartOfAccountResponse, UpdateCustomerData, UpdateCustomerError, UpdateCustomerResponse, UpdateMeData, UpdateMeError, UpdateMeResponse, UpdatePurchaseInvoiceData, UpdatePurchaseInvoiceError, UpdatePurchaseInvoiceResponse, UpdatePurchaseOrderData, UpdatePurchaseOrderError, UpdatePurchaseOrderResponse, UpdateSalesInvoiceData, UpdateSalesInvoiceError, UpdateSalesInvoiceResponse, UpdateSupplierData, UpdateSupplierError, UpdateSupplierResponse, VoidPurchaseInvoiceData, VoidPurchaseInvoiceError, VoidPurchaseInvoiceResponse, VoidSalesInvoiceData, VoidSalesInvoiceError, VoidSalesInvoiceResponse } from '../types.gen';
+import { approvePurchaseInvoice, changePassword, createBankAccount, createBankReconciliation, createBusiness, createChartOfAccount, createCustomer, createExpenseClaim, createExpenseClaimPayer, createInterAccountTransfer, createJournalEntry, createPayment, createPurchaseInvoice, createPurchaseOrder, createReceipt, createSalesInvoice, createSupplier, createUser, deleteBankAccount, deleteBankReconciliation, deleteBusiness, deleteChartOfAccount, deleteCustomer, deleteExpenseClaim, deleteExpenseClaimPayer, deleteInterAccountTransfer, deleteJournalEntry, deletePayment, deletePurchaseInvoice, deletePurchaseOrder, deleteReceipt, deleteSalesInvoice, deleteSupplier, getBankAccount, getBankReconciliation, getBusiness, getChartOfAccount, getCustomer, getExpenseClaim, getExpenseClaimPayer, getInterAccountTransfer, getJournalEntry, getMe, getPayment, getPaymentTotals, getPurchaseInvoice, getPurchaseInvoiceTotals, getPurchaseOrder, getReceipt, getReceiptTotals, getSalesInvoice, getSalesInvoiceTotals, getSupplier, inviteBusinessMember, listBankAccounts, listBankReconciliations, listBusinessMembers, listChartOfAccounts, listCustomers, listExpenseClaimPayers, listExpenseClaims, listInterAccountTransfers, listJournalEntries, listMyBusinesses, listPayments, listPurchaseInvoices, listPurchaseOrders, listReceipts, listRecentBankAccounts, listRecentChartOfAccounts, listRecentCustomers, listRecentSuppliers, listSalesInvoices, listSuppliers, listUsers, login, logout, type Options, refreshToken, removeBusinessMember, sendSalesInvoice, setBankAccountActive, setBankAccountLockDate, setBusinessLockDate, setChartOfAccountActive, setCustomerActive, setExpenseClaimPayerActive, setInterAccountTransferCleared, setPaymentCleared, setReceiptCleared, setSupplierActive, updateBankAccount, updateBankReconciliation, updateBusiness, updateBusinessMemberRole, updateChartOfAccount, updateCustomer, updateExpenseClaimPayer, updateMe, updatePurchaseInvoice, updatePurchaseOrder, updateSalesInvoice, updateSupplier, voidPurchaseInvoice, voidSalesInvoice } from '../sdk.gen';
+import type { ApprovePurchaseInvoiceData, ApprovePurchaseInvoiceError, ApprovePurchaseInvoiceResponse, ChangePasswordData, ChangePasswordError, ChangePasswordResponse, CreateBankAccountData, CreateBankAccountError, CreateBankAccountResponse, CreateBankReconciliationData, CreateBankReconciliationError, CreateBankReconciliationResponse, CreateBusinessData, CreateBusinessError, CreateBusinessResponse, CreateChartOfAccountData, CreateChartOfAccountError, CreateChartOfAccountResponse, CreateCustomerData, CreateCustomerError, CreateCustomerResponse, CreateExpenseClaimData, CreateExpenseClaimError, CreateExpenseClaimPayerData, CreateExpenseClaimPayerError, CreateExpenseClaimPayerResponse, CreateExpenseClaimResponse, CreateInterAccountTransferData, CreateInterAccountTransferError, CreateInterAccountTransferResponse, CreateJournalEntryData, CreateJournalEntryError, CreateJournalEntryResponse, CreatePaymentData, CreatePaymentError, CreatePaymentResponse, CreatePurchaseInvoiceData, CreatePurchaseInvoiceError, CreatePurchaseInvoiceResponse, CreatePurchaseOrderData, CreatePurchaseOrderError, CreatePurchaseOrderResponse, CreateReceiptData, CreateReceiptError, CreateReceiptResponse, CreateSalesInvoiceData, CreateSalesInvoiceError, CreateSalesInvoiceResponse, CreateSupplierData, CreateSupplierError, CreateSupplierResponse, CreateUserData, CreateUserError, CreateUserResponse, DeleteBankAccountData, DeleteBankAccountError, DeleteBankAccountResponse, DeleteBankReconciliationData, DeleteBankReconciliationError, DeleteBankReconciliationResponse, DeleteBusinessData, DeleteBusinessError, DeleteBusinessResponse, DeleteChartOfAccountData, DeleteChartOfAccountError, DeleteChartOfAccountResponse, DeleteCustomerData, DeleteCustomerError, DeleteCustomerResponse, DeleteExpenseClaimData, DeleteExpenseClaimError, DeleteExpenseClaimPayerData, DeleteExpenseClaimPayerError, DeleteExpenseClaimPayerResponse, DeleteExpenseClaimResponse, DeleteInterAccountTransferData, DeleteInterAccountTransferError, DeleteInterAccountTransferResponse, DeleteJournalEntryData, DeleteJournalEntryError, DeleteJournalEntryResponse, DeletePaymentData, DeletePaymentError, DeletePaymentResponse, DeletePurchaseInvoiceData, DeletePurchaseInvoiceError, DeletePurchaseInvoiceResponse, DeletePurchaseOrderData, DeletePurchaseOrderError, DeletePurchaseOrderResponse, DeleteReceiptData, DeleteReceiptError, DeleteReceiptResponse, DeleteSalesInvoiceData, DeleteSalesInvoiceError, DeleteSalesInvoiceResponse, DeleteSupplierData, DeleteSupplierError, DeleteSupplierResponse, GetBankAccountData, GetBankAccountError, GetBankAccountResponse, GetBankReconciliationData, GetBankReconciliationError, GetBankReconciliationResponse, GetBusinessData, GetBusinessError, GetBusinessResponse, GetChartOfAccountData, GetChartOfAccountError, GetChartOfAccountResponse, GetCustomerData, GetCustomerError, GetCustomerResponse, GetExpenseClaimData, GetExpenseClaimError, GetExpenseClaimPayerData, GetExpenseClaimPayerError, GetExpenseClaimPayerResponse, GetExpenseClaimResponse, GetInterAccountTransferData, GetInterAccountTransferError, GetInterAccountTransferResponse, GetJournalEntryData, GetJournalEntryError, GetJournalEntryResponse, GetMeData, GetMeError, GetMeResponse, GetPaymentData, GetPaymentError, GetPaymentResponse, GetPaymentTotalsData, GetPaymentTotalsError, GetPaymentTotalsResponse, GetPurchaseInvoiceData, GetPurchaseInvoiceError, GetPurchaseInvoiceResponse, GetPurchaseInvoiceTotalsData, GetPurchaseInvoiceTotalsError, GetPurchaseInvoiceTotalsResponse, GetPurchaseOrderData, GetPurchaseOrderError, GetPurchaseOrderResponse, GetReceiptData, GetReceiptError, GetReceiptResponse, GetReceiptTotalsData, GetReceiptTotalsError, GetReceiptTotalsResponse, GetSalesInvoiceData, GetSalesInvoiceError, GetSalesInvoiceResponse, GetSalesInvoiceTotalsData, GetSalesInvoiceTotalsError, GetSalesInvoiceTotalsResponse, GetSupplierData, GetSupplierError, GetSupplierResponse, InviteBusinessMemberData, InviteBusinessMemberError, InviteBusinessMemberResponse, ListBankAccountsData, ListBankAccountsError, ListBankAccountsResponse, ListBankReconciliationsData, ListBankReconciliationsError, ListBankReconciliationsResponse, ListBusinessMembersData, ListBusinessMembersError, ListBusinessMembersResponse, ListChartOfAccountsData, ListChartOfAccountsError, ListChartOfAccountsResponse, ListCustomersData, ListCustomersError, ListCustomersResponse, ListExpenseClaimPayersData, ListExpenseClaimPayersError, ListExpenseClaimPayersResponse, ListExpenseClaimsData, ListExpenseClaimsError, ListExpenseClaimsResponse, ListInterAccountTransfersData, ListInterAccountTransfersError, ListInterAccountTransfersResponse, ListJournalEntriesData, ListJournalEntriesError, ListJournalEntriesResponse, ListMyBusinessesData, ListMyBusinessesError, ListMyBusinessesResponse, ListPaymentsData, ListPaymentsError, ListPaymentsResponse, ListPurchaseInvoicesData, ListPurchaseInvoicesError, ListPurchaseInvoicesResponse, ListPurchaseOrdersData, ListPurchaseOrdersError, ListPurchaseOrdersResponse, ListReceiptsData, ListReceiptsError, ListReceiptsResponse, ListRecentBankAccountsData, ListRecentBankAccountsError, ListRecentBankAccountsResponse, ListRecentChartOfAccountsData, ListRecentChartOfAccountsError, ListRecentChartOfAccountsResponse, ListRecentCustomersData, ListRecentCustomersError, ListRecentCustomersResponse, ListRecentSuppliersData, ListRecentSuppliersError, ListRecentSuppliersResponse, ListSalesInvoicesData, ListSalesInvoicesError, ListSalesInvoicesResponse, ListSuppliersData, ListSuppliersError, ListSuppliersResponse, ListUsersData, ListUsersError, ListUsersResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RemoveBusinessMemberData, RemoveBusinessMemberError, RemoveBusinessMemberResponse, SendSalesInvoiceData, SendSalesInvoiceError, SendSalesInvoiceResponse, SetBankAccountActiveData, SetBankAccountActiveError, SetBankAccountActiveResponse, SetBankAccountLockDateData, SetBankAccountLockDateError, SetBankAccountLockDateResponse, SetBusinessLockDateData, SetBusinessLockDateError, SetBusinessLockDateResponse, SetChartOfAccountActiveData, SetChartOfAccountActiveError, SetChartOfAccountActiveResponse, SetCustomerActiveData, SetCustomerActiveError, SetCustomerActiveResponse, SetExpenseClaimPayerActiveData, SetExpenseClaimPayerActiveError, SetExpenseClaimPayerActiveResponse, SetInterAccountTransferClearedData, SetInterAccountTransferClearedError, SetInterAccountTransferClearedResponse, SetPaymentClearedData, SetPaymentClearedError, SetPaymentClearedResponse, SetReceiptClearedData, SetReceiptClearedError, SetReceiptClearedResponse, SetSupplierActiveData, SetSupplierActiveError, SetSupplierActiveResponse, UpdateBankAccountData, UpdateBankAccountError, UpdateBankAccountResponse, UpdateBankReconciliationData, UpdateBankReconciliationError, UpdateBankReconciliationResponse, UpdateBusinessData, UpdateBusinessError, UpdateBusinessMemberRoleData, UpdateBusinessMemberRoleError, UpdateBusinessMemberRoleResponse, UpdateBusinessResponse, UpdateChartOfAccountData, UpdateChartOfAccountError, UpdateChartOfAccountResponse, UpdateCustomerData, UpdateCustomerError, UpdateCustomerResponse, UpdateExpenseClaimPayerData, UpdateExpenseClaimPayerError, UpdateExpenseClaimPayerResponse, UpdateMeData, UpdateMeError, UpdateMeResponse, UpdatePurchaseInvoiceData, UpdatePurchaseInvoiceError, UpdatePurchaseInvoiceResponse, UpdatePurchaseOrderData, UpdatePurchaseOrderError, UpdatePurchaseOrderResponse, UpdateSalesInvoiceData, UpdateSalesInvoiceError, UpdateSalesInvoiceResponse, UpdateSupplierData, UpdateSupplierError, UpdateSupplierResponse, VoidPurchaseInvoiceData, VoidPurchaseInvoiceError, VoidPurchaseInvoiceResponse, VoidSalesInvoiceData, VoidSalesInvoiceError, VoidSalesInvoiceResponse } from '../types.gen';
 
 export const loginMutation = (options?: Partial<Options<LoginData>>): UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> => {
     const mutationOptions: UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> = {
@@ -1771,3 +1771,174 @@ export const updatePurchaseOrderMutation = (options?: Partial<Options<UpdatePurc
     };
     return mutationOptions;
 };
+
+export const listExpenseClaimPayersQueryKey = (options: Options<ListExpenseClaimPayersData>) => createQueryKey('listExpenseClaimPayers', options);
+
+export const listExpenseClaimPayersOptions = (options: Options<ListExpenseClaimPayersData>) => queryOptions<ListExpenseClaimPayersResponse, ListExpenseClaimPayersError, ListExpenseClaimPayersResponse, ReturnType<typeof listExpenseClaimPayersQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listExpenseClaimPayers({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listExpenseClaimPayersQueryKey(options)
+});
+
+export const createExpenseClaimPayerMutation = (options?: Partial<Options<CreateExpenseClaimPayerData>>): UseMutationOptions<CreateExpenseClaimPayerResponse, CreateExpenseClaimPayerError, Options<CreateExpenseClaimPayerData>> => {
+    const mutationOptions: UseMutationOptions<CreateExpenseClaimPayerResponse, CreateExpenseClaimPayerError, Options<CreateExpenseClaimPayerData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createExpenseClaimPayer({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const deleteExpenseClaimPayerMutation = (options?: Partial<Options<DeleteExpenseClaimPayerData>>): UseMutationOptions<DeleteExpenseClaimPayerResponse, DeleteExpenseClaimPayerError, Options<DeleteExpenseClaimPayerData>> => {
+    const mutationOptions: UseMutationOptions<DeleteExpenseClaimPayerResponse, DeleteExpenseClaimPayerError, Options<DeleteExpenseClaimPayerData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deleteExpenseClaimPayer({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getExpenseClaimPayerQueryKey = (options: Options<GetExpenseClaimPayerData>) => createQueryKey('getExpenseClaimPayer', options);
+
+export const getExpenseClaimPayerOptions = (options: Options<GetExpenseClaimPayerData>) => queryOptions<GetExpenseClaimPayerResponse, GetExpenseClaimPayerError, GetExpenseClaimPayerResponse, ReturnType<typeof getExpenseClaimPayerQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getExpenseClaimPayer({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getExpenseClaimPayerQueryKey(options)
+});
+
+export const updateExpenseClaimPayerMutation = (options?: Partial<Options<UpdateExpenseClaimPayerData>>): UseMutationOptions<UpdateExpenseClaimPayerResponse, UpdateExpenseClaimPayerError, Options<UpdateExpenseClaimPayerData>> => {
+    const mutationOptions: UseMutationOptions<UpdateExpenseClaimPayerResponse, UpdateExpenseClaimPayerError, Options<UpdateExpenseClaimPayerData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await updateExpenseClaimPayer({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const setExpenseClaimPayerActiveMutation = (options?: Partial<Options<SetExpenseClaimPayerActiveData>>): UseMutationOptions<SetExpenseClaimPayerActiveResponse, SetExpenseClaimPayerActiveError, Options<SetExpenseClaimPayerActiveData>> => {
+    const mutationOptions: UseMutationOptions<SetExpenseClaimPayerActiveResponse, SetExpenseClaimPayerActiveError, Options<SetExpenseClaimPayerActiveData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await setExpenseClaimPayerActive({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const listExpenseClaimsQueryKey = (options: Options<ListExpenseClaimsData>) => createQueryKey('listExpenseClaims', options);
+
+export const listExpenseClaimsOptions = (options: Options<ListExpenseClaimsData>) => queryOptions<ListExpenseClaimsResponse, ListExpenseClaimsError, ListExpenseClaimsResponse, ReturnType<typeof listExpenseClaimsQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listExpenseClaims({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listExpenseClaimsQueryKey(options)
+});
+
+export const listExpenseClaimsInfiniteQueryKey = (options: Options<ListExpenseClaimsData>): QueryKey<Options<ListExpenseClaimsData>> => createQueryKey('listExpenseClaims', options, true);
+
+export const listExpenseClaimsInfiniteOptions = (options: Options<ListExpenseClaimsData>) => {
+    const opts = infiniteQueryOptions<ListExpenseClaimsResponse, ListExpenseClaimsError, InfiniteData<ListExpenseClaimsResponse>, QueryKey<Options<ListExpenseClaimsData>>, number | Pick<QueryKey<Options<ListExpenseClaimsData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<ListExpenseClaimsData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    page: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await listExpenseClaims({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: listExpenseClaimsInfiniteQueryKey(options)
+    });
+    return opts as Omit<typeof opts, 'initialData'>;
+};
+
+export const createExpenseClaimMutation = (options?: Partial<Options<CreateExpenseClaimData>>): UseMutationOptions<CreateExpenseClaimResponse, CreateExpenseClaimError, Options<CreateExpenseClaimData>> => {
+    const mutationOptions: UseMutationOptions<CreateExpenseClaimResponse, CreateExpenseClaimError, Options<CreateExpenseClaimData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createExpenseClaim({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const deleteExpenseClaimMutation = (options?: Partial<Options<DeleteExpenseClaimData>>): UseMutationOptions<DeleteExpenseClaimResponse, DeleteExpenseClaimError, Options<DeleteExpenseClaimData>> => {
+    const mutationOptions: UseMutationOptions<DeleteExpenseClaimResponse, DeleteExpenseClaimError, Options<DeleteExpenseClaimData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deleteExpenseClaim({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getExpenseClaimQueryKey = (options: Options<GetExpenseClaimData>) => createQueryKey('getExpenseClaim', options);
+
+export const getExpenseClaimOptions = (options: Options<GetExpenseClaimData>) => queryOptions<GetExpenseClaimResponse, GetExpenseClaimError, GetExpenseClaimResponse, ReturnType<typeof getExpenseClaimQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getExpenseClaim({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getExpenseClaimQueryKey(options)
+});

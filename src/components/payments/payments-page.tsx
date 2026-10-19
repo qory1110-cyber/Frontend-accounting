@@ -24,6 +24,8 @@ interface PaymentRow {
     accountName: string
     purchaseInvoiceId: string | null
     purchaseInvoiceReference: string | null
+    expenseClaimId: string | null
+    expenseClaimReference: string | null
     amount: string
   }[]
   totalAmount: number

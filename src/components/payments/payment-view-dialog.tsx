@@ -6,6 +6,8 @@ interface PaymentLine {
   accountName: string
   purchaseInvoiceId: string | null
   purchaseInvoiceReference: string | null
+  expenseClaimId: string | null
+  expenseClaimReference: string | null
   amount: string
 }
 
@@ -77,7 +79,7 @@ export function PaymentViewDialog({
                 <thead>
                   <tr className="border-b bg-muted/30 text-left text-xs text-muted-foreground">
                     <th className="px-3 py-2 font-normal">Account</th>
-                    <th className="px-3 py-2 font-normal">Purchase Invoice</th>
+                    <th className="px-3 py-2 font-normal">Referensi</th>
                     <th className="px-3 py-2 text-right font-normal">Amount</th>
                   </tr>
                 </thead>
@@ -85,7 +87,13 @@ export function PaymentViewDialog({
                   {payment.lines.map((line, i) => (
                     <tr key={i} className="border-b last:border-b-0">
                       <td className="px-3 py-2">{line.accountName}</td>
-                      <td className="px-3 py-2">{line.purchaseInvoiceReference ?? '-'}</td>
+                      <td className="px-3 py-2">
+                        {line.purchaseInvoiceReference
+                          ? `Faktur ${line.purchaseInvoiceReference}`
+                          : line.expenseClaimReference
+                            ? `Klaim ${line.expenseClaimReference}`
+                            : '-'}
+                      </td>
                       <td className="px-3 py-2 text-right">{formatCurrency(Number(line.amount))}</td>
                     </tr>
                   ))}

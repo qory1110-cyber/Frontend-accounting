@@ -14,6 +14,7 @@ import {
   ArrowLeftRight,
   Scale,
   BookOpenText,
+  Wallet,
 } from 'lucide-react'
 
 export type BusinessRole = 'admin' | 'accountant' | 'viewer'
@@ -47,6 +48,7 @@ export const businessSidebarMenu: MenuItem[] = [
   { label: 'Suppliers', to: '/businesses/$businessId/suppliers', moduleKey: 'suppliers', category: 'purchases', icon: Truck },
   { label: 'Purchase Orders', to: '/businesses/$businessId/purchase-orders', category: 'purchases', icon: ClipboardList },
   { label: 'Purchase Invoices', to: '/businesses/$businessId/purchase-invoices', moduleKey: 'purchase-invoices', category: 'purchases', icon: FileSpreadsheet },
+  { label: 'Expense Claims', to: '/businesses/$businessId/expense-claims', category: 'purchases', icon: Wallet },
   { label: 'Payments', to: '/businesses/$businessId/payments', moduleKey: 'payments', category: 'purchases', icon: Banknote },
   { label: 'Bank and Cash Accounts', to: '/businesses/$businessId/bank-accounts', moduleKey: 'bank-accounts', category: 'money', icon: Landmark },
   { label: 'Inter Account Transfers', to: '/businesses/$businessId/inter-account-transfers', moduleKey: 'inter-account-transfers', category: 'money', icon: ArrowLeftRight },

@@ -4445,6 +4445,8 @@ export type ListPaymentsResponses = {
                 accountName: string;
                 purchaseInvoiceId: string | null;
                 purchaseInvoiceReference: string | null;
+                expenseClaimId: string | null;
+                expenseClaimReference: string | null;
                 amount: string;
             }>;
             totalAmount: number;
@@ -4470,6 +4472,7 @@ export type CreatePaymentData = {
         lines: Array<{
             amount: number;
             purchaseInvoiceId?: string;
+            expenseClaimId?: string;
             accountId?: string;
         }>;
     };
@@ -4535,6 +4538,8 @@ export type CreatePaymentResponses = {
                 accountName: string;
                 purchaseInvoiceId: string | null;
                 purchaseInvoiceReference: string | null;
+                expenseClaimId: string | null;
+                expenseClaimReference: string | null;
                 amount: string;
             }>;
             totalAmount: number;
@@ -4688,6 +4693,8 @@ export type GetPaymentResponses = {
                 accountName: string;
                 purchaseInvoiceId: string | null;
                 purchaseInvoiceReference: string | null;
+                expenseClaimId: string | null;
+                expenseClaimReference: string | null;
                 amount: string;
             }>;
             totalAmount: number;
@@ -4757,6 +4764,8 @@ export type SetPaymentClearedResponses = {
                 accountName: string;
                 purchaseInvoiceId: string | null;
                 purchaseInvoiceReference: string | null;
+                expenseClaimId: string | null;
+                expenseClaimReference: string | null;
                 amount: string;
             }>;
             totalAmount: number;
@@ -5694,3 +5703,602 @@ export type UpdatePurchaseOrderResponses = {
 };
 
 export type UpdatePurchaseOrderResponse = UpdatePurchaseOrderResponses[keyof UpdatePurchaseOrderResponses];
+
+export type ListExpenseClaimPayersData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claim-payers';
+};
+
+export type ListExpenseClaimPayersErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListExpenseClaimPayersError = ListExpenseClaimPayersErrors[keyof ListExpenseClaimPayersErrors];
+
+export type ListExpenseClaimPayersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            contactId: string;
+            name: string;
+            isActive: boolean;
+        }>;
+    };
+};
+
+export type ListExpenseClaimPayersResponse = ListExpenseClaimPayersResponses[keyof ListExpenseClaimPayersResponses];
+
+export type CreateExpenseClaimPayerData = {
+    body: {
+        name: string;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claim-payers';
+};
+
+export type CreateExpenseClaimPayerErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateExpenseClaimPayerError = CreateExpenseClaimPayerErrors[keyof CreateExpenseClaimPayerErrors];
+
+export type CreateExpenseClaimPayerResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            contactId: string;
+            name: string;
+            isActive: boolean;
+        };
+    };
+};
+
+export type CreateExpenseClaimPayerResponse = CreateExpenseClaimPayerResponses[keyof CreateExpenseClaimPayerResponses];
+
+export type DeleteExpenseClaimPayerData = {
+    body?: never;
+    path: {
+        businessId: string;
+        payerId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claim-payers/{payerId}';
+};
+
+export type DeleteExpenseClaimPayerErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteExpenseClaimPayerError = DeleteExpenseClaimPayerErrors[keyof DeleteExpenseClaimPayerErrors];
+
+export type DeleteExpenseClaimPayerResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteExpenseClaimPayerResponse = DeleteExpenseClaimPayerResponses[keyof DeleteExpenseClaimPayerResponses];
+
+export type GetExpenseClaimPayerData = {
+    body?: never;
+    path: {
+        businessId: string;
+        payerId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claim-payers/{payerId}';
+};
+
+export type GetExpenseClaimPayerErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetExpenseClaimPayerError = GetExpenseClaimPayerErrors[keyof GetExpenseClaimPayerErrors];
+
+export type GetExpenseClaimPayerResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            contactId: string;
+            name: string;
+            isActive: boolean;
+        };
+    };
+};
+
+export type GetExpenseClaimPayerResponse = GetExpenseClaimPayerResponses[keyof GetExpenseClaimPayerResponses];
+
+export type UpdateExpenseClaimPayerData = {
+    body: {
+        name: string;
+    };
+    path: {
+        businessId: string;
+        payerId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claim-payers/{payerId}';
+};
+
+export type UpdateExpenseClaimPayerErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateExpenseClaimPayerError = UpdateExpenseClaimPayerErrors[keyof UpdateExpenseClaimPayerErrors];
+
+export type UpdateExpenseClaimPayerResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            contactId: string;
+            name: string;
+            isActive: boolean;
+        };
+    };
+};
+
+export type UpdateExpenseClaimPayerResponse = UpdateExpenseClaimPayerResponses[keyof UpdateExpenseClaimPayerResponses];
+
+export type SetExpenseClaimPayerActiveData = {
+    body: {
+        isActive: boolean;
+    };
+    path: {
+        businessId: string;
+        payerId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claim-payers/{payerId}/active';
+};
+
+export type SetExpenseClaimPayerActiveErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetExpenseClaimPayerActiveError = SetExpenseClaimPayerActiveErrors[keyof SetExpenseClaimPayerActiveErrors];
+
+export type SetExpenseClaimPayerActiveResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            contactId: string;
+            name: string;
+            isActive: boolean;
+        };
+    };
+};
+
+export type SetExpenseClaimPayerActiveResponse = SetExpenseClaimPayerActiveResponses[keyof SetExpenseClaimPayerActiveResponses];
+
+export type ListExpenseClaimsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        payerId?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/expense-claims';
+};
+
+export type ListExpenseClaimsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListExpenseClaimsError = ListExpenseClaimsErrors[keyof ListExpenseClaimsErrors];
+
+export type ListExpenseClaimsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            claimDate: string;
+            reference: string | null;
+            payerId: string;
+            payerName: string;
+            payee: string | null;
+            description: string | null;
+            totalAmount: number;
+            paidAmount: number;
+            balanceDue: number;
+            status: 'Unpaid' | 'Paid';
+            createdAt: string;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                description: string | null;
+                amount: number;
+            }>;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListExpenseClaimsResponse = ListExpenseClaimsResponses[keyof ListExpenseClaimsResponses];
+
+export type CreateExpenseClaimData = {
+    body: {
+        claimDate: string;
+        reference?: string;
+        payerId: string;
+        payee?: string;
+        description?: string;
+        lines: Array<{
+            accountId: string;
+            description?: string;
+            amount: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claims';
+};
+
+export type CreateExpenseClaimErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateExpenseClaimError = CreateExpenseClaimErrors[keyof CreateExpenseClaimErrors];
+
+export type CreateExpenseClaimResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            claimDate: string;
+            reference: string | null;
+            payerId: string;
+            payerName: string;
+            payee: string | null;
+            description: string | null;
+            totalAmount: number;
+            paidAmount: number;
+            balanceDue: number;
+            status: 'Unpaid' | 'Paid';
+            createdAt: string;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                description: string | null;
+                amount: number;
+            }>;
+        };
+    };
+};
+
+export type CreateExpenseClaimResponse = CreateExpenseClaimResponses[keyof CreateExpenseClaimResponses];
+
+export type DeleteExpenseClaimData = {
+    body?: never;
+    path: {
+        businessId: string;
+        claimId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claims/{claimId}';
+};
+
+export type DeleteExpenseClaimErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteExpenseClaimError = DeleteExpenseClaimErrors[keyof DeleteExpenseClaimErrors];
+
+export type DeleteExpenseClaimResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteExpenseClaimResponse = DeleteExpenseClaimResponses[keyof DeleteExpenseClaimResponses];
+
+export type GetExpenseClaimData = {
+    body?: never;
+    path: {
+        businessId: string;
+        claimId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/expense-claims/{claimId}';
+};
+
+export type GetExpenseClaimErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetExpenseClaimError = GetExpenseClaimErrors[keyof GetExpenseClaimErrors];
+
+export type GetExpenseClaimResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            claimDate: string;
+            reference: string | null;
+            payerId: string;
+            payerName: string;
+            payee: string | null;
+            description: string | null;
+            totalAmount: number;
+            paidAmount: number;
+            balanceDue: number;
+            status: 'Unpaid' | 'Paid';
+            createdAt: string;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                description: string | null;
+                amount: number;
+            }>;
+        };
+    };
+};
+
+export type GetExpenseClaimResponse = GetExpenseClaimResponses[keyof GetExpenseClaimResponses];

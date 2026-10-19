@@ -38,6 +38,7 @@ export function usePaymentTotals(businessId: string) {
 interface PaymentLineInput {
   amount: number
   purchaseInvoiceId?: string
+  expenseClaimId?: string
   accountId?: string
 }
 
@@ -53,6 +54,7 @@ interface PaymentFormValues {
 function invalidateAll(queryClient: ReturnType<typeof useQueryClient>, businessId: string) {
   queryClient.invalidateQueries({ queryKey: paymentKeys.list(businessId) })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'purchase-invoices'] })
+  queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'expense-claims'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'bank-accounts'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'chart-of-accounts'] })
 }
