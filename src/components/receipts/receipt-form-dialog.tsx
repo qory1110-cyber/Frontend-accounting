@@ -20,12 +20,14 @@ import { getApiErrorMessage } from '@/lib/errors'
 import { Combobox } from '@/components/ui/combobox'
 import { useRecentBankAccounts } from '@/hooks/use-bank-accounts'
 import { formatValidationIssues } from '@/lib/format-validation-issues'
+import { useProjects } from '@/hooks/use-projects'
 
 const lineSchema = z
   .object({
     mode: z.enum(['invoice', 'account']),
     salesInvoiceId: z.string(),
     accountId: z.string(),
+    projectId: z.string(),
     amount: z.number().positive('Jumlah harus > 0'),
   })
   .refine((l) => (l.mode === 'invoice' ? l.salesInvoiceId.length > 0 : l.accountId.length > 0), {
@@ -78,13 +80,19 @@ const invoices = invoicesData?.data
   const sentInvoices = (invoices ?? []).filter((inv) => inv.status === 'sent' && inv.balanceDue > 0)
   const glAccounts = (accounts ?? []).filter((a) => a.isActive)
 
+  const { data: projectsData } = useProjects(businessId, 1, 100, { status: 'active' })
+  const projectOptions = (projectsData?.data ?? []).map((p) => ({
+    id: p.id,
+    label: p.code ? `${p.code} - ${p.name}` : p.name,
+  }))
+
   const emptyValues = {
     receiptDate: new Date().toISOString().slice(0, 10),
     reference: '',
     receivedInBankAccountId: '',
     paidByContactId: '',
     description: '',
-    lines: [{ mode: 'invoice' as 'invoice' | 'account', salesInvoiceId: '', accountId: '', amount: 0 }],
+    lines: [{ mode: 'invoice' as 'invoice' | 'account', salesInvoiceId: '', accountId: '', projectId: '', amount: 0 }],
   }
 
   const form = useForm({
@@ -103,7 +111,9 @@ const invoices = invoicesData?.data
         paidByContactId: value.paidByContactId || undefined,
         description: value.description || undefined,
         lines: value.lines.map((l) =>
-          l.mode === 'invoice' ? { salesInvoiceId: l.salesInvoiceId, amount: l.amount } : { accountId: l.accountId, amount: l.amount },
+l.mode === 'invoice'
+            ? { salesInvoiceId: l.salesInvoiceId, amount: l.amount }
+            : { accountId: l.accountId, projectId: l.projectId || undefined, amount: l.amount },
         ),
       }
       try {
@@ -309,6 +319,34 @@ const invoices = invoicesData?.data
 </form.Field>
             )}
 
+            {modeField.state.value === 'account' && (
+              <form.Field name={`lines[${index}].projectId`}>
+                {(field) => (
+                  <div className="flex min-w-52 flex-1 flex-col gap-2">
+                    <div className="flex items-center justify-between">
+                      <Label>Proyek (opsional)</Label>
+                      {field.state.value && (
+                        <button
+                          type="button"
+                          className="text-xs text-muted-foreground hover:text-foreground"
+                          onClick={() => field.handleChange('')}
+                        >
+                          ✕ Hapus
+                        </button>
+                      )}
+                    </div>
+                    <Combobox
+                      value={field.state.value}
+                      onValueChange={(v) => field.handleChange(v)}
+                      recentOptions={projectOptions}
+                      searchOptions={projectOptions}
+                      placeholder="Tanpa proyek"
+                    />
+                  </div>
+                )}
+              </form.Field>
+            )}
+
             <form.Field name={`lines[${index}].amount`}>
               {(field) => (
                 <div className="flex w-36 flex-col gap-2">
@@ -345,7 +383,7 @@ const invoices = invoicesData?.data
                     variant="outline"
                     size="sm"
                     onClick={() =>
-                      linesField.pushValue({ mode: 'invoice' as 'invoice' | 'account', salesInvoiceId: '', accountId: '', amount: 0 })
+                      linesField.pushValue({ mode: 'invoice' as 'invoice' | 'account', salesInvoiceId: '', accountId: '', projectId: '', amount: 0 })
                     }
                   >
                     <Plus className="mr-1.5 h-4 w-4" />

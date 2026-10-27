@@ -22,6 +22,7 @@ import { getApiErrorMessage } from '@/lib/errors'
 import { Combobox } from '@/components/ui/combobox'
 import { useRecentBankAccounts } from '@/hooks/use-bank-accounts'
 import { formatValidationIssues } from '@/lib/format-validation-issues'
+import { useProjects } from '@/hooks/use-projects'
 
 type LineMode = 'invoice' | 'claim' | 'account'
 
@@ -31,6 +32,7 @@ const lineSchema = z
     purchaseInvoiceId: z.string(),
     expenseClaimId: z.string(),
     accountId: z.string(),
+    projectId: z.string(),
     amount: z.number().positive('Jumlah harus > 0'),
   })
   .refine(
@@ -58,6 +60,7 @@ function newLine() {
     purchaseInvoiceId: '',
     expenseClaimId: '',
     accountId: '',
+    projectId: '',
     amount: 0,
   }
 }
@@ -103,6 +106,12 @@ export function PaymentFormDialog({
   const approvedInvoices = (invoices ?? []).filter((inv) => inv.status === 'approved' && inv.balanceDue > 0)
   const glAccounts = (accounts ?? []).filter((a) => a.isActive)
 
+  const { data: projectsData } = useProjects(businessId, 1, 100, { status: 'active' })
+  const projectOptions = (projectsData?.data ?? []).map((p) => ({
+    id: p.id,
+    label: p.code ? `${p.code} - ${p.name}` : p.name,
+  }))
+
   const emptyValues = {
     paymentDate: new Date().toISOString().slice(0, 10),
     reference: '',
@@ -132,7 +141,7 @@ export function PaymentFormDialog({
             ? { purchaseInvoiceId: l.purchaseInvoiceId, amount: l.amount }
             : l.mode === 'claim'
               ? { expenseClaimId: l.expenseClaimId, amount: l.amount }
-              : { accountId: l.accountId, amount: l.amount },
+: { accountId: l.accountId, projectId: l.projectId || undefined, amount: l.amount },
         ),
       }
       try {
@@ -385,6 +394,34 @@ export function PaymentFormDialog({
                                           label: `${a.code} - ${a.name}`,
                                         }))}
                                         placeholder="Pilih akun"
+                                      />
+                                    </div>
+                                  )}
+                                </form.Field>
+                              )}
+
+                              {modeField.state.value === 'account' && (
+                                <form.Field name={`lines[${index}].projectId`}>
+                                  {(field) => (
+                                    <div className="flex min-w-52 flex-1 flex-col gap-2">
+                                      <div className="flex items-center justify-between">
+                                        <Label>Proyek (opsional)</Label>
+                                        {field.state.value && (
+                                          <button
+                                            type="button"
+                                            className="text-xs text-muted-foreground hover:text-foreground"
+                                            onClick={() => field.handleChange('')}
+                                          >
+                                            ✕ Hapus
+                                          </button>
+                                        )}
+                                      </div>
+                                      <Combobox
+                                        value={field.state.value}
+                                        onValueChange={(v) => field.handleChange(v)}
+                                        recentOptions={projectOptions}
+                                        searchOptions={projectOptions}
+                                        placeholder="Tanpa proyek"
                                       />
                                     </div>
                                   )}

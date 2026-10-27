@@ -11,6 +11,7 @@ import { Combobox } from '@/components/ui/combobox'
 import { Plus, Trash2 } from 'lucide-react'
 import { useCreateJournalEntry } from '@/hooks/use-journal-entries'
 import { useChartOfAccounts, useRecentChartOfAccounts } from '@/hooks/use-chart-of-accounts'
+import { useProjects } from '@/hooks/use-projects'
 import { getApiErrorMessage } from '@/lib/errors'
 import { formatValidationIssues } from '@/lib/format-validation-issues'
 import type { JournalEntryRow } from './journal-entries-page'
@@ -20,6 +21,7 @@ const toCents = (n: number) => Math.round(n * 100)
 const lineSchema = z
   .object({
     accountId: z.string().min(1, 'Pilih akun'),
+    projectId: z.string().optional(),
     debit: z.number().min(0, 'Debit tidak boleh negatif'),
     credit: z.number().min(0, 'Credit tidak boleh negatif'),
     description: z.string(),
@@ -42,6 +44,7 @@ const journalSchema = z
   )
 
 interface FormLine {
+  projectId?: string
   accountId: string
   debit: number
   credit: number
@@ -75,6 +78,7 @@ function buildValues(cloneFrom: JournalEntryRow | null): FormValues {
       description: cloneFrom.description ?? '',
       lines: cloneFrom.lines.map((l) => ({
         accountId: l.accountId,
+        projectId: l.projectId ?? undefined,
         debit: l.debit,
         credit: l.credit,
         description: l.description ?? '',
@@ -102,6 +106,11 @@ export function JournalEntryFormDialog({
   const createEntry = useCreateJournalEntry(businessId)
   const { data: accounts } = useChartOfAccounts(businessId)
   const { data: recentAccounts } = useRecentChartOfAccounts(businessId)
+  const { data: projectsData } = useProjects(businessId, 1, 100, { status: 'active' })
+  const projectOptions = (projectsData?.data ?? []).map((p) => ({
+    id: p.id,
+    label: p.code ? `${p.code} - ${p.name}` : p.name,
+  }))
   const [serverError, setServerError] = useState<string | null>(null)
 
   const glAccounts = (accounts ?? []).filter((a) => a.isActive)
@@ -125,6 +134,7 @@ export function JournalEntryFormDialog({
         description: value.description || undefined,
         lines: value.lines.map((l) => ({
           accountId: l.accountId,
+          projectId: l.projectId || undefined,
           debit: l.debit,
           credit: l.credit,
           description: l.description || undefined,
@@ -270,6 +280,32 @@ export function JournalEntryFormDialog({
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
+
+                                            <form.Field name={`lines[${index}].projectId`}>
+                        {(field) => (
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center justify-between">
+                              <Label>Proyek (opsional)</Label>
+                              {field.state.value && (
+                                <button
+                                  type="button"
+                                  className="text-xs text-muted-foreground hover:text-foreground"
+                                  onClick={() => field.handleChange(undefined)}
+                                >
+                                  ✕ Hapus
+                                </button>
+                              )}
+                            </div>
+                            <Combobox
+                              value={field.state.value ?? ''}
+                              onValueChange={(v) => field.handleChange(v || undefined)}
+                              recentOptions={projectOptions}
+                              searchOptions={projectOptions}
+                              placeholder="Tanpa proyek"
+                            />
+                          </div>
+                        )}
+                      </form.Field>
 
                       <form.Field name={`lines[${index}].description`}>
                         {(field) => (

@@ -27,6 +27,7 @@ export function usePurchaseInvoices(businessId: string, page = 1, pageSize = 10)
 
 interface PurchaseInvoiceLine {
   purchaseOrderLineId?: string
+  projectId?: string
   accountId: string
   qty: number
   unitPrice: number
@@ -49,6 +50,8 @@ function invalidateAll(queryClient: ReturnType<typeof useQueryClient>, businessI
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'bank-accounts'] })
   // Status & Qty invoiced Purchase Order dihitung dari faktur approved.
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'purchase-orders'] })
+  // Approve/Void mengubah total laba-rugi proyek.
+  queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'projects'] })
 }
 
 export function useCreatePurchaseInvoice(businessId: string) {

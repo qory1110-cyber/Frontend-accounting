@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 interface PaymentLine {
   accountId: string
   accountName: string
+  projectName?: string | null
   purchaseInvoiceId: string | null
   purchaseInvoiceReference: string | null
   expenseClaimId: string | null
@@ -80,6 +81,7 @@ export function PaymentViewDialog({
                   <tr className="border-b bg-muted/30 text-left text-xs text-muted-foreground">
                     <th className="px-3 py-2 font-normal">Account</th>
                     <th className="px-3 py-2 font-normal">Referensi</th>
+                    <th className="px-3 py-2 font-normal">Proyek</th>
                     <th className="px-3 py-2 text-right font-normal">Amount</th>
                   </tr>
                 </thead>
@@ -94,6 +96,7 @@ export function PaymentViewDialog({
                             ? `Klaim ${line.expenseClaimReference}`
                             : '-'}
                       </td>
+                      <td className="px-3 py-2">{line.projectName ?? '-'}</td>
                       <td className="px-3 py-2 text-right">{formatCurrency(Number(line.amount))}</td>
                     </tr>
                   ))}

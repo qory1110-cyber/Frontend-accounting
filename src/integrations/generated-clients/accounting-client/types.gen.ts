@@ -2595,6 +2595,8 @@ export type ListSalesInvoicesResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -2624,6 +2626,7 @@ export type CreateSalesInvoiceData = {
         description?: string;
         lines: Array<{
             accountId: string;
+            projectId?: string;
             qty: number;
             unitPrice: number;
         }>;
@@ -2688,6 +2691,8 @@ export type CreateSalesInvoiceResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -2802,6 +2807,8 @@ export type GetSalesInvoiceResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -2825,6 +2832,7 @@ export type UpdateSalesInvoiceData = {
         description?: string;
         lines?: Array<{
             accountId: string;
+            projectId?: string;
             qty: number;
             unitPrice: number;
         }>;
@@ -2897,6 +2905,8 @@ export type UpdateSalesInvoiceResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -3022,6 +3032,8 @@ export type SendSalesInvoiceResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -3105,6 +3117,8 @@ export type VoidSalesInvoiceResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -3171,6 +3185,8 @@ export type ListPurchaseInvoicesResponses = {
                 purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -3200,6 +3216,7 @@ export type CreatePurchaseInvoiceData = {
         description?: string;
         lines: Array<{
             purchaseOrderLineId?: string;
+            projectId?: string;
             accountId: string;
             qty: number;
             unitPrice: number;
@@ -3267,6 +3284,8 @@ export type CreatePurchaseInvoiceResponses = {
                 purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -3425,6 +3444,8 @@ export type GetPurchaseInvoiceResponses = {
                 purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -3448,6 +3469,7 @@ export type UpdatePurchaseInvoiceData = {
         description?: string;
         lines?: Array<{
             purchaseOrderLineId?: string;
+            projectId?: string;
             accountId: string;
             qty: number;
             unitPrice: number;
@@ -3523,6 +3545,8 @@ export type UpdatePurchaseInvoiceResponses = {
                 purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -3608,6 +3632,8 @@ export type ApprovePurchaseInvoiceResponses = {
                 purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -3693,6 +3719,8 @@ export type VoidPurchaseInvoiceResponses = {
                 purchaseOrderLineId: string | null;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 qty: string;
                 unitPrice: string;
                 subtotal: number;
@@ -4069,6 +4097,8 @@ export type ListReceiptsResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 salesInvoiceId: string | null;
                 salesInvoiceReference: string | null;
                 amount: string;
@@ -4097,6 +4127,7 @@ export type CreateReceiptData = {
             amount: number;
             salesInvoiceId?: string;
             accountId?: string;
+            projectId?: string;
         }>;
     };
     path: {
@@ -4159,6 +4190,8 @@ export type CreateReceiptResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 salesInvoiceId: string | null;
                 salesInvoiceReference: string | null;
                 amount: string;
@@ -4312,6 +4345,8 @@ export type GetReceiptResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 salesInvoiceId: string | null;
                 salesInvoiceReference: string | null;
                 amount: string;
@@ -4381,6 +4416,8 @@ export type SetReceiptClearedResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 salesInvoiceId: string | null;
                 salesInvoiceReference: string | null;
                 amount: string;
@@ -4443,6 +4480,8 @@ export type ListPaymentsResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 purchaseInvoiceId: string | null;
                 purchaseInvoiceReference: string | null;
                 expenseClaimId: string | null;
@@ -4474,6 +4513,7 @@ export type CreatePaymentData = {
             purchaseInvoiceId?: string;
             expenseClaimId?: string;
             accountId?: string;
+            projectId?: string;
         }>;
     };
     path: {
@@ -4536,6 +4576,8 @@ export type CreatePaymentResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 purchaseInvoiceId: string | null;
                 purchaseInvoiceReference: string | null;
                 expenseClaimId: string | null;
@@ -4691,6 +4733,8 @@ export type GetPaymentResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 purchaseInvoiceId: string | null;
                 purchaseInvoiceReference: string | null;
                 expenseClaimId: string | null;
@@ -4762,6 +4806,8 @@ export type SetPaymentClearedResponses = {
                 id: string;
                 accountId: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 purchaseInvoiceId: string | null;
                 purchaseInvoiceReference: string | null;
                 expenseClaimId: string | null;
@@ -5126,6 +5172,8 @@ export type ListJournalEntriesResponses = {
                 accountId: string;
                 accountCode: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 debit: number;
                 credit: number;
                 description: string | null;
@@ -5153,6 +5201,7 @@ export type CreateJournalEntryData = {
             accountId: string;
             debit?: number;
             credit?: number;
+            projectId?: string;
             description?: string;
         }>;
     };
@@ -5213,6 +5262,8 @@ export type CreateJournalEntryResponses = {
                 accountId: string;
                 accountCode: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 debit: number;
                 credit: number;
                 description: string | null;
@@ -5323,6 +5374,8 @@ export type GetJournalEntryResponses = {
                 accountId: string;
                 accountCode: string;
                 accountName: string;
+                projectId: string | null;
+                projectName: string | null;
                 debit: number;
                 credit: number;
                 description: string | null;
@@ -6085,6 +6138,8 @@ export type ListExpenseClaimsResponses = {
                 accountName: string;
                 description: string | null;
                 amount: number;
+                projectId: string | null;
+                projectName: string | null;
             }>;
         }>;
         pagination: {
@@ -6107,6 +6162,7 @@ export type CreateExpenseClaimData = {
         description?: string;
         lines: Array<{
             accountId: string;
+            projectId?: string;
             description?: string;
             amount: number;
         }>;
@@ -6176,6 +6232,8 @@ export type CreateExpenseClaimResponses = {
                 accountName: string;
                 description: string | null;
                 amount: number;
+                projectId: string | null;
+                projectName: string | null;
             }>;
         };
     };
@@ -6296,9 +6354,379 @@ export type GetExpenseClaimResponses = {
                 accountName: string;
                 description: string | null;
                 amount: number;
+                projectId: string | null;
+                projectName: string | null;
             }>;
         };
     };
 };
 
 export type GetExpenseClaimResponse = GetExpenseClaimResponses[keyof GetExpenseClaimResponses];
+
+export type ListProjectsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        status?: 'active' | 'inactive' | 'completed';
+    };
+    url: '/api/v1/businesses/{businessId}/projects';
+};
+
+export type ListProjectsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListProjectsError = ListProjectsErrors[keyof ListProjectsErrors];
+
+export type ListProjectsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            code: string | null;
+            name: string;
+            customerId: string | null;
+            customerName: string | null;
+            status: 'active' | 'inactive' | 'completed';
+            totalIncome: number;
+            totalExpenses: number;
+            netProfit: number;
+            updatedAt: string;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListProjectsResponse = ListProjectsResponses[keyof ListProjectsResponses];
+
+export type CreateProjectData = {
+    body: {
+        name: string;
+        code?: string;
+        customerId?: string;
+        status?: 'active' | 'inactive' | 'completed';
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/projects';
+};
+
+export type CreateProjectErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateProjectError = CreateProjectErrors[keyof CreateProjectErrors];
+
+export type CreateProjectResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            code: string | null;
+            name: string;
+            customerId: string | null;
+            customerName: string | null;
+            status: 'active' | 'inactive' | 'completed';
+            totalIncome: number;
+            totalExpenses: number;
+            netProfit: number;
+            updatedAt: string;
+        };
+    };
+};
+
+export type CreateProjectResponse = CreateProjectResponses[keyof CreateProjectResponses];
+
+export type DeleteProjectData = {
+    body?: never;
+    path: {
+        businessId: string;
+        projectId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/projects/{projectId}';
+};
+
+export type DeleteProjectErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Konflik data (mis. email sudah dipakai)
+     */
+    409: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteProjectError = DeleteProjectErrors[keyof DeleteProjectErrors];
+
+export type DeleteProjectResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteProjectResponse = DeleteProjectResponses[keyof DeleteProjectResponses];
+
+export type GetProjectData = {
+    body?: never;
+    path: {
+        businessId: string;
+        projectId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/projects/{projectId}';
+};
+
+export type GetProjectErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetProjectError = GetProjectErrors[keyof GetProjectErrors];
+
+export type GetProjectResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            code: string | null;
+            name: string;
+            customerId: string | null;
+            customerName: string | null;
+            status: 'active' | 'inactive' | 'completed';
+            totalIncome: number;
+            totalExpenses: number;
+            netProfit: number;
+            updatedAt: string;
+        };
+    };
+};
+
+export type GetProjectResponse = GetProjectResponses[keyof GetProjectResponses];
+
+export type UpdateProjectData = {
+    body: {
+        name?: string;
+        code?: string | null;
+        customerId?: string | null;
+        status?: 'active' | 'inactive' | 'completed';
+    };
+    path: {
+        businessId: string;
+        projectId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/projects/{projectId}';
+};
+
+export type UpdateProjectErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateProjectError = UpdateProjectErrors[keyof UpdateProjectErrors];
+
+export type UpdateProjectResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            code: string | null;
+            name: string;
+            customerId: string | null;
+            customerName: string | null;
+            status: 'active' | 'inactive' | 'completed';
+            totalIncome: number;
+            totalExpenses: number;
+            netProfit: number;
+            updatedAt: string;
+        };
+    };
+};
+
+export type UpdateProjectResponse = UpdateProjectResponses[keyof UpdateProjectResponses];
+
+export type SetProjectStatusData = {
+    body: {
+        status: 'active' | 'inactive' | 'completed';
+    };
+    path: {
+        businessId: string;
+        projectId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/projects/{projectId}/status';
+};
+
+export type SetProjectStatusErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type SetProjectStatusError = SetProjectStatusErrors[keyof SetProjectStatusErrors];
+
+export type SetProjectStatusResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            code: string | null;
+            name: string;
+            customerId: string | null;
+            customerName: string | null;
+            status: 'active' | 'inactive' | 'completed';
+            totalIncome: number;
+            totalExpenses: number;
+            netProfit: number;
+            updatedAt: string;
+        };
+    };
+};
+
+export type SetProjectStatusResponse = SetProjectStatusResponses[keyof SetProjectStatusResponses];

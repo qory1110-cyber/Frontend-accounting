@@ -26,6 +26,7 @@ export function useJournalEntries(businessId: string, page = 1, pageSize = 10, s
 }
 
 interface JournalLineInput {
+  projectId?: string
   accountId: string
   debit: number
   credit: number
@@ -45,6 +46,8 @@ function invalidateAll(queryClient: ReturnType<typeof useQueryClient>, businessI
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'bank-accounts'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'chart-of-accounts'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'bank-reconciliations'] })
+  // Membuat atau menghapus jurnal bisa mengubah total laba-rugi proyek.
+  queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'projects'] })
 }
 
 export function useCreateJournalEntry(businessId: string) {

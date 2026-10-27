@@ -22,6 +22,8 @@ interface ReceiptRow {
   lines: {
     accountId: string
     accountName: string
+    projectId: string | null
+    projectName: string | null
     salesInvoiceId: string | null
     salesInvoiceReference: string | null
     amount: string

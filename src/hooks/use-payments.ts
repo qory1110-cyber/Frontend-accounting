@@ -36,6 +36,7 @@ export function usePaymentTotals(businessId: string) {
 }
 
 interface PaymentLineInput {
+  projectId?: string
   amount: number
   purchaseInvoiceId?: string
   expenseClaimId?: string
@@ -57,6 +58,8 @@ function invalidateAll(queryClient: ReturnType<typeof useQueryClient>, businessI
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'expense-claims'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'bank-accounts'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'chart-of-accounts'] })
+  // Payment langsung ke akun Beban mengubah total laba-rugi proyek.
+  queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'projects'] })
 }
 
 export function useCreatePayment(businessId: string) {

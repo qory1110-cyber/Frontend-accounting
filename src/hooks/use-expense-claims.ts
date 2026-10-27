@@ -75,7 +75,10 @@ export function useCreateExpenseClaim(businessId: string) {
       if (res.error) throw res.error
       return res.data!.data
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: expenseClaimKeys.list(businessId) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: expenseClaimKeys.list(businessId) })
+      queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'projects'] })
+    },
   })
 }
 
@@ -86,6 +89,9 @@ export function useDeleteExpenseClaim(businessId: string) {
       const res = await deleteExpenseClaim({ path: { businessId, claimId } })
       if (res.error) throw res.error
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: expenseClaimKeys.list(businessId) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: expenseClaimKeys.list(businessId) })
+      queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'projects'] })
+    },
   })
 }

@@ -26,6 +26,7 @@ export function useSalesInvoices(businessId: string, page = 1, pageSize = 10) {
 }
 
 interface SalesInvoiceLine {
+  projectId?: string
   accountId: string
   qty: number
   unitPrice: number
@@ -46,6 +47,8 @@ function invalidateAll(queryClient: ReturnType<typeof useQueryClient>, businessI
   // Send/Void memposting jurnal yang menyentuh akun COA & saldo bank - ikut refresh.
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'chart-of-accounts'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'bank-accounts'] })
+  // Send/Void mengubah total laba-rugi proyek.
+  queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'projects'] })
 }
 
 export function useCreateSalesInvoice(businessId: string) {

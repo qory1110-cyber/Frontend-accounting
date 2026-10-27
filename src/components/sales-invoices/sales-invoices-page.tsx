@@ -26,7 +26,15 @@ interface SalesInvoice {
   billingAddress: string | null
   description: string | null
   status: 'draft' | 'sent' | 'void'
-  lines: { accountId: string; accountName: string; qty: string; unitPrice: string; subtotal: number }[]
+  lines: {
+    accountId: string
+    accountName: string
+    projectId: string | null
+    projectName: string | null
+    qty: string
+    unitPrice: string
+    subtotal: number
+  }[]
   invoiceAmount: number
   balanceDue: number
   paymentStatus: 'Unpaid' | 'Overdue' | 'Paid' | null

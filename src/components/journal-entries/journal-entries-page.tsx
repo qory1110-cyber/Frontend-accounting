@@ -17,6 +17,8 @@ reference: string | null
     accountId: string
     accountCode: string
     accountName: string
+    projectId: string | null
+    projectName: string | null
     debit: number
     credit: number
     description: string | null

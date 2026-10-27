@@ -15,9 +15,11 @@ import { getApiErrorMessage } from '@/lib/errors'
 import { Combobox } from '@/components/ui/combobox'
 import { useRecentCustomers } from '@/hooks/use-customers'
 import { useRecentChartOfAccounts } from '@/hooks/use-chart-of-accounts'
+import { useProjects } from '@/hooks/use-projects'
 
 const lineSchema = z.object({
   accountId: z.string().min(1, 'Pilih akun'),
+  projectId: z.string().optional(),
   qty: z.number().positive('Qty harus > 0'),
   unitPrice: z.number().min(0, 'Tidak boleh negatif'),
 })
@@ -32,6 +34,13 @@ const invoiceSchema = z.object({
   lines: z.array(lineSchema).min(1, 'Minimal 1 baris rincian'),
 })
 
+interface InvoiceFormLine {
+  accountId: string
+  projectId?: string
+  qty: number
+  unitPrice: number
+}
+
 interface EditingInvoice {
   id: string
   customerId: string
@@ -40,7 +49,7 @@ interface EditingInvoice {
   reference: string | null
   billingAddress: string | null
   description: string | null
-  lines: { accountId: string; qty: string; unitPrice: string }[]
+  lines: { accountId: string; projectId?: string | null; qty: string; unitPrice: string }[]
 }
 
 export function SalesInvoiceFormDialog({
@@ -61,6 +70,11 @@ const customers = customersData?.data
 const { data: recentCustomers } = useRecentCustomers(businessId)
   const { data: accounts } = useChartOfAccounts(businessId)
   const { data: recentIncomeAccounts } = useRecentChartOfAccounts(businessId, 'Income')
+  const { data: projectsData } = useProjects(businessId, 1, 100, { status: 'active' })
+  const projectOptions = (projectsData?.data ?? []).map((p) => ({
+    id: p.id,
+    label: p.code ? `${p.code} - ${p.name}` : p.name,
+  }))
   const [serverError, setServerError] = useState<string | null>(null)
   const isEditing = !!editingInvoice
 
@@ -74,7 +88,7 @@ const { data: recentCustomers } = useRecentCustomers(businessId)
     reference: '',
     billingAddress: '',
     description: '',
-    lines: [{ accountId: '', qty: 1, unitPrice: 0 }],
+    lines: [{ accountId: '', qty: 1, unitPrice: 0 }] as InvoiceFormLine[],
   }
 
   const form = useForm({
@@ -113,8 +127,9 @@ const { data: recentCustomers } = useRecentCustomers(businessId)
               reference: editingInvoice.reference ?? '',
               billingAddress: editingInvoice.billingAddress ?? '',
               description: editingInvoice.description ?? '',
-              lines: editingInvoice.lines.map((l) => ({
+                lines: editingInvoice.lines.map((l) => ({
                 accountId: l.accountId,
+                projectId: l.projectId ?? undefined,
                 qty: Number(l.qty),
                 unitPrice: Number(l.unitPrice),
               })),
@@ -265,6 +280,32 @@ const { data: recentCustomers } = useRecentCustomers(businessId)
     </div>
   )}
 </form.Field>
+
+                                            <form.Field name={`lines[${index}].projectId`}>
+                        {(field) => (
+                          <div className="flex min-w-45 flex-1 flex-col gap-2">
+                            <div className="flex items-center justify-between">
+                              <Label>Proyek (opsional)</Label>
+                              {field.state.value && (
+                                <button
+                                  type="button"
+                                  className="text-xs text-muted-foreground hover:text-foreground"
+                                  onClick={() => field.handleChange(undefined)}
+                                >
+                                  ✕ Hapus
+                                </button>
+                              )}
+                            </div>
+                            <Combobox
+                              value={field.state.value ?? ''}
+                              onValueChange={(v) => field.handleChange(v || undefined)}
+                              recentOptions={projectOptions}
+                              searchOptions={projectOptions}
+                              placeholder="Tanpa proyek"
+                            />
+                          </div>
+                        )}
+                      </form.Field>
 
                       <form.Field name={`lines[${index}].qty`}>
                         {(field) => (

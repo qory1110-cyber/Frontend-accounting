@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 interface JournalLine {
   accountCode: string
   accountName: string
+  projectName?: string | null
   debit: number
   credit: number
   description: string | null
@@ -59,6 +60,7 @@ export function JournalEntryViewDialog({
                 <thead>
                   <tr className="border-b bg-muted/30 text-left text-xs text-muted-foreground">
                     <th className="px-3 py-2 font-normal">Account</th>
+                    <th className="px-3 py-2 font-normal">Proyek</th>
                     <th className="px-3 py-2 font-normal">Description</th>
                     <th className="px-3 py-2 text-right font-normal">Debit</th>
                     <th className="px-3 py-2 text-right font-normal">Credit</th>
@@ -70,6 +72,7 @@ export function JournalEntryViewDialog({
                       <td className="px-3 py-2">
                         {line.accountCode} · {line.accountName}
                       </td>
+                      <td className="px-3 py-2">{line.projectName ?? '-'}</td>
                       <td className="px-3 py-2">{line.description ?? '-'}</td>
                       <td className="px-3 py-2 text-right">{line.debit > 0 ? formatCurrency(line.debit) : '-'}</td>
                       <td className="px-3 py-2 text-right">{line.credit > 0 ? formatCurrency(line.credit) : '-'}</td>
@@ -78,7 +81,7 @@ export function JournalEntryViewDialog({
                 </tbody>
                 <tfoot>
                   <tr className="bg-muted/30 font-medium">
-                    <td className="px-3 py-2" colSpan={2}>
+                    <td className="px-3 py-2" colSpan={3}>
                       Total
                     </td>
                     <td className="px-3 py-2 text-right">{formatCurrency(entry.totalDebit)}</td>

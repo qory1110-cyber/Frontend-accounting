@@ -15,6 +15,7 @@ import {
   Scale,
   BookOpenText,
   Wallet,
+  FolderKanban,
 } from 'lucide-react'
 
 export type BusinessRole = 'admin' | 'accountant' | 'viewer'
@@ -54,6 +55,7 @@ export const businessSidebarMenu: MenuItem[] = [
   { label: 'Inter Account Transfers', to: '/businesses/$businessId/inter-account-transfers', moduleKey: 'inter-account-transfers', category: 'money', icon: ArrowLeftRight },
   { label: 'Bank Reconciliations', to: '/businesses/$businessId/bank-reconciliations', category: 'money', icon: Scale },
   { label: 'Journal Entries', to: '/businesses/$businessId/journal-entries', icon: BookOpenText },
+  { label: 'Projects', to: '/businesses/$businessId/projects', icon: FolderKanban },
   { label: 'Chart of Accounts', to: '/businesses/$businessId/chart-of-accounts', allowedRoles: ['admin', 'accountant'], icon: BookOpen },
   { label: 'Members', to: '/businesses/$businessId/members', allowedRoles: ['admin', 'accountant'], icon: UserCog },
 ]

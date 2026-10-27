@@ -22,6 +22,8 @@ interface PaymentRow {
   lines: {
     accountId: string
     accountName: string
+    projectId: string | null
+    projectName: string | null
     purchaseInvoiceId: string | null
     purchaseInvoiceReference: string | null
     expenseClaimId: string | null

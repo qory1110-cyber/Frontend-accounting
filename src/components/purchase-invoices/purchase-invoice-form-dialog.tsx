@@ -14,9 +14,11 @@ import { useChartOfAccounts, useRecentChartOfAccounts } from '@/hooks/use-chart-
 import { getApiErrorMessage } from '@/lib/errors'
 import { Combobox } from '@/components/ui/combobox'
 import { useRecentSuppliers } from '@/hooks/use-suppliers'
+import { useProjects } from '@/hooks/use-projects'
 
 const lineSchema = z.object({
   purchaseOrderLineId: z.string().optional(),
+  projectId: z.string().optional(),
   accountId: z.string().min(1, 'Pilih akun'),
   qty: z.number().positive('Qty harus > 0'),
   unitPrice: z.number().min(0, 'Tidak boleh negatif'),
@@ -51,7 +53,7 @@ interface EditingInvoice {
   dueDate: string | null
   reference: string | null
   description: string | null
-  lines: { purchaseOrderLineId?: string | null; accountId: string; qty: string; unitPrice: string }[]
+  lines: { purchaseOrderLineId?: string | null; projectId?: string | null; accountId: string; qty: string; unitPrice: string }[]
 }
 
 export function PurchaseInvoiceFormDialog({
@@ -74,6 +76,11 @@ const suppliers = suppliersData?.data
 const { data: recentSuppliers } = useRecentSuppliers(businessId)
   const { data: accounts } = useChartOfAccounts(businessId)
   const { data: recentExpenseAccounts } = useRecentChartOfAccounts(businessId, 'Expense')
+  const { data: projectsData } = useProjects(businessId, 1, 100, { status: 'active' })
+  const projectOptions = (projectsData?.data ?? []).map((p) => ({
+    id: p.id,
+    label: p.code ? `${p.code} - ${p.name}` : p.name,
+  }))
   const [serverError, setServerError] = useState<string | null>(null)
   const isEditing = !!editingInvoice
   const isLinked = !!(sourceOrder || editingInvoice?.purchaseOrderId)
@@ -137,6 +144,7 @@ const { data: recentSuppliers } = useRecentSuppliers(businessId)
               description: editingInvoice.description ?? '',
               lines: editingInvoice.lines.map((l) => ({
                 purchaseOrderLineId: l.purchaseOrderLineId ?? undefined,
+                projectId: l.projectId ?? undefined,
                 accountId: l.accountId,
                 qty: Number(l.qty),
                 unitPrice: Number(l.unitPrice),
@@ -296,6 +304,32 @@ const { data: recentSuppliers } = useRecentSuppliers(businessId)
     </div>
   )}
 </form.Field>
+
+                                            <form.Field name={`lines[${index}].projectId`}>
+                        {(field) => (
+                          <div className="flex min-w-45 flex-1 flex-col gap-2">
+                            <div className="flex items-center justify-between">
+                              <Label>Proyek (opsional)</Label>
+                              {field.state.value && (
+                                <button
+                                  type="button"
+                                  className="text-xs text-muted-foreground hover:text-foreground"
+                                  onClick={() => field.handleChange(undefined)}
+                                >
+                                  ✕ Hapus
+                                </button>
+                              )}
+                            </div>
+                            <Combobox
+                              value={field.state.value ?? ''}
+                              onValueChange={(v) => field.handleChange(v || undefined)}
+                              recentOptions={projectOptions}
+                              searchOptions={projectOptions}
+                              placeholder="Tanpa proyek"
+                            />
+                          </div>
+                        )}
+                      </form.Field>
 
                       <form.Field name={`lines[${index}].qty`}>
                         {(field) => (

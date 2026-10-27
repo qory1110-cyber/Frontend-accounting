@@ -8,14 +8,16 @@ import { Textarea } from '@/components/ui/textarea'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Combobox } from '@/components/ui/combobox'
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Trash2, X } from 'lucide-react'
 import { useCreateExpenseClaim } from '@/hooks/use-expense-claims'
 import { useExpenseClaimPayers } from '@/hooks/use-expense-claim-payers'
 import { useChartOfAccounts, useRecentChartOfAccounts } from '@/hooks/use-chart-of-accounts'
+import { useProjects } from '@/hooks/use-projects'
 import { getApiErrorMessage } from '@/lib/errors'
 
 const lineSchema = z.object({
   accountId: z.string().min(1, 'Pilih akun'),
+  projectId: z.string(),
   description: z.string(),
   amount: z.number().positive('Jumlah harus > 0'),
 })
@@ -33,7 +35,7 @@ export interface ExpenseClaimForForm {
   payerId: string
   payee: string | null
   description: string | null
-  lines: { accountId: string; description: string | null; amount: number }[]
+  lines: { accountId: string; projectId: string | null; description: string | null; amount: number }[]
 }
 
 export type ExpenseClaimFormMode = 'create' | 'clone'
@@ -69,6 +71,11 @@ export function ExpenseClaimFormDialog({
   const { data: accounts } = useChartOfAccounts(businessId)
   const { data: recentExpenseAccounts } = useRecentChartOfAccounts(businessId, 'Expense')
   const [serverError, setServerError] = useState<string | null>(null)
+  const { data: projectsData } = useProjects(businessId, 1, 100, { status: 'active' })
+  const projectOptions = (projectsData?.data ?? []).map((p) => ({
+    id: p.id,
+    label: p.code ? `${p.code} - ${p.name}` : p.name,
+  }))
 
   const payerOptions = (payers ?? []).filter((p) => p.isActive).map((p) => ({ id: p.id, label: p.name }))
   // Akun beban/aset yang aktif; akun kontrol (mis. Bank) tidak boleh dipakai di klaim.
@@ -82,7 +89,7 @@ export function ExpenseClaimFormDialog({
     reference: '',
     payee: '',
     description: '',
-    lines: [{ accountId: '', description: '', amount: 0 }],
+    lines: [{ accountId: '', projectId: '', description: '', amount: 0 }],
   }
 
   const form = useForm({
@@ -99,6 +106,7 @@ export function ExpenseClaimFormDialog({
           description: value.description || undefined,
           lines: value.lines.map((l) => ({
             accountId: l.accountId,
+            projectId: l.projectId || undefined,
             description: l.description || undefined,
             amount: l.amount,
           })),
@@ -123,6 +131,7 @@ export function ExpenseClaimFormDialog({
               description: claim.description ?? '',
               lines: claim.lines.map((l) => ({
                 accountId: l.accountId,
+                projectId: l.projectId ?? '',
                 description: l.description ?? '',
                 amount: l.amount,
               })),
@@ -257,6 +266,35 @@ export function ExpenseClaimFormDialog({
                         )}
                       </form.Field>
 
+                                            <form.Field name={`lines[${index}].projectId`}>
+                        {(field) => (
+                          <div className="flex min-w-45 flex-1 flex-col gap-2">
+                            <div className="flex items-center justify-between">
+                              <Label>Project (opsional)</Label>
+                              {field.state.value && (
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-5 px-1 text-xs"
+                                  onClick={() => field.handleChange('')}
+                                >
+                                  <X className="mr-0.5 h-3 w-3" />
+                                  Hapus
+                                </Button>
+                              )}
+                            </div>
+                            <Combobox
+                              value={field.state.value}
+                              onValueChange={(v) => field.handleChange(v)}
+                              recentOptions={projectOptions}
+                              searchOptions={projectOptions}
+                              placeholder="Pilih proyek"
+                            />
+                          </div>
+                        )}
+                      </form.Field>
+
                       <form.Field name={`lines[${index}].description`}>
                         {(field) => (
                           <div className="flex min-w-45 flex-1 flex-col gap-2">
@@ -301,7 +339,7 @@ export function ExpenseClaimFormDialog({
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => linesField.pushValue({ accountId: '', description: '', amount: 0 })}
+                    onClick={() => linesField.pushValue({ accountId: '', projectId: '', description: '', amount: 0 })}
                   >
                     <Plus className="mr-1.5 h-4 w-4" />
                     Add Line

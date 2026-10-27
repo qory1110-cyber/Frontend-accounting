@@ -31,6 +31,8 @@ interface PurchaseInvoice {
     purchaseOrderLineId: string | null
     accountId: string
     accountName: string
+    projectId: string | null
+    projectName: string | null
     qty: string
     unitPrice: string
     subtotal: number

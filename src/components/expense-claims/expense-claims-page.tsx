@@ -39,6 +39,8 @@ interface ExpenseClaim {
     accountName: string
     description: string | null
     amount: number
+    projectId: string | null
+    projectName: string | null
   }[]
 }
 
@@ -264,7 +266,10 @@ export function ExpenseClaimsPage({ businessId }: { businessId: string }) {
                         >
                           <div className="min-w-0">
                             <p className="truncate">{line.description || line.accountName}</p>
-                            <p className="text-xs text-muted-foreground">{line.accountName}</p>
+                              <p className="text-xs text-muted-foreground">
+                              {line.accountName}
+                              {line.projectName && <> · Proyek: {line.projectName}</>}
+                            </p>
                           </div>
                           <span className="text-right">{formatCurrency(line.amount)}</span>
                         </div>

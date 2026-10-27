@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 interface SalesInvoiceLine {
   accountId: string
   accountName: string
+  projectName?: string | null
   qty: string
   unitPrice: string
   subtotal: number
@@ -98,6 +99,7 @@ export function SalesInvoiceViewDialog({
                 <thead>
                   <tr className="border-b bg-muted/30 text-left text-xs text-muted-foreground">
                     <th className="px-3 py-2 font-normal">Account</th>
+                    <th className="px-3 py-2 font-normal">Proyek</th>
                     <th className="px-3 py-2 text-right font-normal">Qty</th>
                     <th className="px-3 py-2 text-right font-normal">Unit Price</th>
                     <th className="px-3 py-2 text-right font-normal">Subtotal</th>
@@ -107,6 +109,7 @@ export function SalesInvoiceViewDialog({
                   {invoice.lines.map((line, i) => (
                     <tr key={i} className="border-b last:border-b-0">
                       <td className="px-3 py-2">{line.accountName}</td>
+                      <td className="px-3 py-2">{line.projectName ?? '-'}</td>
                       <td className="px-3 py-2 text-right">{line.qty}</td>
                       <td className="px-3 py-2 text-right">{formatCurrency(Number(line.unitPrice))}</td>
                       <td className="px-3 py-2 text-right">{formatCurrency(line.subtotal)}</td>

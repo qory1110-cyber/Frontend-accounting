@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 interface ReceiptLine {
   accountId: string
   accountName: string
+  projectName?: string | null
   salesInvoiceId: string | null
   salesInvoiceReference: string | null
   amount: string
@@ -78,6 +79,7 @@ export function ReceiptViewDialog({
                   <tr className="border-b bg-muted/30 text-left text-xs text-muted-foreground">
                     <th className="px-3 py-2 font-normal">Account</th>
                     <th className="px-3 py-2 font-normal">Sales Invoice</th>
+                    <th className="px-3 py-2 font-normal">Proyek</th>
                     <th className="px-3 py-2 text-right font-normal">Amount</th>
                   </tr>
                 </thead>
@@ -86,6 +88,7 @@ export function ReceiptViewDialog({
                     <tr key={i} className="border-b last:border-b-0">
                       <td className="px-3 py-2">{line.accountName}</td>
                       <td className="px-3 py-2">{line.salesInvoiceReference ?? '-'}</td>
+                      <td className="px-3 py-2">{line.projectName ?? '-'}</td>
                       <td className="px-3 py-2 text-right">{formatCurrency(Number(line.amount))}</td>
                     </tr>
                   ))}

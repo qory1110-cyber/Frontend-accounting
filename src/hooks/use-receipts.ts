@@ -18,6 +18,7 @@ export function useReceipts(businessId: string, page = 1, pageSize = 10) {
 }
 
 interface ReceiptLineInput {
+  projectId?: string
   amount: number
   salesInvoiceId?: string
   accountId?: string
@@ -38,6 +39,8 @@ function invalidateAll(queryClient: ReturnType<typeof useQueryClient>, businessI
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'sales-invoices'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'bank-accounts'] })
   queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'chart-of-accounts'] })
+  // Receipt langsung ke akun Income mengubah total laba-rugi proyek.
+  queryClient.invalidateQueries({ queryKey: ['businesses', businessId, 'projects'] })
 }
 
 export function useCreateReceipt(businessId: string) {
