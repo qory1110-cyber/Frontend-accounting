@@ -5757,6 +5757,349 @@ export type UpdatePurchaseOrderResponses = {
 
 export type UpdatePurchaseOrderResponse = UpdatePurchaseOrderResponses[keyof UpdatePurchaseOrderResponses];
 
+export type ListSalesQuotesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/sales-quotes';
+};
+
+export type ListSalesQuotesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListSalesQuotesError = ListSalesQuotesErrors[keyof ListSalesQuotesErrors];
+
+export type ListSalesQuotesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            validDays: number | null;
+            expiryDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListSalesQuotesResponse = ListSalesQuotesResponses[keyof ListSalesQuotesResponses];
+
+export type CreateSalesQuoteData = {
+    body: {
+        customerId: string;
+        issueDate: string;
+        validDays?: number;
+        reference?: string;
+        billingAddress?: string;
+        description?: string;
+        lines: Array<{
+            description: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-quotes';
+};
+
+export type CreateSalesQuoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateSalesQuoteError = CreateSalesQuoteErrors[keyof CreateSalesQuoteErrors];
+
+export type CreateSalesQuoteResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            validDays: number | null;
+            expiryDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type CreateSalesQuoteResponse = CreateSalesQuoteResponses[keyof CreateSalesQuoteResponses];
+
+export type DeleteSalesQuoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        salesQuoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-quotes/{salesQuoteId}';
+};
+
+export type DeleteSalesQuoteErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteSalesQuoteError = DeleteSalesQuoteErrors[keyof DeleteSalesQuoteErrors];
+
+export type DeleteSalesQuoteResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteSalesQuoteResponse = DeleteSalesQuoteResponses[keyof DeleteSalesQuoteResponses];
+
+export type GetSalesQuoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        salesQuoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-quotes/{salesQuoteId}';
+};
+
+export type GetSalesQuoteErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetSalesQuoteError = GetSalesQuoteErrors[keyof GetSalesQuoteErrors];
+
+export type GetSalesQuoteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            validDays: number | null;
+            expiryDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetSalesQuoteResponse = GetSalesQuoteResponses[keyof GetSalesQuoteResponses];
+
+export type UpdateSalesQuoteData = {
+    body: {
+        customerId?: string;
+        issueDate?: string;
+        validDays?: number | null;
+        reference?: string | null;
+        billingAddress?: string | null;
+        description?: string | null;
+        lines?: Array<{
+            description: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+        salesQuoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-quotes/{salesQuoteId}';
+};
+
+export type UpdateSalesQuoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateSalesQuoteError = UpdateSalesQuoteErrors[keyof UpdateSalesQuoteErrors];
+
+export type UpdateSalesQuoteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            validDays: number | null;
+            expiryDate: string | null;
+            reference: string | null;
+            billingAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type UpdateSalesQuoteResponse = UpdateSalesQuoteResponses[keyof UpdateSalesQuoteResponses];
+
 export type ListExpenseClaimPayersData = {
     body?: never;
     path: {

@@ -31,6 +31,7 @@ import { Route as BusinessesBusinessIdPurchaseInvoicesRouteImport } from './rout
 import { Route as BusinessesBusinessIdPurchaseOrdersRouteImport } from './routes/businesses/$businessId.purchase-orders'
 import { Route as BusinessesBusinessIdReceiptsRouteImport } from './routes/businesses/$businessId.receipts'
 import { Route as BusinessesBusinessIdSalesInvoicesRouteImport } from './routes/businesses/$businessId.sales-invoices'
+import { Route as BusinessesBusinessIdSalesQuotesRouteImport } from './routes/businesses/$businessId.sales-quotes'
 import { Route as BusinessesBusinessIdSuppliersRouteImport } from './routes/businesses/$businessId.suppliers'
 
 const IndexRoute = IndexRouteImport.update({
@@ -158,6 +159,12 @@ const BusinessesBusinessIdSalesInvoicesRoute =
     path: '/sales-invoices',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
+const BusinessesBusinessIdSalesQuotesRoute =
+  BusinessesBusinessIdSalesQuotesRouteImport.update({
+    id: '/sales-quotes',
+    path: '/sales-quotes',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 const BusinessesBusinessIdSuppliersRoute =
   BusinessesBusinessIdSuppliersRouteImport.update({
     id: '/suppliers',
@@ -187,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/businesses/$businessId/purchase-orders': typeof BusinessesBusinessIdPurchaseOrdersRoute
   '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
   '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
+  '/businesses/$businessId/sales-quotes': typeof BusinessesBusinessIdSalesQuotesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
@@ -210,6 +218,7 @@ export interface FileRoutesByTo {
   '/businesses/$businessId/purchase-orders': typeof BusinessesBusinessIdPurchaseOrdersRoute
   '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
   '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
+  '/businesses/$businessId/sales-quotes': typeof BusinessesBusinessIdSalesQuotesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdIndexRoute
 }
@@ -236,6 +245,7 @@ export interface FileRoutesById {
   '/businesses/$businessId/purchase-orders': typeof BusinessesBusinessIdPurchaseOrdersRoute
   '/businesses/$businessId/receipts': typeof BusinessesBusinessIdReceiptsRoute
   '/businesses/$businessId/sales-invoices': typeof BusinessesBusinessIdSalesInvoicesRoute
+  '/businesses/$businessId/sales-quotes': typeof BusinessesBusinessIdSalesQuotesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
@@ -263,6 +273,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/purchase-orders'
     | '/businesses/$businessId/receipts'
     | '/businesses/$businessId/sales-invoices'
+    | '/businesses/$businessId/sales-quotes'
     | '/businesses/$businessId/suppliers'
     | '/businesses/$businessId/'
   fileRoutesByTo: FileRoutesByTo
@@ -286,6 +297,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/purchase-orders'
     | '/businesses/$businessId/receipts'
     | '/businesses/$businessId/sales-invoices'
+    | '/businesses/$businessId/sales-quotes'
     | '/businesses/$businessId/suppliers'
     | '/businesses/$businessId'
   id:
@@ -311,6 +323,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/purchase-orders'
     | '/businesses/$businessId/receipts'
     | '/businesses/$businessId/sales-invoices'
+    | '/businesses/$businessId/sales-quotes'
     | '/businesses/$businessId/suppliers'
     | '/businesses/$businessId/'
   fileRoutesById: FileRoutesById
@@ -479,6 +492,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdSalesInvoicesRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/sales-quotes': {
+      id: '/businesses/$businessId/sales-quotes'
+      path: '/sales-quotes'
+      fullPath: '/businesses/$businessId/sales-quotes'
+      preLoaderRoute: typeof BusinessesBusinessIdSalesQuotesRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
     '/businesses/$businessId/suppliers': {
       id: '/businesses/$businessId/suppliers'
       path: '/suppliers'
@@ -504,6 +524,7 @@ interface BusinessesBusinessIdRouteChildren {
   BusinessesBusinessIdPurchaseOrdersRoute: typeof BusinessesBusinessIdPurchaseOrdersRoute
   BusinessesBusinessIdReceiptsRoute: typeof BusinessesBusinessIdReceiptsRoute
   BusinessesBusinessIdSalesInvoicesRoute: typeof BusinessesBusinessIdSalesInvoicesRoute
+  BusinessesBusinessIdSalesQuotesRoute: typeof BusinessesBusinessIdSalesQuotesRoute
   BusinessesBusinessIdSuppliersRoute: typeof BusinessesBusinessIdSuppliersRoute
   BusinessesBusinessIdIndexRoute: typeof BusinessesBusinessIdIndexRoute
 }
@@ -531,6 +552,7 @@ const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
   BusinessesBusinessIdReceiptsRoute: BusinessesBusinessIdReceiptsRoute,
   BusinessesBusinessIdSalesInvoicesRoute:
     BusinessesBusinessIdSalesInvoicesRoute,
+  BusinessesBusinessIdSalesQuotesRoute: BusinessesBusinessIdSalesQuotesRoute,
   BusinessesBusinessIdSuppliersRoute: BusinessesBusinessIdSuppliersRoute,
   BusinessesBusinessIdIndexRoute: BusinessesBusinessIdIndexRoute,
 }
