@@ -6100,6 +6100,333 @@ export type UpdateSalesQuoteResponses = {
 
 export type UpdateSalesQuoteResponse = UpdateSalesQuoteResponses[keyof UpdateSalesQuoteResponses];
 
+export type ListSalesOrdersData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/sales-orders';
+};
+
+export type ListSalesOrdersErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListSalesOrdersError = ListSalesOrdersErrors[keyof ListSalesOrdersErrors];
+
+export type ListSalesOrdersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListSalesOrdersResponse = ListSalesOrdersResponses[keyof ListSalesOrdersResponses];
+
+export type CreateSalesOrderData = {
+    body: {
+        customerId: string;
+        issueDate: string;
+        reference?: string;
+        description?: string;
+        lines: Array<{
+            description: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-orders';
+};
+
+export type CreateSalesOrderErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateSalesOrderError = CreateSalesOrderErrors[keyof CreateSalesOrderErrors];
+
+export type CreateSalesOrderResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type CreateSalesOrderResponse = CreateSalesOrderResponses[keyof CreateSalesOrderResponses];
+
+export type DeleteSalesOrderData = {
+    body?: never;
+    path: {
+        businessId: string;
+        salesOrderId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-orders/{salesOrderId}';
+};
+
+export type DeleteSalesOrderErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteSalesOrderError = DeleteSalesOrderErrors[keyof DeleteSalesOrderErrors];
+
+export type DeleteSalesOrderResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteSalesOrderResponse = DeleteSalesOrderResponses[keyof DeleteSalesOrderResponses];
+
+export type GetSalesOrderData = {
+    body?: never;
+    path: {
+        businessId: string;
+        salesOrderId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-orders/{salesOrderId}';
+};
+
+export type GetSalesOrderErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetSalesOrderError = GetSalesOrderErrors[keyof GetSalesOrderErrors];
+
+export type GetSalesOrderResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetSalesOrderResponse = GetSalesOrderResponses[keyof GetSalesOrderResponses];
+
+export type UpdateSalesOrderData = {
+    body: {
+        customerId?: string;
+        issueDate?: string;
+        reference?: string | null;
+        description?: string | null;
+        lines?: Array<{
+            description: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+        salesOrderId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/sales-orders/{salesOrderId}';
+};
+
+export type UpdateSalesOrderErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateSalesOrderError = UpdateSalesOrderErrors[keyof UpdateSalesOrderErrors];
+
+export type UpdateSalesOrderResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type UpdateSalesOrderResponse = UpdateSalesOrderResponses[keyof UpdateSalesOrderResponses];
+
 export type ListExpenseClaimPayersData = {
     body?: never;
     path: {
