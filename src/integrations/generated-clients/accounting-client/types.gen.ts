@@ -6427,6 +6427,263 @@ export type UpdateSalesOrderResponses = {
 
 export type UpdateSalesOrderResponse = UpdateSalesOrderResponses[keyof UpdateSalesOrderResponses];
 
+export type ListCreditNotesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/credit-notes';
+};
+
+export type ListCreditNotesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListCreditNotesError = ListCreditNotesErrors[keyof ListCreditNotesErrors];
+
+export type ListCreditNotesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListCreditNotesResponse = ListCreditNotesResponses[keyof ListCreditNotesResponses];
+
+export type CreateCreditNoteData = {
+    body: {
+        customerId: string;
+        issueDate: string;
+        reference?: string;
+        description?: string;
+        lines: Array<{
+            accountId: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/credit-notes';
+};
+
+export type CreateCreditNoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateCreditNoteError = CreateCreditNoteErrors[keyof CreateCreditNoteErrors];
+
+export type CreateCreditNoteResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type CreateCreditNoteResponse = CreateCreditNoteResponses[keyof CreateCreditNoteResponses];
+
+export type DeleteCreditNoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        creditNoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/credit-notes/{creditNoteId}';
+};
+
+export type DeleteCreditNoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteCreditNoteError = DeleteCreditNoteErrors[keyof DeleteCreditNoteErrors];
+
+export type DeleteCreditNoteResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteCreditNoteResponse = DeleteCreditNoteResponses[keyof DeleteCreditNoteResponses];
+
+export type GetCreditNoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        creditNoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/credit-notes/{creditNoteId}';
+};
+
+export type GetCreditNoteErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetCreditNoteError = GetCreditNoteErrors[keyof GetCreditNoteErrors];
+
+export type GetCreditNoteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetCreditNoteResponse = GetCreditNoteResponses[keyof GetCreditNoteResponses];
+
 export type ListExpenseClaimPayersData = {
     body?: never;
     path: {
