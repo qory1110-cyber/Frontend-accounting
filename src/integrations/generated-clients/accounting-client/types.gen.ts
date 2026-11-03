@@ -6684,6 +6684,249 @@ export type GetCreditNoteResponses = {
 
 export type GetCreditNoteResponse = GetCreditNoteResponses[keyof GetCreditNoteResponses];
 
+export type ListLatePaymentFeesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/late-payment-fees';
+};
+
+export type ListLatePaymentFeesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListLatePaymentFeesError = ListLatePaymentFeesErrors[keyof ListLatePaymentFeesErrors];
+
+export type ListLatePaymentFeesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            salesInvoiceId: string;
+            salesInvoiceReference: string | null;
+            salesInvoiceDate: string;
+            feeDate: string;
+            amount: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListLatePaymentFeesResponse = ListLatePaymentFeesResponses[keyof ListLatePaymentFeesResponses];
+
+export type CreateLatePaymentFeeData = {
+    body: {
+        customerId: string;
+        salesInvoiceId: string;
+        feeDate: string;
+        amount: number;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/late-payment-fees';
+};
+
+export type CreateLatePaymentFeeErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateLatePaymentFeeError = CreateLatePaymentFeeErrors[keyof CreateLatePaymentFeeErrors];
+
+export type CreateLatePaymentFeeResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            salesInvoiceId: string;
+            salesInvoiceReference: string | null;
+            salesInvoiceDate: string;
+            feeDate: string;
+            amount: number;
+        };
+    };
+};
+
+export type CreateLatePaymentFeeResponse = CreateLatePaymentFeeResponses[keyof CreateLatePaymentFeeResponses];
+
+export type DeleteLatePaymentFeeData = {
+    body?: never;
+    path: {
+        businessId: string;
+        latePaymentFeeId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/late-payment-fees/{latePaymentFeeId}';
+};
+
+export type DeleteLatePaymentFeeErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteLatePaymentFeeError = DeleteLatePaymentFeeErrors[keyof DeleteLatePaymentFeeErrors];
+
+export type DeleteLatePaymentFeeResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteLatePaymentFeeResponse = DeleteLatePaymentFeeResponses[keyof DeleteLatePaymentFeeResponses];
+
+export type UpdateLatePaymentFeeData = {
+    body: {
+        customerId?: string;
+        salesInvoiceId?: string;
+        feeDate?: string;
+        amount?: number;
+    };
+    path: {
+        businessId: string;
+        latePaymentFeeId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/late-payment-fees/{latePaymentFeeId}';
+};
+
+export type UpdateLatePaymentFeeErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateLatePaymentFeeError = UpdateLatePaymentFeeErrors[keyof UpdateLatePaymentFeeErrors];
+
+export type UpdateLatePaymentFeeResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            salesInvoiceId: string;
+            salesInvoiceReference: string | null;
+            salesInvoiceDate: string;
+            feeDate: string;
+            amount: number;
+        };
+    };
+};
+
+export type UpdateLatePaymentFeeResponse = UpdateLatePaymentFeeResponses[keyof UpdateLatePaymentFeeResponses];
+
 export type ListExpenseClaimPayersData = {
     body?: never;
     path: {

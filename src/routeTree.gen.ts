@@ -25,6 +25,7 @@ import { Route as BusinessesBusinessIdCustomersRouteImport } from './routes/busi
 import { Route as BusinessesBusinessIdExpenseClaimsRouteImport } from './routes/businesses/$businessId.expense-claims'
 import { Route as BusinessesBusinessIdInterAccountTransfersRouteImport } from './routes/businesses/$businessId.inter-account-transfers'
 import { Route as BusinessesBusinessIdJournalEntriesRouteImport } from './routes/businesses/$businessId.journal-entries'
+import { Route as BusinessesBusinessIdLatePaymentFeesRouteImport } from './routes/businesses/$businessId.late-payment-fees'
 import { Route as BusinessesBusinessIdMembersRouteImport } from './routes/businesses/$businessId.members'
 import { Route as BusinessesBusinessIdPaymentsRouteImport } from './routes/businesses/$businessId.payments'
 import { Route as BusinessesBusinessIdProjectsRouteImport } from './routes/businesses/$businessId.projects'
@@ -125,6 +126,12 @@ const BusinessesBusinessIdJournalEntriesRoute =
     path: '/journal-entries',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
+const BusinessesBusinessIdLatePaymentFeesRoute =
+  BusinessesBusinessIdLatePaymentFeesRouteImport.update({
+    id: '/late-payment-fees',
+    path: '/late-payment-fees',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 const BusinessesBusinessIdMembersRoute =
   BusinessesBusinessIdMembersRouteImport.update({
     id: '/members',
@@ -202,6 +209,7 @@ export interface FileRoutesByFullPath {
   '/businesses/$businessId/expense-claims': typeof BusinessesBusinessIdExpenseClaimsRoute
   '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/journal-entries': typeof BusinessesBusinessIdJournalEntriesRoute
+  '/businesses/$businessId/late-payment-fees': typeof BusinessesBusinessIdLatePaymentFeesRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
   '/businesses/$businessId/projects': typeof BusinessesBusinessIdProjectsRoute
@@ -228,6 +236,7 @@ export interface FileRoutesByTo {
   '/businesses/$businessId/expense-claims': typeof BusinessesBusinessIdExpenseClaimsRoute
   '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/journal-entries': typeof BusinessesBusinessIdJournalEntriesRoute
+  '/businesses/$businessId/late-payment-fees': typeof BusinessesBusinessIdLatePaymentFeesRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
   '/businesses/$businessId/projects': typeof BusinessesBusinessIdProjectsRoute
@@ -257,6 +266,7 @@ export interface FileRoutesById {
   '/businesses/$businessId/expense-claims': typeof BusinessesBusinessIdExpenseClaimsRoute
   '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/journal-entries': typeof BusinessesBusinessIdJournalEntriesRoute
+  '/businesses/$businessId/late-payment-fees': typeof BusinessesBusinessIdLatePaymentFeesRoute
   '/businesses/$businessId/members': typeof BusinessesBusinessIdMembersRoute
   '/businesses/$businessId/payments': typeof BusinessesBusinessIdPaymentsRoute
   '/businesses/$businessId/projects': typeof BusinessesBusinessIdProjectsRoute
@@ -287,6 +297,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/expense-claims'
     | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/journal-entries'
+    | '/businesses/$businessId/late-payment-fees'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/payments'
     | '/businesses/$businessId/projects'
@@ -313,6 +324,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/expense-claims'
     | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/journal-entries'
+    | '/businesses/$businessId/late-payment-fees'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/payments'
     | '/businesses/$businessId/projects'
@@ -341,6 +353,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/expense-claims'
     | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/journal-entries'
+    | '/businesses/$businessId/late-payment-fees'
     | '/businesses/$businessId/members'
     | '/businesses/$businessId/payments'
     | '/businesses/$businessId/projects'
@@ -476,6 +489,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdJournalEntriesRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/late-payment-fees': {
+      id: '/businesses/$businessId/late-payment-fees'
+      path: '/late-payment-fees'
+      fullPath: '/businesses/$businessId/late-payment-fees'
+      preLoaderRoute: typeof BusinessesBusinessIdLatePaymentFeesRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
     '/businesses/$businessId/members': {
       id: '/businesses/$businessId/members'
       path: '/members'
@@ -558,6 +578,7 @@ interface BusinessesBusinessIdRouteChildren {
   BusinessesBusinessIdExpenseClaimsRoute: typeof BusinessesBusinessIdExpenseClaimsRoute
   BusinessesBusinessIdInterAccountTransfersRoute: typeof BusinessesBusinessIdInterAccountTransfersRoute
   BusinessesBusinessIdJournalEntriesRoute: typeof BusinessesBusinessIdJournalEntriesRoute
+  BusinessesBusinessIdLatePaymentFeesRoute: typeof BusinessesBusinessIdLatePaymentFeesRoute
   BusinessesBusinessIdMembersRoute: typeof BusinessesBusinessIdMembersRoute
   BusinessesBusinessIdPaymentsRoute: typeof BusinessesBusinessIdPaymentsRoute
   BusinessesBusinessIdProjectsRoute: typeof BusinessesBusinessIdProjectsRoute
@@ -585,6 +606,8 @@ const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
     BusinessesBusinessIdInterAccountTransfersRoute,
   BusinessesBusinessIdJournalEntriesRoute:
     BusinessesBusinessIdJournalEntriesRoute,
+  BusinessesBusinessIdLatePaymentFeesRoute:
+    BusinessesBusinessIdLatePaymentFeesRoute,
   BusinessesBusinessIdMembersRoute: BusinessesBusinessIdMembersRoute,
   BusinessesBusinessIdPaymentsRoute: BusinessesBusinessIdPaymentsRoute,
   BusinessesBusinessIdProjectsRoute: BusinessesBusinessIdProjectsRoute,
