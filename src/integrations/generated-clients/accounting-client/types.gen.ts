@@ -6427,6 +6427,345 @@ export type UpdateSalesOrderResponses = {
 
 export type UpdateSalesOrderResponse = UpdateSalesOrderResponses[keyof UpdateSalesOrderResponses];
 
+export type ListDeliveryNotesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/delivery-notes';
+};
+
+export type ListDeliveryNotesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListDeliveryNotesError = ListDeliveryNotesErrors[keyof ListDeliveryNotesErrors];
+
+export type ListDeliveryNotesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            salesOrderId: string | null;
+            salesOrderReference: string | null;
+            salesInvoiceId: string | null;
+            salesInvoiceReference: string | null;
+            deliveryDate: string;
+            reference: string | null;
+            deliveryAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+            }>;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListDeliveryNotesResponse = ListDeliveryNotesResponses[keyof ListDeliveryNotesResponses];
+
+export type CreateDeliveryNoteData = {
+    body: {
+        customerId: string;
+        deliveryDate: string;
+        reference?: string;
+        salesOrderId?: string;
+        salesInvoiceId?: string;
+        deliveryAddress?: string;
+        description?: string;
+        lines: Array<{
+            description: string;
+            qty: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/delivery-notes';
+};
+
+export type CreateDeliveryNoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateDeliveryNoteError = CreateDeliveryNoteErrors[keyof CreateDeliveryNoteErrors];
+
+export type CreateDeliveryNoteResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            salesOrderId: string | null;
+            salesOrderReference: string | null;
+            salesInvoiceId: string | null;
+            salesInvoiceReference: string | null;
+            deliveryDate: string;
+            reference: string | null;
+            deliveryAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+            }>;
+        };
+    };
+};
+
+export type CreateDeliveryNoteResponse = CreateDeliveryNoteResponses[keyof CreateDeliveryNoteResponses];
+
+export type DeleteDeliveryNoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        deliveryNoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/delivery-notes/{deliveryNoteId}';
+};
+
+export type DeleteDeliveryNoteErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteDeliveryNoteError = DeleteDeliveryNoteErrors[keyof DeleteDeliveryNoteErrors];
+
+export type DeleteDeliveryNoteResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteDeliveryNoteResponse = DeleteDeliveryNoteResponses[keyof DeleteDeliveryNoteResponses];
+
+export type GetDeliveryNoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        deliveryNoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/delivery-notes/{deliveryNoteId}';
+};
+
+export type GetDeliveryNoteErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetDeliveryNoteError = GetDeliveryNoteErrors[keyof GetDeliveryNoteErrors];
+
+export type GetDeliveryNoteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            salesOrderId: string | null;
+            salesOrderReference: string | null;
+            salesInvoiceId: string | null;
+            salesInvoiceReference: string | null;
+            deliveryDate: string;
+            reference: string | null;
+            deliveryAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+            }>;
+        };
+    };
+};
+
+export type GetDeliveryNoteResponse = GetDeliveryNoteResponses[keyof GetDeliveryNoteResponses];
+
+export type UpdateDeliveryNoteData = {
+    body: {
+        customerId?: string;
+        deliveryDate?: string;
+        reference?: string | null;
+        salesOrderId?: string | null;
+        salesInvoiceId?: string | null;
+        deliveryAddress?: string | null;
+        description?: string | null;
+        lines?: Array<{
+            description: string;
+            qty: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+        deliveryNoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/delivery-notes/{deliveryNoteId}';
+};
+
+export type UpdateDeliveryNoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateDeliveryNoteError = UpdateDeliveryNoteErrors[keyof UpdateDeliveryNoteErrors];
+
+export type UpdateDeliveryNoteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string;
+            salesOrderId: string | null;
+            salesOrderReference: string | null;
+            salesInvoiceId: string | null;
+            salesInvoiceReference: string | null;
+            deliveryDate: string;
+            reference: string | null;
+            deliveryAddress: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+            }>;
+        };
+    };
+};
+
+export type UpdateDeliveryNoteResponse = UpdateDeliveryNoteResponses[keyof UpdateDeliveryNoteResponses];
+
 export type ListCreditNotesData = {
     body?: never;
     path: {

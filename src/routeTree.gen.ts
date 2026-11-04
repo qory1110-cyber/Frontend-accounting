@@ -22,6 +22,7 @@ import { Route as BusinessesBusinessIdBankReconciliationsRouteImport } from './r
 import { Route as BusinessesBusinessIdChartOfAccountsRouteImport } from './routes/businesses/$businessId.chart-of-accounts'
 import { Route as BusinessesBusinessIdCreditNotesRouteImport } from './routes/businesses/$businessId.credit-notes'
 import { Route as BusinessesBusinessIdCustomersRouteImport } from './routes/businesses/$businessId.customers'
+import { Route as BusinessesBusinessIdDeliveryNotesRouteImport } from './routes/businesses/$businessId.delivery-notes'
 import { Route as BusinessesBusinessIdExpenseClaimsRouteImport } from './routes/businesses/$businessId.expense-claims'
 import { Route as BusinessesBusinessIdInterAccountTransfersRouteImport } from './routes/businesses/$businessId.inter-account-transfers'
 import { Route as BusinessesBusinessIdJournalEntriesRouteImport } from './routes/businesses/$businessId.journal-entries'
@@ -106,6 +107,12 @@ const BusinessesBusinessIdCustomersRoute =
   BusinessesBusinessIdCustomersRouteImport.update({
     id: '/customers',
     path: '/customers',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
+const BusinessesBusinessIdDeliveryNotesRoute =
+  BusinessesBusinessIdDeliveryNotesRouteImport.update({
+    id: '/delivery-notes',
+    path: '/delivery-notes',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
 const BusinessesBusinessIdExpenseClaimsRoute =
@@ -206,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/credit-notes': typeof BusinessesBusinessIdCreditNotesRoute
   '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
+  '/businesses/$businessId/delivery-notes': typeof BusinessesBusinessIdDeliveryNotesRoute
   '/businesses/$businessId/expense-claims': typeof BusinessesBusinessIdExpenseClaimsRoute
   '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/journal-entries': typeof BusinessesBusinessIdJournalEntriesRoute
@@ -233,6 +241,7 @@ export interface FileRoutesByTo {
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/credit-notes': typeof BusinessesBusinessIdCreditNotesRoute
   '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
+  '/businesses/$businessId/delivery-notes': typeof BusinessesBusinessIdDeliveryNotesRoute
   '/businesses/$businessId/expense-claims': typeof BusinessesBusinessIdExpenseClaimsRoute
   '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/journal-entries': typeof BusinessesBusinessIdJournalEntriesRoute
@@ -263,6 +272,7 @@ export interface FileRoutesById {
   '/businesses/$businessId/chart-of-accounts': typeof BusinessesBusinessIdChartOfAccountsRoute
   '/businesses/$businessId/credit-notes': typeof BusinessesBusinessIdCreditNotesRoute
   '/businesses/$businessId/customers': typeof BusinessesBusinessIdCustomersRoute
+  '/businesses/$businessId/delivery-notes': typeof BusinessesBusinessIdDeliveryNotesRoute
   '/businesses/$businessId/expense-claims': typeof BusinessesBusinessIdExpenseClaimsRoute
   '/businesses/$businessId/inter-account-transfers': typeof BusinessesBusinessIdInterAccountTransfersRoute
   '/businesses/$businessId/journal-entries': typeof BusinessesBusinessIdJournalEntriesRoute
@@ -294,6 +304,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/credit-notes'
     | '/businesses/$businessId/customers'
+    | '/businesses/$businessId/delivery-notes'
     | '/businesses/$businessId/expense-claims'
     | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/journal-entries'
@@ -321,6 +332,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/credit-notes'
     | '/businesses/$businessId/customers'
+    | '/businesses/$businessId/delivery-notes'
     | '/businesses/$businessId/expense-claims'
     | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/journal-entries'
@@ -350,6 +362,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/chart-of-accounts'
     | '/businesses/$businessId/credit-notes'
     | '/businesses/$businessId/customers'
+    | '/businesses/$businessId/delivery-notes'
     | '/businesses/$businessId/expense-claims'
     | '/businesses/$businessId/inter-account-transfers'
     | '/businesses/$businessId/journal-entries'
@@ -468,6 +481,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdCustomersRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/delivery-notes': {
+      id: '/businesses/$businessId/delivery-notes'
+      path: '/delivery-notes'
+      fullPath: '/businesses/$businessId/delivery-notes'
+      preLoaderRoute: typeof BusinessesBusinessIdDeliveryNotesRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
     '/businesses/$businessId/expense-claims': {
       id: '/businesses/$businessId/expense-claims'
       path: '/expense-claims'
@@ -575,6 +595,7 @@ interface BusinessesBusinessIdRouteChildren {
   BusinessesBusinessIdChartOfAccountsRoute: typeof BusinessesBusinessIdChartOfAccountsRoute
   BusinessesBusinessIdCreditNotesRoute: typeof BusinessesBusinessIdCreditNotesRoute
   BusinessesBusinessIdCustomersRoute: typeof BusinessesBusinessIdCustomersRoute
+  BusinessesBusinessIdDeliveryNotesRoute: typeof BusinessesBusinessIdDeliveryNotesRoute
   BusinessesBusinessIdExpenseClaimsRoute: typeof BusinessesBusinessIdExpenseClaimsRoute
   BusinessesBusinessIdInterAccountTransfersRoute: typeof BusinessesBusinessIdInterAccountTransfersRoute
   BusinessesBusinessIdJournalEntriesRoute: typeof BusinessesBusinessIdJournalEntriesRoute
@@ -600,6 +621,8 @@ const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
     BusinessesBusinessIdChartOfAccountsRoute,
   BusinessesBusinessIdCreditNotesRoute: BusinessesBusinessIdCreditNotesRoute,
   BusinessesBusinessIdCustomersRoute: BusinessesBusinessIdCustomersRoute,
+  BusinessesBusinessIdDeliveryNotesRoute:
+    BusinessesBusinessIdDeliveryNotesRoute,
   BusinessesBusinessIdExpenseClaimsRoute:
     BusinessesBusinessIdExpenseClaimsRoute,
   BusinessesBusinessIdInterAccountTransfersRoute:
