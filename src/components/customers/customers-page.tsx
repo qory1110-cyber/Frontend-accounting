@@ -21,6 +21,7 @@ interface Customer {
   autofillSalesInvoiceDueDate: boolean
   isActive: boolean
   accountsReceivable: number
+  uninvoicedBillableTime: number
 }
 
 const PAGE_SIZE = 10
@@ -127,7 +128,8 @@ export function CustomersPage({ businessId }: { businessId: string }) {
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Credit Limit: {Number(customer.creditLimit).toLocaleString('id-ID')} · AR:{' '}
-                  {customer.accountsReceivable.toLocaleString('id-ID')}
+                  {customer.accountsReceivable.toLocaleString('id-ID')} · Uninvoiced:{' '}
+                  {customer.uninvoicedBillableTime.toLocaleString('id-ID')}
                 </p>
               </div>
 

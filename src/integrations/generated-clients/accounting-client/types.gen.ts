@@ -1252,6 +1252,7 @@ export type ListCustomersResponses = {
             isActive: boolean;
             accountsReceivable: number;
             unallocatedReceipts: number;
+            uninvoicedBillableTime: number;
         }>;
         pagination: {
             total: number;
@@ -1325,6 +1326,7 @@ export type CreateCustomerResponses = {
             isActive: boolean;
             accountsReceivable: number;
             unallocatedReceipts: number;
+            uninvoicedBillableTime: number;
         };
     };
 };
@@ -1476,6 +1478,7 @@ export type GetCustomerResponses = {
             isActive: boolean;
             accountsReceivable: number;
             unallocatedReceipts: number;
+            uninvoicedBillableTime: number;
         };
     };
 };
@@ -1544,6 +1547,7 @@ export type UpdateCustomerResponses = {
             isActive: boolean;
             accountsReceivable: number;
             unallocatedReceipts: number;
+            uninvoicedBillableTime: number;
         };
     };
 };
@@ -1606,6 +1610,7 @@ export type SetCustomerActiveResponses = {
             isActive: boolean;
             accountsReceivable: number;
             unallocatedReceipts: number;
+            uninvoicedBillableTime: number;
         };
     };
 };
@@ -6765,6 +6770,390 @@ export type UpdateDeliveryNoteResponses = {
 };
 
 export type UpdateDeliveryNoteResponse = UpdateDeliveryNoteResponses[keyof UpdateDeliveryNoteResponses];
+
+export type ListBillableTimesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        status?: 'uninvoiced' | 'invoiced' | 'written_off';
+        customerId?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/billable-times';
+};
+
+export type ListBillableTimesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListBillableTimesError = ListBillableTimesErrors[keyof ListBillableTimesErrors];
+
+export type ListBillableTimesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            customerId: string | null;
+            customerName: string | null;
+            workDate: string;
+            description: string | null;
+            hourlyRate: number;
+            hours: number;
+            minutes: number;
+            amount: number;
+            status: 'uninvoiced' | 'invoiced' | 'written_off';
+            writtenOffDate: string | null;
+            salesInvoiceId: string | null;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListBillableTimesResponse = ListBillableTimesResponses[keyof ListBillableTimesResponses];
+
+export type CreateBillableTimeData = {
+    body: {
+        customerId?: string;
+        workDate: string;
+        description?: string;
+        hourlyRate?: number;
+        hours?: number;
+        minutes?: number;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/billable-times';
+};
+
+export type CreateBillableTimeErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateBillableTimeError = CreateBillableTimeErrors[keyof CreateBillableTimeErrors];
+
+export type CreateBillableTimeResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string | null;
+            customerName: string | null;
+            workDate: string;
+            description: string | null;
+            hourlyRate: number;
+            hours: number;
+            minutes: number;
+            amount: number;
+            status: 'uninvoiced' | 'invoiced' | 'written_off';
+            writtenOffDate: string | null;
+            salesInvoiceId: string | null;
+        };
+    };
+};
+
+export type CreateBillableTimeResponse = CreateBillableTimeResponses[keyof CreateBillableTimeResponses];
+
+export type DeleteBillableTimeData = {
+    body?: never;
+    path: {
+        businessId: string;
+        billableTimeId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/billable-times/{billableTimeId}';
+};
+
+export type DeleteBillableTimeErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteBillableTimeError = DeleteBillableTimeErrors[keyof DeleteBillableTimeErrors];
+
+export type DeleteBillableTimeResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteBillableTimeResponse = DeleteBillableTimeResponses[keyof DeleteBillableTimeResponses];
+
+export type GetBillableTimeData = {
+    body?: never;
+    path: {
+        businessId: string;
+        billableTimeId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/billable-times/{billableTimeId}';
+};
+
+export type GetBillableTimeErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetBillableTimeError = GetBillableTimeErrors[keyof GetBillableTimeErrors];
+
+export type GetBillableTimeResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string | null;
+            customerName: string | null;
+            workDate: string;
+            description: string | null;
+            hourlyRate: number;
+            hours: number;
+            minutes: number;
+            amount: number;
+            status: 'uninvoiced' | 'invoiced' | 'written_off';
+            writtenOffDate: string | null;
+            salesInvoiceId: string | null;
+        };
+    };
+};
+
+export type GetBillableTimeResponse = GetBillableTimeResponses[keyof GetBillableTimeResponses];
+
+export type UpdateBillableTimeData = {
+    body: {
+        customerId?: string | null;
+        workDate?: string;
+        description?: string | null;
+        hourlyRate?: number;
+        hours?: number;
+        minutes?: number;
+        status?: 'written_off';
+        writtenOffDate?: string;
+    };
+    path: {
+        businessId: string;
+        billableTimeId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/billable-times/{billableTimeId}';
+};
+
+export type UpdateBillableTimeErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateBillableTimeError = UpdateBillableTimeErrors[keyof UpdateBillableTimeErrors];
+
+export type UpdateBillableTimeResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string | null;
+            customerName: string | null;
+            workDate: string;
+            description: string | null;
+            hourlyRate: number;
+            hours: number;
+            minutes: number;
+            amount: number;
+            status: 'uninvoiced' | 'invoiced' | 'written_off';
+            writtenOffDate: string | null;
+            salesInvoiceId: string | null;
+        };
+    };
+};
+
+export type UpdateBillableTimeResponse = UpdateBillableTimeResponses[keyof UpdateBillableTimeResponses];
+
+export type InvoiceBillableTimesData = {
+    body: {
+        customerId: string;
+        billableTimeIds: Array<string>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/billable-times/invoice';
+};
+
+export type InvoiceBillableTimesErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type InvoiceBillableTimesError = InvoiceBillableTimesErrors[keyof InvoiceBillableTimesErrors];
+
+export type InvoiceBillableTimesResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            salesInvoiceId: string;
+            invoiceAmount: number;
+            billableTimeCount: number;
+        };
+    };
+};
+
+export type InvoiceBillableTimesResponse = InvoiceBillableTimesResponses[keyof InvoiceBillableTimesResponses];
 
 export type ListCreditNotesData = {
     body?: never;
