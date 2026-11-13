@@ -55,6 +55,7 @@ export const businessSidebarMenu: MenuItem[] = [
   { label: 'Receipts', to: '/businesses/$businessId/receipts', moduleKey: 'receipts', category: 'sales', icon: ReceiptIcon },
   { label: 'Suppliers', to: '/businesses/$businessId/suppliers', moduleKey: 'suppliers', category: 'purchases', icon: Truck },
   { label: 'Purchase Orders', to: '/businesses/$businessId/purchase-orders', category: 'purchases', icon: ClipboardList },
+  { label: 'Purchase Quotes', to: '/businesses/$businessId/purchase-quotes', category: 'purchases', icon: ClipboardList },
   { label: 'Purchase Invoices', to: '/businesses/$businessId/purchase-invoices', moduleKey: 'purchase-invoices', category: 'purchases', icon: FileSpreadsheet },
   { label: 'Expense Claims', to: '/businesses/$businessId/expense-claims', category: 'purchases', icon: Wallet },
   { label: 'Payments', to: '/businesses/$businessId/payments', moduleKey: 'payments', category: 'purchases', icon: Banknote },

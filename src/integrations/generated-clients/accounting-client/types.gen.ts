@@ -7448,6 +7448,340 @@ export type UpdateWithholdingTaxReceiptResponses = {
 
 export type UpdateWithholdingTaxReceiptResponse = UpdateWithholdingTaxReceiptResponses[keyof UpdateWithholdingTaxReceiptResponses];
 
+export type ListPurchaseQuotesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        status?: 'active' | 'cancelled';
+        supplierId?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/purchase-quotes';
+};
+
+export type ListPurchaseQuotesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListPurchaseQuotesError = ListPurchaseQuotesErrors[keyof ListPurchaseQuotesErrors];
+
+export type ListPurchaseQuotesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            status: 'active' | 'cancelled';
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListPurchaseQuotesResponse = ListPurchaseQuotesResponses[keyof ListPurchaseQuotesResponses];
+
+export type CreatePurchaseQuoteData = {
+    body: {
+        supplierId: string;
+        issueDate: string;
+        reference?: string;
+        description?: string;
+        lines: Array<{
+            description: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-quotes';
+};
+
+export type CreatePurchaseQuoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreatePurchaseQuoteError = CreatePurchaseQuoteErrors[keyof CreatePurchaseQuoteErrors];
+
+export type CreatePurchaseQuoteResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            status: 'active' | 'cancelled';
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type CreatePurchaseQuoteResponse = CreatePurchaseQuoteResponses[keyof CreatePurchaseQuoteResponses];
+
+export type DeletePurchaseQuoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        purchaseQuoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-quotes/{purchaseQuoteId}';
+};
+
+export type DeletePurchaseQuoteErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeletePurchaseQuoteError = DeletePurchaseQuoteErrors[keyof DeletePurchaseQuoteErrors];
+
+export type DeletePurchaseQuoteResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeletePurchaseQuoteResponse = DeletePurchaseQuoteResponses[keyof DeletePurchaseQuoteResponses];
+
+export type GetPurchaseQuoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        purchaseQuoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-quotes/{purchaseQuoteId}';
+};
+
+export type GetPurchaseQuoteErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetPurchaseQuoteError = GetPurchaseQuoteErrors[keyof GetPurchaseQuoteErrors];
+
+export type GetPurchaseQuoteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            status: 'active' | 'cancelled';
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetPurchaseQuoteResponse = GetPurchaseQuoteResponses[keyof GetPurchaseQuoteResponses];
+
+export type UpdatePurchaseQuoteData = {
+    body: {
+        supplierId?: string;
+        issueDate?: string;
+        reference?: string | null;
+        description?: string | null;
+        lines?: Array<{
+            description: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+        status?: 'cancelled';
+    };
+    path: {
+        businessId: string;
+        purchaseQuoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/purchase-quotes/{purchaseQuoteId}';
+};
+
+export type UpdatePurchaseQuoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdatePurchaseQuoteError = UpdatePurchaseQuoteErrors[keyof UpdatePurchaseQuoteErrors];
+
+export type UpdatePurchaseQuoteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            status: 'active' | 'cancelled';
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type UpdatePurchaseQuoteResponse = UpdatePurchaseQuoteResponses[keyof UpdatePurchaseQuoteResponses];
+
 export type ListCreditNotesData = {
     body?: never;
     path: {
