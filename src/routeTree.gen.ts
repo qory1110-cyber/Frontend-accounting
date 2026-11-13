@@ -38,6 +38,7 @@ import { Route as BusinessesBusinessIdSalesInvoicesRouteImport } from './routes/
 import { Route as BusinessesBusinessIdSalesOrdersRouteImport } from './routes/businesses/$businessId.sales-orders'
 import { Route as BusinessesBusinessIdSalesQuotesRouteImport } from './routes/businesses/$businessId.sales-quotes'
 import { Route as BusinessesBusinessIdSuppliersRouteImport } from './routes/businesses/$businessId.suppliers'
+import { Route as BusinessesBusinessIdWithholdingTaxReceiptsRouteImport } from './routes/businesses/$businessId.withholding-tax-receipts'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -206,6 +207,12 @@ const BusinessesBusinessIdSuppliersRoute =
     path: '/suppliers',
     getParentRoute: () => BusinessesBusinessIdRoute,
   } as any)
+const BusinessesBusinessIdWithholdingTaxReceiptsRoute =
+  BusinessesBusinessIdWithholdingTaxReceiptsRouteImport.update({
+    id: '/withholding-tax-receipts',
+    path: '/withholding-tax-receipts',
+    getParentRoute: () => BusinessesBusinessIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -236,6 +243,7 @@ export interface FileRoutesByFullPath {
   '/businesses/$businessId/sales-orders': typeof BusinessesBusinessIdSalesOrdersRoute
   '/businesses/$businessId/sales-quotes': typeof BusinessesBusinessIdSalesQuotesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
+  '/businesses/$businessId/withholding-tax-receipts': typeof BusinessesBusinessIdWithholdingTaxReceiptsRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -265,6 +273,7 @@ export interface FileRoutesByTo {
   '/businesses/$businessId/sales-orders': typeof BusinessesBusinessIdSalesOrdersRoute
   '/businesses/$businessId/sales-quotes': typeof BusinessesBusinessIdSalesQuotesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
+  '/businesses/$businessId/withholding-tax-receipts': typeof BusinessesBusinessIdWithholdingTaxReceiptsRoute
   '/businesses/$businessId': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRoutesById {
@@ -297,6 +306,7 @@ export interface FileRoutesById {
   '/businesses/$businessId/sales-orders': typeof BusinessesBusinessIdSalesOrdersRoute
   '/businesses/$businessId/sales-quotes': typeof BusinessesBusinessIdSalesQuotesRoute
   '/businesses/$businessId/suppliers': typeof BusinessesBusinessIdSuppliersRoute
+  '/businesses/$businessId/withholding-tax-receipts': typeof BusinessesBusinessIdWithholdingTaxReceiptsRoute
   '/businesses/$businessId/': typeof BusinessesBusinessIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -330,6 +340,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/sales-orders'
     | '/businesses/$businessId/sales-quotes'
     | '/businesses/$businessId/suppliers'
+    | '/businesses/$businessId/withholding-tax-receipts'
     | '/businesses/$businessId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -359,6 +370,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/sales-orders'
     | '/businesses/$businessId/sales-quotes'
     | '/businesses/$businessId/suppliers'
+    | '/businesses/$businessId/withholding-tax-receipts'
     | '/businesses/$businessId'
   id:
     | '__root__'
@@ -390,6 +402,7 @@ export interface FileRouteTypes {
     | '/businesses/$businessId/sales-orders'
     | '/businesses/$businessId/sales-quotes'
     | '/businesses/$businessId/suppliers'
+    | '/businesses/$businessId/withholding-tax-receipts'
     | '/businesses/$businessId/'
   fileRoutesById: FileRoutesById
 }
@@ -606,6 +619,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesBusinessIdSuppliersRouteImport
       parentRoute: typeof BusinessesBusinessIdRoute
     }
+    '/businesses/$businessId/withholding-tax-receipts': {
+      id: '/businesses/$businessId/withholding-tax-receipts'
+      path: '/withholding-tax-receipts'
+      fullPath: '/businesses/$businessId/withholding-tax-receipts'
+      preLoaderRoute: typeof BusinessesBusinessIdWithholdingTaxReceiptsRouteImport
+      parentRoute: typeof BusinessesBusinessIdRoute
+    }
   }
 }
 
@@ -631,6 +651,7 @@ interface BusinessesBusinessIdRouteChildren {
   BusinessesBusinessIdSalesOrdersRoute: typeof BusinessesBusinessIdSalesOrdersRoute
   BusinessesBusinessIdSalesQuotesRoute: typeof BusinessesBusinessIdSalesQuotesRoute
   BusinessesBusinessIdSuppliersRoute: typeof BusinessesBusinessIdSuppliersRoute
+  BusinessesBusinessIdWithholdingTaxReceiptsRoute: typeof BusinessesBusinessIdWithholdingTaxReceiptsRoute
   BusinessesBusinessIdIndexRoute: typeof BusinessesBusinessIdIndexRoute
 }
 
@@ -667,6 +688,8 @@ const BusinessesBusinessIdRouteChildren: BusinessesBusinessIdRouteChildren = {
   BusinessesBusinessIdSalesOrdersRoute: BusinessesBusinessIdSalesOrdersRoute,
   BusinessesBusinessIdSalesQuotesRoute: BusinessesBusinessIdSalesQuotesRoute,
   BusinessesBusinessIdSuppliersRoute: BusinessesBusinessIdSuppliersRoute,
+  BusinessesBusinessIdWithholdingTaxReceiptsRoute:
+    BusinessesBusinessIdWithholdingTaxReceiptsRoute,
   BusinessesBusinessIdIndexRoute: BusinessesBusinessIdIndexRoute,
 }
 

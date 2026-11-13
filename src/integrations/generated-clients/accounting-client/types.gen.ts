@@ -7155,6 +7155,299 @@ export type InvoiceBillableTimesResponses = {
 
 export type InvoiceBillableTimesResponse = InvoiceBillableTimesResponses[keyof InvoiceBillableTimesResponses];
 
+export type ListWithholdingTaxReceiptsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        customerId?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/withholding-tax-receipts';
+};
+
+export type ListWithholdingTaxReceiptsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListWithholdingTaxReceiptsError = ListWithholdingTaxReceiptsErrors[keyof ListWithholdingTaxReceiptsErrors];
+
+export type ListWithholdingTaxReceiptsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string | null;
+            receiptDate: string;
+            amount: number;
+            description: string | null;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListWithholdingTaxReceiptsResponse = ListWithholdingTaxReceiptsResponses[keyof ListWithholdingTaxReceiptsResponses];
+
+export type CreateWithholdingTaxReceiptData = {
+    body: {
+        customerId: string;
+        receiptDate: string;
+        amount: number;
+        description?: string;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/withholding-tax-receipts';
+};
+
+export type CreateWithholdingTaxReceiptErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateWithholdingTaxReceiptError = CreateWithholdingTaxReceiptErrors[keyof CreateWithholdingTaxReceiptErrors];
+
+export type CreateWithholdingTaxReceiptResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string | null;
+            receiptDate: string;
+            amount: number;
+            description: string | null;
+        };
+    };
+};
+
+export type CreateWithholdingTaxReceiptResponse = CreateWithholdingTaxReceiptResponses[keyof CreateWithholdingTaxReceiptResponses];
+
+export type DeleteWithholdingTaxReceiptData = {
+    body?: never;
+    path: {
+        businessId: string;
+        withholdingTaxReceiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/withholding-tax-receipts/{withholdingTaxReceiptId}';
+};
+
+export type DeleteWithholdingTaxReceiptErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteWithholdingTaxReceiptError = DeleteWithholdingTaxReceiptErrors[keyof DeleteWithholdingTaxReceiptErrors];
+
+export type DeleteWithholdingTaxReceiptResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteWithholdingTaxReceiptResponse = DeleteWithholdingTaxReceiptResponses[keyof DeleteWithholdingTaxReceiptResponses];
+
+export type GetWithholdingTaxReceiptData = {
+    body?: never;
+    path: {
+        businessId: string;
+        withholdingTaxReceiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/withholding-tax-receipts/{withholdingTaxReceiptId}';
+};
+
+export type GetWithholdingTaxReceiptErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetWithholdingTaxReceiptError = GetWithholdingTaxReceiptErrors[keyof GetWithholdingTaxReceiptErrors];
+
+export type GetWithholdingTaxReceiptResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string | null;
+            receiptDate: string;
+            amount: number;
+            description: string | null;
+        };
+    };
+};
+
+export type GetWithholdingTaxReceiptResponse = GetWithholdingTaxReceiptResponses[keyof GetWithholdingTaxReceiptResponses];
+
+export type UpdateWithholdingTaxReceiptData = {
+    body: {
+        customerId?: string;
+        receiptDate?: string;
+        amount?: number;
+        description?: string | null;
+    };
+    path: {
+        businessId: string;
+        withholdingTaxReceiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/withholding-tax-receipts/{withholdingTaxReceiptId}';
+};
+
+export type UpdateWithholdingTaxReceiptErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateWithholdingTaxReceiptError = UpdateWithholdingTaxReceiptErrors[keyof UpdateWithholdingTaxReceiptErrors];
+
+export type UpdateWithholdingTaxReceiptResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            customerId: string;
+            customerName: string | null;
+            receiptDate: string;
+            amount: number;
+            description: string | null;
+        };
+    };
+};
+
+export type UpdateWithholdingTaxReceiptResponse = UpdateWithholdingTaxReceiptResponses[keyof UpdateWithholdingTaxReceiptResponses];
+
 export type ListCreditNotesData = {
     body?: never;
     path: {
