@@ -7782,6 +7782,607 @@ export type UpdatePurchaseQuoteResponses = {
 
 export type UpdatePurchaseQuoteResponse = UpdatePurchaseQuoteResponses[keyof UpdatePurchaseQuoteResponses];
 
+export type ListDebitNotesData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/debit-notes';
+};
+
+export type ListDebitNotesErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListDebitNotesError = ListDebitNotesErrors[keyof ListDebitNotesErrors];
+
+export type ListDebitNotesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            purchaseInvoiceId: string | null;
+            purchaseInvoiceReference: string | null;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListDebitNotesResponse = ListDebitNotesResponses[keyof ListDebitNotesResponses];
+
+export type CreateDebitNoteData = {
+    body: {
+        supplierId: string;
+        purchaseInvoiceId?: string;
+        issueDate: string;
+        reference?: string;
+        description?: string;
+        lines: Array<{
+            accountId: string;
+            qty: number;
+            unitPrice: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/debit-notes';
+};
+
+export type CreateDebitNoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateDebitNoteError = CreateDebitNoteErrors[keyof CreateDebitNoteErrors];
+
+export type CreateDebitNoteResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            purchaseInvoiceId: string | null;
+            purchaseInvoiceReference: string | null;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type CreateDebitNoteResponse = CreateDebitNoteResponses[keyof CreateDebitNoteResponses];
+
+export type DeleteDebitNoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        debitNoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/debit-notes/{debitNoteId}';
+};
+
+export type DeleteDebitNoteErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteDebitNoteError = DeleteDebitNoteErrors[keyof DeleteDebitNoteErrors];
+
+export type DeleteDebitNoteResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteDebitNoteResponse = DeleteDebitNoteResponses[keyof DeleteDebitNoteResponses];
+
+export type GetDebitNoteData = {
+    body?: never;
+    path: {
+        businessId: string;
+        debitNoteId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/debit-notes/{debitNoteId}';
+};
+
+export type GetDebitNoteErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetDebitNoteError = GetDebitNoteErrors[keyof GetDebitNoteErrors];
+
+export type GetDebitNoteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            purchaseInvoiceId: string | null;
+            purchaseInvoiceReference: string | null;
+            issueDate: string;
+            reference: string | null;
+            description: string | null;
+            lines: Array<{
+                id: string;
+                accountId: string;
+                accountName: string;
+                qty: string;
+                unitPrice: string;
+                subtotal: number;
+            }>;
+            totalAmount: number;
+        };
+    };
+};
+
+export type GetDebitNoteResponse = GetDebitNoteResponses[keyof GetDebitNoteResponses];
+
+export type ListGoodsReceiptsData = {
+    body?: never;
+    path: {
+        businessId: string;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+        search?: string;
+        dateFrom?: string;
+        dateTo?: string;
+    };
+    url: '/api/v1/businesses/{businessId}/goods-receipts';
+};
+
+export type ListGoodsReceiptsErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type ListGoodsReceiptsError = ListGoodsReceiptsErrors[keyof ListGoodsReceiptsErrors];
+
+export type ListGoodsReceiptsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: Array<{
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
+            purchaseInvoiceId: string | null;
+            purchaseInvoiceReference: string | null;
+            receiptDate: string;
+            reference: string | null;
+            description: string | null;
+            totalQty: number;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+            }>;
+        }>;
+        pagination: {
+            total: number;
+            currentPage: number;
+            totalPages: number;
+            pageSize: number;
+        };
+    };
+};
+
+export type ListGoodsReceiptsResponse = ListGoodsReceiptsResponses[keyof ListGoodsReceiptsResponses];
+
+export type CreateGoodsReceiptData = {
+    body: {
+        supplierId: string;
+        receiptDate: string;
+        reference?: string;
+        purchaseOrderId?: string;
+        purchaseInvoiceId?: string;
+        description?: string;
+        lines: Array<{
+            description: string;
+            qty: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/goods-receipts';
+};
+
+export type CreateGoodsReceiptErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type CreateGoodsReceiptError = CreateGoodsReceiptErrors[keyof CreateGoodsReceiptErrors];
+
+export type CreateGoodsReceiptResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
+            purchaseInvoiceId: string | null;
+            purchaseInvoiceReference: string | null;
+            receiptDate: string;
+            reference: string | null;
+            description: string | null;
+            totalQty: number;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+            }>;
+        };
+    };
+};
+
+export type CreateGoodsReceiptResponse = CreateGoodsReceiptResponses[keyof CreateGoodsReceiptResponses];
+
+export type DeleteGoodsReceiptData = {
+    body?: never;
+    path: {
+        businessId: string;
+        goodsReceiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/goods-receipts/{goodsReceiptId}';
+};
+
+export type DeleteGoodsReceiptErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type DeleteGoodsReceiptError = DeleteGoodsReceiptErrors[keyof DeleteGoodsReceiptErrors];
+
+export type DeleteGoodsReceiptResponses = {
+    /**
+     * Default Response
+     */
+    204: 'null';
+};
+
+export type DeleteGoodsReceiptResponse = DeleteGoodsReceiptResponses[keyof DeleteGoodsReceiptResponses];
+
+export type GetGoodsReceiptData = {
+    body?: never;
+    path: {
+        businessId: string;
+        goodsReceiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/goods-receipts/{goodsReceiptId}';
+};
+
+export type GetGoodsReceiptErrors = {
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type GetGoodsReceiptError = GetGoodsReceiptErrors[keyof GetGoodsReceiptErrors];
+
+export type GetGoodsReceiptResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
+            purchaseInvoiceId: string | null;
+            purchaseInvoiceReference: string | null;
+            receiptDate: string;
+            reference: string | null;
+            description: string | null;
+            totalQty: number;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+            }>;
+        };
+    };
+};
+
+export type GetGoodsReceiptResponse = GetGoodsReceiptResponses[keyof GetGoodsReceiptResponses];
+
+export type UpdateGoodsReceiptData = {
+    body: {
+        supplierId?: string;
+        receiptDate?: string;
+        reference?: string | null;
+        purchaseOrderId?: string | null;
+        purchaseInvoiceId?: string | null;
+        description?: string | null;
+        lines?: Array<{
+            description: string;
+            qty: number;
+        }>;
+    };
+    path: {
+        businessId: string;
+        goodsReceiptId: string;
+    };
+    query?: never;
+    url: '/api/v1/businesses/{businessId}/goods-receipts/{goodsReceiptId}';
+};
+
+export type UpdateGoodsReceiptErrors = {
+    /**
+     * Input tidak valid
+     */
+    400: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Belum login / token tidak valid
+     */
+    401: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Sudah login, tapi tidak punya izin
+     */
+    403: {
+        error: string;
+        message: string;
+    };
+    /**
+     * Data tidak ditemukan
+     */
+    404: {
+        error: string;
+        message: string;
+    };
+};
+
+export type UpdateGoodsReceiptError = UpdateGoodsReceiptErrors[keyof UpdateGoodsReceiptErrors];
+
+export type UpdateGoodsReceiptResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        data: {
+            id: string;
+            businessId: string;
+            supplierId: string;
+            supplierName: string;
+            purchaseOrderId: string | null;
+            purchaseOrderReference: string | null;
+            purchaseInvoiceId: string | null;
+            purchaseInvoiceReference: string | null;
+            receiptDate: string;
+            reference: string | null;
+            description: string | null;
+            totalQty: number;
+            lines: Array<{
+                id: string;
+                description: string;
+                qty: string;
+            }>;
+        };
+    };
+};
+
+export type UpdateGoodsReceiptResponse = UpdateGoodsReceiptResponses[keyof UpdateGoodsReceiptResponses];
+
 export type ListCreditNotesData = {
     body?: never;
     path: {

@@ -16,6 +16,7 @@ import {
   BookOpenText,
   Wallet,
   FolderKanban,
+  PackageCheck,
 } from 'lucide-react'
 
 export type BusinessRole = 'admin' | 'accountant' | 'viewer'
@@ -56,6 +57,8 @@ export const businessSidebarMenu: MenuItem[] = [
   { label: 'Suppliers', to: '/businesses/$businessId/suppliers', moduleKey: 'suppliers', category: 'purchases', icon: Truck },
   { label: 'Purchase Orders', to: '/businesses/$businessId/purchase-orders', category: 'purchases', icon: ClipboardList },
   { label: 'Purchase Quotes', to: '/businesses/$businessId/purchase-quotes', category: 'purchases', icon: ClipboardList },
+  { label: 'Goods Receipts', to: '/businesses/$businessId/goods-receipts', category: 'purchases', icon: PackageCheck },
+  { label: 'Debit Notes', to: '/businesses/$businessId/debit-notes', category: 'purchases', icon: ClipboardList },
   { label: 'Purchase Invoices', to: '/businesses/$businessId/purchase-invoices', moduleKey: 'purchase-invoices', category: 'purchases', icon: FileSpreadsheet },
   { label: 'Expense Claims', to: '/businesses/$businessId/expense-claims', category: 'purchases', icon: Wallet },
   { label: 'Payments', to: '/businesses/$businessId/payments', moduleKey: 'payments', category: 'purchases', icon: Banknote },
